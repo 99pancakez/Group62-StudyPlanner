@@ -1,0 +1,279 @@
+.semester-container {
+  background: #f9f9f9;
+  padding: 20px; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  min-height: 250px; 
+}
+
+.semester-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px; 
+}
+
+.semester-header h4 {
+  font-size: 18px; 
+  color: #333;
+  margin: 0;
+}
+
+.credit-total {
+  font-size: 16px; 
+  color: #777;
+}
+
+.course-area {
+  margin-bottom: 12px; 
+}
+
+.course-tag {
+  position: relative;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  background: #f5f5f5;
+  padding: 10px; 
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 10px; 
+  animation: fadeIn 0.3s ease-in;
+}
+
+.dropdown-group {
+  display: flex;
+  align-items: left;
+  gap: 8px; 
+  flex: 1;
+}
+
+.course-select {
+  border: none;
+  background: transparent;
+  font-size: 16px; 
+  cursor: pointer;
+  padding: 4px; 
+  width: 100%;
+  max-width: 320px; 
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  line-height: 1.5; 
+}
+
+.course-select {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+  display: block;
+  width: 100%;
+  max-width: 100%; 
+}
+
+.course-select option {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 80%; 
+  padding: 4px;
+}
+
+.sub-type-core { background-color: #fff9c4; }
+.sub-type-cyber-security { background-color: #e0f2e9; }
+.sub-type-digital-innovation { background-color: #e3f2fd; }
+.sub-type-enterprise-systems-development { background-color: #f7f9e3; }
+.sub-type-artificial-intelligence-machine-learning { background-color: #ffebee; }
+.sub-type-blockchain-technologies { background-color: #ede7f6; }
+.sub-type-cloud-computing { background-color: #e0f7fa; }
+.sub-type-creative-computing { background-color: #fffde7; }
+.sub-type-cyber-assurance { background-color: #e8eaf6; }
+.sub-type-data-science { background-color: #eceff1; }
+.sub-type-design-develop-for-apple-platform { background-color: #fce4ec; }
+.sub-type-bioinformatics { background-color: #fff3e0; }
+.sub-type-blockchain-enabled-business { background-color: #e8f5e9; }
+.sub-type-business-analytics { background-color: #e1f5fe; }
+.sub-type-business-information-systems { background-color: #ffecb3; }
+.sub-type-cisco-networking { background-color: #e0f7fa; }
+.sub-type-data-analysis { background-color: #f3e5f5; }
+.sub-type-entrepreneurship { background-color: #ffccbc; }
+.sub-type-strategy-innovation { background-color: #d0f8ce; }
+.sub-type-university-elective { background-color: #f7f7f7; }
+
+.course-select optgroup[label] {
+  font-weight: bold;
+  color: #444;
+  font-size: 16px; /* Moderate size */
+}
+
+.course-select::-webkit-scrollbar { width: 8px; } /* Slightly wider */
+.course-select::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+
+.semester-label {
+  font-size: 16px;
+  color: #555;
+  width: 140px; /* Increased from 120px */
+}
+
+.course-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 18px;
+  color: #e63946;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.remove-btn:hover {
+  color: #c70039;
+}
+
+.add-course-btn {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px; 
+  background: #e8ecef;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; /* Moderate size */
+  transition: background 0.3s ease;
+}
+
+.add-course-btn span {
+  margin-right: 8px; 
+  font-size: 18px; 
+  line-height: 1.2;
+}
+
+.add-course-btn:hover {
+  background: #dfe6e9;
+}
+
+.next-semester-btn {
+  width: 100%;
+  padding: 10px; /* Increased from 8px */
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; /* Moderate size */
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.next-semester-btn:hover:not(.disabled) {
+  transform: scale(1.02);
+  background: #218838;
+}
+
+.next-semester-btn.disabled {
+  background: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.loading-msg,
+.error-msg {
+  text-align: center;
+  color: #777;
+  padding: 12px;
+  font-size: 16px; /* Moderate size */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.prerequisites {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+  font-style: italic;
+  white-space: normal;      
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  text-align: right;
+}
+
+.add-course-section {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.search-input {
+  width: 100%;
+  padding: 6px; /* Increased from 5px */
+  margin-bottom: 6px; /* Increased from 5px */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px; /* Moderate size */
+}
+
+.course-list {
+  max-height: 350px; /* Increased from 300px */
+  overflow-y: auto;
+}
+
+.course-category {
+  margin-bottom: 12px; /* Increased from 10px */
+}
+
+.course-category h5 {
+  font-size: 18px; /* Moderate heading size */
+  color: #333;
+  margin: 6px 0; /* Increased from 5px */
+}
+
+.course-category h6 {
+  font-size: 16px; /* Moderate size */
+  color: #555;
+  margin: 4px 0; /* Increased from 3px */
+}
+
+.course-option {
+  padding: 6px; /* Increased from 5px */
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin-bottom: 4px; /* Increased from 3px */
+  font-size: 16px; /* Moderate size */
+  color: #333;
+}
+
+.course-option:hover {
+  background: #f9f9f9;
+}
+
+.normal-load {
+  color: green;
+  font-weight: bold;
+}
+.underload {
+  color: orange;
+  font-weight: bold;
+}
+.overload {
+  color: red;
+  font-weight: bold;
+}
+
+.clickable-warning {
+  text-decoration: underline dotted;
+  cursor: pointer;
+}

@@ -1,0 +1,143 @@
+.study-plan-layout {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding-top: 60px;
+  
+}
+
+.top-row {
+  width: 1231.33px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.combination-box, .scorecard-box, .semester-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.combination-box {
+  flex: 1;
+  min-height: 100px;
+}
+
+.scorecard-box {
+  flex: 1;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.credit-breakdown {
+  text-align: left;
+}
+
+.credit-breakdown h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.credit-breakdown p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.semester-box {
+  min-height: 400px;
+  width: 100%;
+}
+
+.study-plan-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  align-items: start;
+}
+
+.study-plan-container > div {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.download-btn.enhanced {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #06611b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.download-btn.enhanced:hover {
+  background-color: #06611b;
+  transform: translateY(-1px);
+}
+
+.download-btn.enhanced:active {
+  background-color: #06611b;
+  transform: translateY(0);
+}
+
+.download-btn.enhanced .icon {
+  font-size: 16px;
+}
+
+.download-btn.enhanced .text {
+  white-space: nowrap;
+}
+
+.top-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ee8f13; 
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.download-link {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.download-link:hover {
+  opacity: 0.8;
+}
+
+.bottom-right-download {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.credit-warning {
+  font-size: 11px;
+  color: #c0392b;
+  margin-top: 2px;
+}
