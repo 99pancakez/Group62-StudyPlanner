@@ -80,7 +80,8 @@ The business rules for co-requisites are simply slightly amended versions of
 those for pre-requisites:
 
 - a course with a co-requisite cannot be selected if the co-requisite is not 
-  also selected
+  also selected, instead a warning will appear with a clear description of the
+  issue
 - a co-requisite course can be selected for any semester before the course it
   is a requisite for.
 - a co-requisite course can also be selected for the SAME semester the course 
