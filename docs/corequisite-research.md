@@ -15,10 +15,11 @@ programming OR programming bootcamp 1 AND  programming bootcamp 2).
 The following diagram outlines the relational structure currently implemented:
 
 ```mermaid
-graph LR
-    group --> course
-    pre_requisite_group_OR --> course
+graph TD
+    pre_requisite_group_AND -->|target course| course
     pre_requisite_group_AND --> group
+    pre_requisite_group_OR -->|member courses| course
+    pre_requisite_group_OR --> group
 ```
 
 '*groups*' are created to allow chaining various logical statements. For
