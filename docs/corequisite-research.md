@@ -97,8 +97,8 @@ situations where a student logically cannot take a course, due to some kind of
 circular requisite chain.
 
 For example, say course A is a co-requisite of course B. Course B is a 
-pre-requisite for course C. What if course A is added as a pre-requisite for
-course C?
+pre-requisite for course C. What if course C is added as a pre-requisite for
+course A?
 
 ```mermaid
 graph TD
