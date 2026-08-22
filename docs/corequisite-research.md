@@ -87,6 +87,8 @@ those for pre-requisites:
   it is a requisite for.
 - removing a co-requisite should either remove or disable the course it is a
   co-requisite for.
+- attempts to bypass the above rules should provide a clear warning message
+  indicating why the action is not allowed
 
 
 ## Edge Cases
