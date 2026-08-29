@@ -3,5 +3,7 @@ module.exports = {
     USER: "root",
     PASSWORD: "root",
     DB: "cs",
-    DIALECT: "mysql"
+    DIALECT: "mysql",
+    PORT: 3306,
+    logging: false,
 };
