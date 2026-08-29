@@ -4,9 +4,12 @@
   "packageManager": "pnpm@11.21.0",
   "scripts": {
     "dev": "concurrently -n backend,frontend -c blue,green \"pnpm --filter middlelayer start\" \"wait-on http://localhost:3000/combinations && pnpm --filter frontend start\"",
-
     "build": "pnpm --filter frontend build",
-    "start": "pnpm --filter frontend start"
+    "start": "pnpm --filter frontend start",
+    "db:up": "docker compose up -d db --wait",
+    "db:seed": "pnpm --filter middlelayer db:import",
+    "db:setup":"pnpm db:up",
+    "db:reset":"docker compose down -v && pnpm db:setup"
   },
   "devDependencies": {
     "concurrently":"^10.0.5",
