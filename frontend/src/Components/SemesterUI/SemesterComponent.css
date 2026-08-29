@@ -277,3 +277,19 @@
   text-decoration: underline dotted;
   cursor: pointer;
 }
+
+.semester-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-count-badge {
+  background: #28a745;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
