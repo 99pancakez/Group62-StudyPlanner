@@ -473,6 +473,7 @@ function SemesterComponent({
   const allRecommendedCourses = Object.values(
     categorizedRecommendedCourses
   ).flat();
+  const courseCount = selectedCourses[`Semester ${semesterNumber}`]?.length || 0;
 
   return (
     <div className="semester-container" ref={menuRef}>
@@ -480,6 +481,11 @@ function SemesterComponent({
         <h4>
           Semester {semesterNumber} (Year {semesterYear})
         </h4>
+        <span className="semester-header-right">
+          <span className="course-count-badge">
+            {courseCount} {courseCount === 1 ? 'course' : 'courses'}
+          </span>
+        </span>
         <span className="credit-total">
           Total Credits: {totalCredits}{" "}
           {totalCredits === 48 && (
