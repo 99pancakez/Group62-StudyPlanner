@@ -1,3 +1,7 @@
 packages:
   - frontend
   - middlelayer
+allowBuilds:
+  argon2: true
+  core-js: true
+  core-js-pure: true
