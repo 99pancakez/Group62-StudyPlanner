@@ -1,4 +1,4 @@
-const { Course, ProgramCourse, ProgramPlan, CourseType, Type, SubType,  CourseAvailability, Availability, credit_points, PreRequisiteGroupAND, PreRequisiteGroupOR } = require('../database');
+const { Course, ProgramCourse, ProgramPlan, CourseType, Type, SubType, CourseAvailability, Availability, PreRequisiteGroupAND, PreRequisiteGroupOR } = require('../database');
 const { History, Admin } = require('../database');
 const fieldNameMap = require('../utils/fieldNameMap');
 const Sequelize = require('sequelize');
@@ -503,28 +503,28 @@ exports.deleteCourse = async (req, res) => {
     await ProgramCourse.destroy({ where: { course_id: courseId } });
     await CourseType.destroy({ where: { course_id: courseId } });
     await CourseAvailability.destroy({ where: { course_id: courseId } });
-        // Handle prerequisite groups cleanup
-        const andGroups = await PreRequisiteGroupAND.findAll({
-          where: { course_id: courseId }
-        });
+    // Handle prerequisite groups cleanup
+    const andGroups = await PreRequisiteGroupAND.findAll({
+      where: { course_id: courseId }
+    });
 
-        const groupIds = andGroups.map(g => g.group_id);
+    const groupIds = andGroups.map(g => g.group_id);
 
-        // Delete AND groups for this course
-        await PreRequisiteGroupAND.destroy({ where: { course_id: courseId } });
+    // Delete AND groups for this course
+    await PreRequisiteGroupAND.destroy({ where: { course_id: courseId } });
 
-        for (const groupId of groupIds) {
-          // Check if any other AND entry still uses this group
-          const stillUsed = await PreRequisiteGroupAND.findOne({
-            where: { group_id: groupId }
-          });
+    for (const groupId of groupIds) {
+      // Check if any other AND entry still uses this group
+      const stillUsed = await PreRequisiteGroupAND.findOne({
+        where: { group_id: groupId }
+      });
 
-          if (!stillUsed) {
-            // No one else uses this group — delete its OR courses + the group
-            await PreRequisiteGroupOR.destroy({ where: { group_id: groupId } });
-            await sequelize.models.group.destroy({ where: { group_id: groupId } });
-          }
-        }
+      if (!stillUsed) {
+        // No one else uses this group — delete its OR courses + the group
+        await PreRequisiteGroupOR.destroy({ where: { group_id: groupId } });
+        await sequelize.models.group.destroy({ where: { group_id: groupId } });
+      }
+    }
 
 
     // Finally, delete the course
@@ -535,7 +535,7 @@ exports.deleteCourse = async (req, res) => {
     console.error('Error deleting course:', error);
     res.status(500).json({ success: false, message: 'Server error during course deletion' });
   }
-}; 
+};
 
 
 exports.createSubType = async (req, res) => {
@@ -820,7 +820,7 @@ exports.createCourse = async (req, res) => {
     }
     if (semester1) await createHistory({ adminId, courseId: course_id, fieldName: 'semester_1', oldValue: null, newValue: 'Available' });
     if (semester2) await createHistory({ adminId, courseId: course_id, fieldName: 'semester_2', oldValue: null, newValue: 'Available' });
-    if (flexTerm)  await createHistory({ adminId, courseId: course_id, fieldName: 'flex_term',   oldValue: null, newValue: 'Available' });
+    if (flexTerm) await createHistory({ adminId, courseId: course_id, fieldName: 'flex_term', oldValue: null, newValue: 'Available' });
 
 
     if (Array.isArray(prerequisites) && prerequisites.length > 0) {
