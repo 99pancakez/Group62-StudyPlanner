@@ -15,7 +15,7 @@ export const CREDITS = {
 
 
 
-const SUB_TYPE_MAP = {
+export const SUB_TYPE_MAP = {
   1: "Core",
   2: "Advanced Computer Science",
   3: "Cyber Security",
