@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './qna.css';
 import { useNavigate } from 'react-router-dom';
-
-const API_BASE_URL = "http://localhost:3000";
 
 const programOptions = ['BP094P23'];
 const intakeOptions = ['February (Semester 1)', 'July (Semester 2)'];
