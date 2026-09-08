@@ -130,8 +130,8 @@ function SemesterComponent({
     }
     setRecommendedCourses(recommended);
 
-    console.log("initialAvailableCourses:", availableAfterPrereqs);
-    console.log("recommendedCourses:", recommended);
+    logger.log("initialAvailableCourses:", availableAfterPrereqs);
+    logger.log("recommendedCourses:", recommended);
 
     // Get IDs of all selected courses across *all semesters*
     const allSelectedCourseIds = Object.values(selectedCourses).flatMap(
@@ -229,11 +229,11 @@ function SemesterComponent({
 
     setCategorizedRecommendedCourses(categorizedRecommended);
 
-    console.log(
+    logger.log(
       "categorizedRecommendedCourses:",
       categorizedRecommendedCourses
     );
-    console.log("categorizedAvailableCourses:", categorizedAvailableCourses);
+    logger.log("categorizedAvailableCourses:", categorizedAvailableCourses);
   };
 
   useEffect(() => {
@@ -285,8 +285,8 @@ function SemesterComponent({
         }),
       ])
         .then(([courseData, prereqData]) => {
-          console.log("Fetched courseData:", courseData);
-          console.log("Fetched prereqData:", prereqData);
+          logger.log("Fetched courseData:", courseData);
+          logger.log("Fetched prereqData:", prereqData);
           const newCourses = courseData.map((c) => ({
             id: c.course_id,
             name: c.course_title,
@@ -428,11 +428,11 @@ function SemesterComponent({
       const updatedCourses = currentCourses.map((course) =>
         course.id === oldCourseId
           ? {
-              id: newCourse.id,
-              name: newCourse.name,
-              credit: newCourse.credit,
-              sub_type_ids: course.sub_type_ids,
-            }
+            id: newCourse.id,
+            name: newCourse.name,
+            credit: newCourse.credit,
+            sub_type_ids: course.sub_type_ids,
+          }
           : course
       );
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
@@ -492,9 +492,9 @@ function SemesterComponent({
               onClick={() =>
                 alert(
                   `🦥 Not in a rush, huh?\n\n` +
-                    `You're currently underloading with ${totalCredits} credits.\n` +
-                    `Students are normally expected to take 48 credits per semester.\n\n` +
-                    `To take fewer, you'll need approval from your Program Manager.`
+                  `You're currently underloading with ${totalCredits} credits.\n` +
+                  `Students are normally expected to take 48 credits per semester.\n\n` +
+                  `To take fewer, you'll need approval from your Program Manager.`
                 )
               }
             >
@@ -508,9 +508,9 @@ function SemesterComponent({
               onClick={() =>
                 alert(
                   `🦘 That’s quite a leap!\n\n` +
-                    `You're currently overloading with ${totalCredits} credits.\n` +
-                    `Students are normally expected to take 48 credits per semester.\n\n` +
-                    `To take more, you'll need approval from your Program Manager.`
+                  `You're currently overloading with ${totalCredits} credits.\n` +
+                  `Students are normally expected to take 48 credits per semester.\n\n` +
+                  `To take more, you'll need approval from your Program Manager.`
                 )
               }
             >
@@ -725,11 +725,10 @@ function SemesterComponent({
           )}
       </div>
       <button
-        className={`next-semester-btn ${
-          !selectedCourses[`Semester ${semesterNumber}`]?.length
-            ? "disabled"
-            : ""
-        }`}
+        className={`next-semester-btn ${!selectedCourses[`Semester ${semesterNumber}`]?.length
+          ? "disabled"
+          : ""
+          }`}
         onClick={handleNextSemester}
         title={
           !selectedCourses[`Semester ${semesterNumber}`]?.length
