@@ -4,7 +4,7 @@ import autoTable from 'jspdf-autotable';
 import CombinationComponent from '../../Components/Combination/CombinationComponent';
 import SemesterComponent from '../../Components/SemesterUI/SemesterComponent';
 import './StudyPlan.css';
-import { API_BASE_URL } from '../../constants';
+import { API_BASE_URL, CREDITS } from '../../constants';
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -138,11 +138,11 @@ function StudyPlan() {
 
           if (isCombo4) {
             if (lowerLabel.includes('cs option')) {
-              min = 48;
-              max = 96;
+              min = CREDITS.COMBO4_CS_OPTION_MIN;
+              max = CREDITS.COMBO4_CS_OPTION_MAX;
             } else if (lowerLabel.includes('elective')) {
-              min = 0;
-              max = 48;
+              min = CREDITS.COMBO4_ELECTIVE_MIN;
+              max = CREDITS.COMBO4_ELECTIVE_MAX;
             }
           }
 
@@ -377,12 +377,12 @@ function StudyPlan() {
             <div className="progress-item">
               <div className="progress-label">
                 <span>Core : </span>
-                <span>{coreCredits}/180</span>
+                <span>{coreCredits}/CREDITS.CORE_TOTAL</span>
               </div>
               <div className="progress-bar">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(coreCredits / 180) * 100}%` }}
+                  style={{ width: `${(coreCredits / CREDITS.CORE_TOTAL) * 100}%` }}
                 />
               </div>
             </div>
@@ -391,12 +391,12 @@ function StudyPlan() {
             <div className="progress-item">
               <div className="progress-label">
                 <span>Program Course : </span>
-                <span>{calculateProgramCourseCredits(selectedCourses)}/12</span>
+                <span>{calculateProgramCourseCredits(selectedCourses)}/${CREDITS.PROGRAM_COURSE_TOTAL}</span>
               </div>
               <div className="progress-bar">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(calculateProgramCourseCredits(selectedCourses) / 12) * 100}%` }}
+                  style={{ width: `${(calculateProgramCourseCredits(selectedCourses) / CREDITS.PROGRAM_COURSE_TOTAL) * 100}%` }}
                 />
               </div>
             </div>
@@ -438,7 +438,7 @@ function StudyPlan() {
             {/* Total */}
             <div className="total-credits">
               <span>Total Credits : </span>
-              <span>{calculateTotalCredits()}/288</span>
+              <span>{calculateTotalCredits()}/{CREDITS.TOTAL_DEGREE}</span>
             </div>
           </div>
 
