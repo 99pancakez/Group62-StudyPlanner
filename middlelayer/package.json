@@ -12,15 +12,15 @@
   "license": "ISC",
   "dependencies": {
     "argon2": "^0.43.1",
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "jspdf": "^3.0.3",
-    "jspdf-autotable": "^5.0.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "jspdf": "^3.0.4",
+    "jspdf-autotable": "^5.0.8",
     "mysql": "^2.18.1",
-    "mysql2": "^3.15.3",
+    "mysql2": "^3.24.4",
     "pdfkit": "^0.17.2",
     "react-select": "^5.10.2",
-    "sequelize": "^6.37.7",
-    "uuid": "^11.1.0"
+    "sequelize": "^6.37.8",
+    "uuid": "^11.1.1"
   }
 }

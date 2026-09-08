@@ -1,0 +1,61 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid .react-select__control {
+  height: 36px;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+.availability-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.availability-section label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.review-summary {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.review-summary ul {
+  padding-left: 16px;
+  list-style: disc;
+}
+
+.review-summary li {
+  margin-bottom: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}

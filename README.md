@@ -1,10 +1,6 @@
-
 # StudyPlanner v2
 ## By SEM2 Programming Project 1 - Group 62
 ### Original version made by previous capstone team, with Syed Shahariar Hossain
-
-
-##  Step 1: Install Node.js
 
 
 Download and install Node.js from: [https://nodejs.org/en/download](https://nodejs.org/en/download)
