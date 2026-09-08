@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./SemesterComponent.css";
+import { API_BASE_URL } from "../../constants";
 
-const API_BASE_URL = "http://localhost:3000/explorer";
 
 const SUB_TYPE_MAP = {
   1: "Core",

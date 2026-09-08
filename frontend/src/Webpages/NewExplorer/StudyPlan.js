@@ -4,6 +4,7 @@ import autoTable from 'jspdf-autotable';
 import CombinationComponent from '../../Components/Combination/CombinationComponent';
 import SemesterComponent from '../../Components/SemesterUI/SemesterComponent';
 import './StudyPlan.css';
+import { API_BASE_URL } from '../../constants';
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -71,7 +72,7 @@ function StudyPlan() {
   useEffect(() => {
     const fetchCombinations = async () => {
       try {
-        const response = await fetch('http://localhost:3000/combinations');
+        const response = await fetch(`${API_BASE_URL}/combinations`);
         const data = await response.json();
         setCombinations(data);
       } catch (error) {
@@ -349,12 +350,12 @@ function StudyPlan() {
   <button
     className="download-link"
     onClick={() => {
-      window.open('http://localhost:3000/courses/download-courses/BP094P23', '_blank');
     }}
   >
     📄 Download Official Program Course List (PDF)
   </button>
 </div>
+            window.open(`${API_BASE_URL}/courses/download-courses/BP094P23`, '_blank');
 
 
       <div className="top-row">
