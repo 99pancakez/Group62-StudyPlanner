@@ -189,7 +189,7 @@ function StudyPlan() {
 
               if (selectedId === selectedMinorSubTypeId) {
                 progressMap[csMinorGroup].earned += course.credit || 0;
-              } else if (!EXCLUDED_SUB_TYPES.includes(sele)) {
+              } else if (!EXCLUDED_SUB_TYPES.includes(selectedId)) {
                 progressMap[csOptionGroup].earned += course.credit || 0;
               }
 
