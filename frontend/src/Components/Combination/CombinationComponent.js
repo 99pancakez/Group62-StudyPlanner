@@ -2,16 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import './CombinationComponent.css';
 import { EXCLUDED_SUB_TYPES } from '../../constants';
 
-export default function CombinationComponent({ setCombinationSelections, combinations , onSubTypeSelectionChange, onClearCombination }) {
+export default function CombinationComponent({ setCombinationSelections, combinations, onSubTypeSelectionChange, onClearCombination }) {
 
   const [openCombo, setOpenCombo] = useState(null);
   const [openSub, setOpenSub] = useState(null);
   const [selected, setSelected] = useState({});
   const menuRef = useRef(null);
 
-  const CS_MINOR_IDS = [5,6,7,8,9,10,11,12]; 
-  const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,16]; 
-  const NONCS_MINOR_IDS = [13,14,15];
+  const CS_MINOR_IDS = [5, 6, 7, 8, 9, 10, 11, 12];
+  const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16];
+  const NONCS_MINOR_IDS = [13, 14, 15];
 
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
       if (firstComboId) {
         const value = parsed[firstComboId];
         const newSelections = {};
-        
+
         const combo = combinations.find(c => c.id.toString() === firstComboId);
         if (combo) {
           combo.groups.forEach(group => {
@@ -32,7 +32,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
               if (option) newSelections[group.label] = option.sub_type_name;
             }
           });
-          
+
           if (Object.keys(newSelections).length > 0) {
             setSelected({ [firstComboId]: newSelections });
           }
@@ -97,35 +97,35 @@ export default function CombinationComponent({ setCombinationSelections, combina
       ...(selected[comboId] || {}),
       [groupLabel]: subTypeName
     };
-  
+
     // Combination 3: CS Minor → select one manually, others auto-select
     if (comboId === '3') {
       const manuallyChosen = subTypeId || -1;
-  
+
       const autoSelectedIds = CS_OPTION_IDS.filter(id =>
         id !== manuallyChosen && !EXCLUDED_SUB_TYPES.includes(id)
       );
-  
+
       const allGroupOptions = combinations
         .find(c => c.id.toString() === comboId)
         ?.groups.flatMap(g => g.options) || [];
-  
+
       autoSelectedIds.forEach(id => {
         const option = allGroupOptions.find(o => o.sub_type_id === id);
         if (option) {
           newComboSelections[`AutoGroup-${id}`] = option.sub_type_name;
         }
       });
-  
+
       const finalSelections = { [comboId]: newComboSelections };
       setSelected(finalSelections);
-  
+
       const storedCombo = {};
       Object.entries(newComboSelections).forEach(([label, name]) => {
         const opt = allGroupOptions.find(o => o.sub_type_name === name);
         if (opt) storedCombo[label] = opt.sub_type_id;
       });
-  
+
       const updatedStorage = { [comboId]: storedCombo };
       localStorage.setItem('combinationSelections', JSON.stringify(updatedStorage));
       window.dispatchEvent(new Event('combinationUpdated'));
@@ -134,7 +134,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
       setOpenSub(null);
       return;
     }
-  
+
     // Combination 4: Auto-select all sub-types except Core/Program
     if (comboId === '4') {
       const autoSelectedIds = [
@@ -144,29 +144,29 @@ export default function CombinationComponent({ setCombinationSelections, combina
             ?.groups.flatMap(g => g.options.map(o => o.sub_type_id)) || []
         )
       ].filter(id => !EXCLUDED_SUB_TYPES.includes(id));
-  
+
       const allGroupOptions = combinations
         .find(c => c.id.toString() === comboId)
         ?.groups.flatMap(g => g.options) || [];
-  
+
       const autoSelections = {};
-  
+
       autoSelectedIds.forEach(id => {
         const option = allGroupOptions.find(o => o.sub_type_id === id);
         if (option) {
           autoSelections[`AutoGroup-${id}`] = option.sub_type_name;
         }
       });
-  
+
       const finalSelections = { [comboId]: autoSelections };
       setSelected(finalSelections);
-  
+
       const storedCombo = {};
       Object.entries(autoSelections).forEach(([label, name]) => {
         const opt = allGroupOptions.find(o => o.sub_type_name === name);
         if (opt) storedCombo[label] = opt.sub_type_id;
       });
-  
+
       const updatedStorage = { [comboId]: storedCombo };
       localStorage.setItem('combinationSelections', JSON.stringify(updatedStorage));
       window.dispatchEvent(new Event('combinationUpdated'));
@@ -175,14 +175,14 @@ export default function CombinationComponent({ setCombinationSelections, combina
       setOpenSub(null);
       return;
     }
-  
+
     // Default (Combo 1 or 2)
     const newState = {
       ...selected,
       [comboId]: newComboSelections
     };
     setSelected(newState);
-  
+
     const storedSelections = JSON.parse(localStorage.getItem('combinationSelections') || '{}');
     const storedCombo = storedSelections[comboId] || {};
     const updatedStoredCombo = {
@@ -193,22 +193,22 @@ export default function CombinationComponent({ setCombinationSelections, combina
     if (onSubTypeSelectionChange && subTypeId && groupLabel) {
       onSubTypeSelectionChange({ subTypeId, groupLabel });
     }
-  
+
     const updatedStorage = {
       ...storedSelections,
       [comboId]: updatedStoredCombo
     };
-  
+
     localStorage.setItem('combinationSelections', JSON.stringify(updatedStorage));
     window.dispatchEvent(new Event('combinationUpdated'));
     setCombinationSelections(updatedStorage);
-  
+
     if (Object.keys(newComboSelections).length === getRequiredSelections(comboId)) {
       setOpenCombo(null);
       setOpenSub(null);
     }
   };
-  
+
   const handleComboHover = (comboId) => {
     setOpenCombo(comboId);
     setOpenSub(null);
@@ -226,26 +226,26 @@ export default function CombinationComponent({ setCombinationSelections, combina
     setCombinationSelections({});
     setOpenCombo(null);
     setOpenSub(null);
-  
+
     // Clear all semester selections except core courses
     const currentSelections = JSON.parse(localStorage.getItem('semesterSelections') || '{}');
     const newSelections = {};
-  
+
     Object.keys(currentSelections).forEach(semester => {
       newSelections[semester] = currentSelections[semester].filter(
         course => course.sub_type_ids?.includes(1)
       );
     });
-  
+
     localStorage.setItem('semesterSelections', JSON.stringify(newSelections));
     window.dispatchEvent(new CustomEvent('clearNonCoreCourses', { detail: { newSelections } }));
-  
+
     // ✅ Clear subTypeGroupMap in parent too
     if (onClearCombination) {
       onClearCombination();
     }
   };
-  
+
 
   if (combinations.length === 0) {
     return <div className="combination-wrapper">Loading combinations...</div>;
@@ -280,7 +280,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
                     handleSelect('4', '', '', null);
                   }
                 }}
-                
+
               >
                 <div className="combo-header">
                   <span>{combo.name}</span>
@@ -293,51 +293,50 @@ export default function CombinationComponent({ setCombinationSelections, combina
                     {combo.groups
                       .filter(group => combo.id.toString() !== '3' || group.options.some(opt => CS_MINOR_IDS.includes(opt.sub_type_id)))
                       .map((group, i) => (
-                      <div
-                        key={group.label}
-                        className={`menu-item ${selected[combo.id.toString()]?.[group.label] ? 'active-group' : ''}`}
-                        onMouseEnter={() => handleSubHover(i)}
-                      >
-                        <div className="group-header">
-                          <span>{group.label}</span>
-                          <span className="group-credit"> ({group.credit} credits)</span>
-                        </div>
-                        {selected[combo.id.toString()]?.[group.label] && (
-                          <span className="selected-sub-indicator">✓</span>
-                        )}
-                        {openSub === i && (
-                          <div className="menu-level submenu fade-in">
-                            {group.options.map((opt) => (
-                              <div
-                                key={opt.sub_type_id}
-                                className={`menu-item selectable ${
-                                  selected[combo.id.toString()]?.[group.label] === opt.sub_type_name 
-                                    ? 'selected' 
-                                    : ''
-                                }`}
-                                onClick={() => handleSelect(
-                                  combo.id.toString(),
-                                  opt.sub_type_name,
-                                  group.label,
-                                  opt.sub_type_id
-                                )}
-                              >
-                                <input
-                                  type="radio"
-                                  className="selectable-radio"
-                                  checked={
-                                    selected[combo.id.toString()] &&
-                                    selected[combo.id.toString()][group.label] === opt.sub_type_name
-                                  }
-                                  readOnly
-                                />
-                                {opt.sub_type_name}
-                              </div>
-                            ))}
+                        <div
+                          key={group.label}
+                          className={`menu-item ${selected[combo.id.toString()]?.[group.label] ? 'active-group' : ''}`}
+                          onMouseEnter={() => handleSubHover(i)}
+                        >
+                          <div className="group-header">
+                            <span>{group.label}</span>
+                            <span className="group-credit"> ({group.credit} credits)</span>
                           </div>
-                        )}
-                      </div>
-                    ))}
+                          {selected[combo.id.toString()]?.[group.label] && (
+                            <span className="selected-sub-indicator">✓</span>
+                          )}
+                          {openSub === i && (
+                            <div className="menu-level submenu fade-in">
+                              {group.options.map((opt) => (
+                                <div
+                                  key={opt.sub_type_id}
+                                  className={`menu-item selectable ${selected[combo.id.toString()]?.[group.label] === opt.sub_type_name
+                                      ? 'selected'
+                                      : ''
+                                    }`}
+                                  onClick={() => handleSelect(
+                                    combo.id.toString(),
+                                    opt.sub_type_name,
+                                    group.label,
+                                    opt.sub_type_id
+                                  )}
+                                >
+                                  <input
+                                    type="radio"
+                                    className="selectable-radio"
+                                    checked={
+                                      selected[combo.id.toString()] &&
+                                      selected[combo.id.toString()][group.label] === opt.sub_type_name
+                                    }
+                                    readOnly
+                                  />
+                                  {opt.sub_type_name}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
                   </div>
                 )}
               </div>
