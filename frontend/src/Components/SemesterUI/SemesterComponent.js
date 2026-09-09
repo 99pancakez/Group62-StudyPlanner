@@ -136,7 +136,7 @@ function SemesterComponent({
       }
 
       // Show Program Course only if one hasn't been selected yet
-      if (course.sub_type_ids.includes(17) && !isProgramCourseSelected) {
+      if (course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) && !isProgramCourseSelected) {
         categorizedAvailable["Program Course"] =
           categorizedAvailable["Program Course"] || [];
         categorizedAvailable["Program Course"].push(course);
@@ -146,8 +146,8 @@ function SemesterComponent({
       course.sub_type_ids.forEach((subTypeId) => {
         if (
           selectedSubTypeIds.includes(subTypeId) &&
-          subTypeId !== 1 &&
-          subTypeId !== 17
+          subTypeId !== SUB_TYPE.CORE &&
+          subTypeId !== SUB_TYPE.PROGRAM_COURSE
         ) {
           const subTypeName =
             SUB_TYPE_MAP[subTypeId] || `Unknown Sub-Type (${subTypeId})`;
@@ -172,12 +172,12 @@ function SemesterComponent({
 
     // Same check for already selected Program Course
     recommendedFiltered.forEach((course) => {
-      if (course.sub_type_ids.includes(1)) {
+      if (course.sub_type_ids.includes(SUB_TYPE.CORE)) {
         categorizedRecommended["Core"] = categorizedRecommended["Core"] || [];
         categorizedRecommended["Core"].push(course);
       }
 
-      if (course.sub_type_ids.includes(17) && !isProgramCourseSelected) {
+      if (course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) && !isProgramCourseSelected) {
         categorizedRecommended["Program Course"] =
           categorizedRecommended["Program Course"] || [];
         categorizedRecommended["Program Course"].push(course);
@@ -186,8 +186,8 @@ function SemesterComponent({
       course.sub_type_ids.forEach((subTypeId) => {
         if (
           selectedSubTypeIds.includes(subTypeId) &&
-          subTypeId !== 1 &&
-          subTypeId !== 17
+          subTypeId !== SUB_TYPE.CORE &&
+          subTypeId !== SUB_TYPE.PROGRAM_COURSE
         ) {
           const subTypeName =
             SUB_TYPE_MAP[subTypeId] || `Unknown Sub-Type (${subTypeId})`;
@@ -227,7 +227,7 @@ function SemesterComponent({
       startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
     setSemesterId(calculatedSemesterId);
 
-    let selectedSubTypeIds = [1, 17];
+    let selectedSubTypeIds = [1, SUB_TYPE.PROGRAM_COURSE];
     const combinationData = localStorage.getItem("combinationSelections");
     if (combinationData) {
       try {
