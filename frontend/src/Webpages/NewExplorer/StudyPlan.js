@@ -4,7 +4,7 @@ import autoTable from 'jspdf-autotable';
 import CombinationComponent from '../../Components/Combination/CombinationComponent';
 import SemesterComponent from '../../Components/SemesterUI/SemesterComponent';
 import './StudyPlan.css';
-import { API_BASE_URL, COMBINATIONS, CREDITS, LOCALS, PROGRAM_CODE, SUB_TYPE } from '../../constants';
+import { API_BASE_URL, COMBINATIONS, CREDITS, EXCLUDED_SUB_TYPES, LOCALS, PROGRAM_CODE, SUB_TYPE } from '../../constants';
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -189,7 +189,7 @@ function StudyPlan() {
 
               if (selectedId === selectedMinorSubTypeId) {
                 progressMap[csMinorGroup].earned += course.credit || 0;
-              } else if (selectedId !== 1 && selectedId !== 17) {
+              } else if (!EXCLUDED_SUB_TYPES.includes(selectedId)) {
                 progressMap[csOptionGroup].earned += course.credit || 0;
               }
 
