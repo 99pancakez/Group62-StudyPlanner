@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./SemesterComponent.css";
-import { API_BASE_URL, SUB_TYPE_MAP } from "../../constants";
+import { API_BASE_URL, SUB_TYPE_MAP, SUB_TYPE_NAME_TO_ID } from "../../constants";
 
 
 
 
-const SUB_TYPE_NAME_TO_ID = Object.entries(SUB_TYPE_MAP).reduce(
-  (acc, [id, name]) => {
-    acc[name] = parseInt(id);
-    return acc;
-  },
-  {}
-);
 
 function SemesterComponent({
   semesterYear,
