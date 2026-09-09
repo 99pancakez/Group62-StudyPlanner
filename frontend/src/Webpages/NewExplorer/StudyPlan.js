@@ -4,12 +4,12 @@ import autoTable from 'jspdf-autotable';
 import CombinationComponent from '../../Components/Combination/CombinationComponent';
 import SemesterComponent from '../../Components/SemesterUI/SemesterComponent';
 import './StudyPlan.css';
-import { API_BASE_URL, CREDITS } from '../../constants';
+import { API_BASE_URL, CREDITS, LOCALS } from '../../constants';
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
     try {
-      const storedData = localStorage.getItem('studyPlanState');
+      const storedData = localStorage.getItem(LOCALS.studyPlanState);
       return storedData ? JSON.parse(storedData).semesterCount : 1;
     } catch (e) {
       return 1;
@@ -17,12 +17,12 @@ function StudyPlan() {
   });
 
   const [selectedCourses, setSelectedCourses] = useState(() => {
-    const storedSelections = localStorage.getItem('semesterSelections');
+    const storedSelections = localStorage.getItem(LOCALS.semesterSelections);
     return storedSelections ? JSON.parse(storedSelections) : {};
   });
 
   const [completedCourses, setCompletedCourses] = useState(() => {
-    const storedCompleted = localStorage.getItem('completedCourses');
+    const storedCompleted = localStorage.getItem(LOCALS.completedCourses);
     return storedCompleted ? JSON.parse(storedCompleted) : [];
   });
 
@@ -31,7 +31,7 @@ function StudyPlan() {
   const [creditProgress, setCreditProgress] = useState({});
   const [combinations, setCombinations] = useState([]);
   const [combinationSelections, setCombinationSelections] = useState(() => {
-    const stored = localStorage.getItem('combinationSelections');
+    const stored = localStorage.getItem(LOCALS.combinationSelections);
     return stored ? JSON.parse(stored) : {};
   });
 
@@ -40,8 +40,8 @@ function StudyPlan() {
   const handleClearCombinationAndMap = () => {
     setCombinationSelections({});
     setSubTypeGroupMap({});
-    localStorage.removeItem('combinationSelections');
-    localStorage.removeItem('subTypeGroupMap');
+    localStorage.removeItem(LOCALS.combinationSelections);
+    localStorage.removeItem(LOCALS.subTypeGroupMap);
   };
 
 
@@ -83,7 +83,7 @@ function StudyPlan() {
   }, []);
 
   useEffect(() => {
-    const savedMap = localStorage.getItem('subTypeGroupMap');
+    const savedMap = localStorage.getItem(LOCALS.subTypeGroupMap);
     if (savedMap) {
       setSubTypeGroupMap(JSON.parse(savedMap));
     }
@@ -96,7 +96,7 @@ function StudyPlan() {
       .flatMap(courses => courses.map(course => course.id))
       .filter(id => id !== null && id !== undefined);
 
-    const qnaData = localStorage.getItem('qnaResponses');
+    const qnaData = localStorage.getItem(LOCALS.qnaResponses);
     if (qnaData) {
       const parsedQna = JSON.parse(qnaData);
       if (parsedQna.creditCourses) {
