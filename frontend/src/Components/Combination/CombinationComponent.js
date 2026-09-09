@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CombinationComponent.css';
-import { EXCLUDED_SUB_TYPES } from '../../constants';
+import { COMBINATIONS, EXCLUDED_SUB_TYPES } from '../../constants';
 
 export default function CombinationComponent({ setCombinationSelections, combinations, onSubTypeSelectionChange, onClearCombination }) {
 
@@ -14,7 +14,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
 
 
   useEffect(() => {
-    const stored = localStorage.getItem('combinationSelections');
+    const stored = localStorage.getItem(LOCALS.combinationSelections);
     if (stored) {
       const parsed = JSON.parse(stored);
       const firstComboId = Object.keys(parsed)[0];
@@ -126,7 +126,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
       });
 
       const updatedStorage = { [comboId]: storedCombo };
-      localStorage.setItem('combinationSelections', JSON.stringify(updatedStorage));
+      localStorage.setItem(LOCALS.combinationSelections, JSON.stringify(updatedStorage));
       window.dispatchEvent(new Event('combinationUpdated'));
       setCombinationSelections(updatedStorage);
       setOpenCombo(null);
@@ -167,7 +167,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
       });
 
       const updatedStorage = { [comboId]: storedCombo };
-      localStorage.setItem('combinationSelections', JSON.stringify(updatedStorage));
+      localStorage.setItem(LOCALS.combinationSelections, JSON.stringify(updatedStorage));
       window.dispatchEvent(new Event('combinationUpdated'));
       setCombinationSelections(updatedStorage);
       setOpenCombo(null);
@@ -182,7 +182,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
     };
     setSelected(newState);
 
-    const storedSelections = JSON.parse(localStorage.getItem('combinationSelections') || '{}');
+    const storedSelections = JSON.parse(localStorage.getItem(LOCALS.combinationSelections) || '{}');
     const storedCombo = storedSelections[comboId] || {};
     const updatedStoredCombo = {
       ...storedCombo,
@@ -198,7 +198,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
       [comboId]: updatedStoredCombo
     };
 
-    localStorage.setItem('combinationSelections', JSON.stringify(updatedStorage));
+    localStorage.setItem(LOCALS.combinationSelections, JSON.stringify(updatedStorage));
     window.dispatchEvent(new Event('combinationUpdated'));
     setCombinationSelections(updatedStorage);
 
@@ -227,7 +227,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
     setOpenSub(null);
 
     // Clear all semester selections except core courses
-    const currentSelections = JSON.parse(localStorage.getItem('semesterSelections') || '{}');
+    const currentSelections = JSON.parse(localStorage.getItem(LOCALS.semesterSelections) || '{}');
     const newSelections = {};
 
     Object.keys(currentSelections).forEach(semester => {
@@ -236,7 +236,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
       );
     });
 
-    localStorage.setItem('semesterSelections', JSON.stringify(newSelections));
+    localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(newSelections));
     window.dispatchEvent(new CustomEvent('clearNonCoreCourses', { detail: { newSelections } }));
 
     // ✅ Clear subTypeGroupMap in parent too
