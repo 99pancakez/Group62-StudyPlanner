@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CombinationComponent.css';
-import { COMBINATIONS, EXCLUDED_SUB_TYPES } from '../../constants';
+import { COMBINATIONS, EXCLUDED_SUB_TYPES, SUB_TYPE } from '../../constants';
 
 export default function CombinationComponent({ setCombinationSelections, combinations, onSubTypeSelectionChange, onClearCombination }) {
 
@@ -98,7 +98,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
     };
 
     // Combination 3: CS Minor → select one manually, others auto-select
-    if (comboId === '3') {
+    if (comboId === COMBINATIONS.SELECT_MINOR) {
       const manuallyChosen = subTypeId || -1;
 
       const autoSelectedIds = CS_OPTION_IDS.filter(id =>
@@ -135,7 +135,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
     }
 
     // Combination 4: Auto-select all sub-types except Core/Program
-    if (comboId === '4') {
+    if (comboId === COMBINATIONS.addEventListener) {
       const autoSelectedIds = [
         ...new Set(
           combinations
@@ -232,7 +232,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
 
     Object.keys(currentSelections).forEach(semester => {
       newSelections[semester] = currentSelections[semester].filter(
-        course => course.sub_type_ids?.includes(1)
+        course => course.sub_type_ids?.includes(SUB_TYPE.CORE)
       );
     });
 
