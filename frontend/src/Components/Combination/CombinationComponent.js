@@ -310,8 +310,8 @@ export default function CombinationComponent({ setCombinationSelections, combina
                                 <div
                                   key={opt.sub_type_id}
                                   className={`menu-item selectable ${selected[combo.id.toString()]?.[group.label] === opt.sub_type_name
-                                      ? 'selected'
-                                      : ''
+                                    ? 'selected'
+                                    : ''
                                     }`}
                                   onClick={() => handleSelect(
                                     combo.id.toString(),
