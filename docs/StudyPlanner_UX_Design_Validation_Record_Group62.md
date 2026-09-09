@@ -97,3 +97,7 @@ The design reflects the requirements confirmed with the client on 20 August 2026
 **Approved by:** Bohan Chen, Business Analyst, Group 62
 
 **Date:** 10 September 2026
+
+## Client review
+ 
+The client reviewed the design and confirmed it on 11 September 2026. No changes were requested. The formal client sign-off for Sprint 1 is recorded separately by the project manager.
