@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./SemesterComponent.css";
-import { API_BASE_URL, SUB_TYPE_MAP, SUB_TYPE_NAME_TO_ID } from "../../constants";
+import { API_BASE_URL, CREDITS, SUB_TYPE, SUB_TYPE_MAP, SUB_TYPE_NAME_TO_ID } from "../../constants";
 
 
 
@@ -93,7 +93,7 @@ function SemesterComponent({
     let recommended = [];
     const maxYear = Math.max(...availableAfterPrereqs.map((c) => c.year), 1);
     let totalCredits = 0;
-    for (let year = 1; year <= maxYear && totalCredits < 48; year++) {
+    for (let year = 1; year <= maxYear && totalCredits < CREDITS.SEMESTER_LOAD; year++) {
       const yearCourses = availableAfterPrereqs.filter(
         (course) => course.year === year
       );
@@ -123,14 +123,14 @@ function SemesterComponent({
     // Check if a Program Course (17) is already selected
     const isProgramCourseSelected = Object.values(selectedCourses)
       .flat()
-      .some((course) => course.selected_sub_type_id === 17);
+      .some((course) => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE);
 
     availableFiltered.forEach((course) => {
       // Skip if already selected
       if (allSelectedCourseIds.includes(course.id)) return;
 
       // Always show Core
-      if (course.sub_type_ids.includes(1)) {
+      if (course.sub_type_ids.includes(SUB_TYPE.CORE)) {
         categorizedAvailable["Core"] = categorizedAvailable["Core"] || [];
         categorizedAvailable["Core"].push(course);
       }
@@ -457,10 +457,10 @@ function SemesterComponent({
         </h4>
         <span className="credit-total">
           Total Credits: {totalCredits}{" "}
-          {totalCredits === 48 && (
+          {totalCredits === CREDITS.SEMESTER_LOAD && (
             <span className="normal-load">✅ Normal Load</span>
           )}
-          {totalCredits < 48 && (
+          {totalCredits < CREDITS.SEMESTER_LOAD && (
             <span
               className="underload clickable-warning"
               title="Click to see why underloading needs approval 🦥"
@@ -468,7 +468,7 @@ function SemesterComponent({
                 alert(
                   `🦥 Not in a rush, huh?\n\n` +
                   `You're currently underloading with ${totalCredits} credits.\n` +
-                  `Students are normally expected to take 48 credits per semester.\n\n` +
+                  `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
                   `To take fewer, you'll need approval from your Program Manager.`
                 )
               }
@@ -476,7 +476,7 @@ function SemesterComponent({
               ⚠️ Underloading
             </span>
           )}
-          {totalCredits > 48 && (
+          {totalCredits > CREDITS.SEMESTER_LOAD && (
             <span
               className="overload clickable-warning"
               title="Click to see why overloading needs approval 🦘"
@@ -484,7 +484,7 @@ function SemesterComponent({
                 alert(
                   `🦘 That’s quite a leap!\n\n` +
                   `You're currently overloading with ${totalCredits} credits.\n` +
-                  `Students are normally expected to take 48 credits per semester.\n\n` +
+                  `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
                   `To take more, you'll need approval from your Program Manager.`
                 )
               }
