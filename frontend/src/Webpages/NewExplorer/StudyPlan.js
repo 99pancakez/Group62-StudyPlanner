@@ -64,7 +64,7 @@ function StudyPlan() {
       [subTypeId]: groupLabel
     };
     setSubTypeGroupMap(updatedMap);
-    localStorage.setItem('subTypeGroupMap', JSON.stringify(updatedMap));
+    localStorage.setItem(LOCALS.subTypeGroupMap, JSON.stringify(updatedMap));
   };
 
 
@@ -178,7 +178,7 @@ function StudyPlan() {
           if (selectedMinorSubTypeId && !updatedMap[selectedMinorSubTypeId]) {
             updatedMap[selectedMinorSubTypeId] = csMinorGroup;
             setSubTypeGroupMap(updatedMap);
-            localStorage.setItem('subTypeGroupMap', JSON.stringify(updatedMap));
+            localStorage.setItem(LOCALS.subTypeGroupMap, JSON.stringify(updatedMap));
           }
 
           Object.values(selectedCourses)
@@ -189,7 +189,7 @@ function StudyPlan() {
 
               if (selectedId === selectedMinorSubTypeId) {
                 progressMap[csMinorGroup].earned += course.credit || 0;
-              } else if (!EXCLUDED_SUB_TYPES.includes(selectedId)) {
+              } else if (!EXCLUDED_SUB_TYPES.includes(sele)) {
                 progressMap[csOptionGroup].earned += course.credit || 0;
               }
 
@@ -266,7 +266,7 @@ function StudyPlan() {
   const handleNextSemester = () => {
     const newCount = semesterCount + 1;
     setSemesterCount(newCount);
-    localStorage.setItem('studyPlanState', JSON.stringify({
+    localStorage.setItem(LOCALS.studyPlanState, JSON.stringify({
       semesterCount: newCount
     }));
   };
@@ -294,7 +294,7 @@ function StudyPlan() {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-    const selections = JSON.parse(localStorage.getItem('semesterSelections') || '{}');
+    const selections = JSON.parse(localStorage.getItem(LOCALS.semesterSelections) || '{}');
 
     let overallTotal = 0;
     let yOffset = 20;
