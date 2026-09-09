@@ -15,6 +15,26 @@ export const CREDITS = {
 
 export const PROGRAM_CODE = 'BP094P23'
 
+export const INTAKE_OPTIONS = ['February (Semester 1)', 'July (Semester 2)'];
+
+export const INTAKE_TO_SEMESTER_ID = {
+  'February (Semester 1)': 1,
+  'July (Semester 2)': 2
+};
+
+
+/**
+* Global constant to standardise accesing localStorage
+*/
+export const LOCALS = {
+  studyPlanState: 'studyPlanState',
+  semesterSelections: 'semesterSelections',
+  completedCourses: 'completedCourses',
+  combinationSelections: 'combinationSelections',
+  subTypeGroupMap: 'subTypeGroupMap',
+  qnaResponses: 'qnaResponses',
+};
+
 
 export const SUB_TYPE_MAP = {
   1: "Core",

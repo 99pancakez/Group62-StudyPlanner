@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import './qna.css';
 import { useNavigate } from 'react-router-dom';
+import { INTAKE_OPTIONS, INTAKE_TO_SEMESTER_ID, LOCALS, PROGRAM_CODE } from '../../constants';
 
-const intakeOptions = ['February (Semester 1)', 'July (Semester 2)'];
 const programOptions = [PROGRAM_CODE];
 
-const semesterIdMapping = {
-  'February (Semester 1)': 1,
-  'July (Semester 2)': 2
-};
 
 function Qna() {
   const [step, setStep] = useState(0);
@@ -18,13 +14,13 @@ function Qna() {
 
   const getInitialAnswers = () => {
     try {
-      const saved = localStorage.getItem('qnaResponses');
+      const saved = localStorage.getItem(LOCALS.qnaResponses);
       if (!saved) return { program: '', intakeSemester: '', semester_id: '' };
       const parsed = JSON.parse(saved);
       return {
         program: programOptions.includes(parsed.program) ? parsed.program : '',
-        intakeSemester: intakeOptions.includes(parsed.intakeSemester) ? parsed.intakeSemester : '',
-        semester_id: parsed.intakeSemester ? String(semesterIdMapping[parsed.intakeSemester]) : ''
+        intakeSemester: INTAKE_OPTIONS.includes(parsed.intakeSemester) ? parsed.intakeSemester : '',
+        semester_id: parsed.intakeSemester ? String(INTAKE_TO_SEMESTER_ID[parsed.intakeSemester]) : ''
       };
     } catch {
       return { program: '', intakeSemester: '', semester_id: '' };
@@ -43,7 +39,7 @@ function Qna() {
     {
       label: 'Which semester will you start in?',
       type: 'select',
-      options: intakeOptions,
+      options: INTAKE_OPTIONS,
       stateKey: 'intakeSemester'
     }
   ];
@@ -54,7 +50,7 @@ function Qna() {
       const updated = {
         ...prev,
         [key]: value,
-        ...(key === 'intakeSemester' ? { semester_id: semesterIdMapping[value] || '' } : {})
+        ...(key === 'intakeSemester' ? { semester_id: INTAKE_TO_SEMESTER_ID[value] || '' } : {})
       };
       localStorage.setItem('qnaResponses', JSON.stringify(updated));
       return updated;
@@ -67,9 +63,9 @@ function Qna() {
   };
 
   const handleSubmit = () => {
-    localStorage.removeItem('semesterSelections');
-    localStorage.removeItem('studyPlanState');
-    localStorage.removeItem('combinationSelections');
+    localStorage.removeItem(LOCALS.semesterSelections);
+    localStorage.removeItem(LOCALS.studyPlanState);
+    localStorage.removeItem(LOCALS.combinationSelections);
     navigate('/studyplan');
   };
 
