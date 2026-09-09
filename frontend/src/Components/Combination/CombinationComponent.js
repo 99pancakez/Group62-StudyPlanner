@@ -11,7 +11,6 @@ export default function CombinationComponent({ setCombinationSelections, combina
 
   const CS_MINOR_IDS = [5, 6, 7, 8, 9, 10, 11, 12];
   const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16];
-  const NONCS_MINOR_IDS = [13, 14, 15];
 
 
   useEffect(() => {
