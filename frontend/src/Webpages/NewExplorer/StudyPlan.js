@@ -377,7 +377,7 @@ function StudyPlan() {
             <div className="progress-item">
               <div className="progress-label">
                 <span>Core : </span>
-                <span>{coreCredits}/CREDITS.CORE_TOTAL</span>
+                <span>{coreCredits}/{CREDITS.CORE_TOTAL}</span>
               </div>
               <div className="progress-bar">
                 <div
