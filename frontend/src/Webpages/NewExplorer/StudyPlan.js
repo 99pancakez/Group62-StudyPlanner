@@ -4,7 +4,7 @@ import autoTable from 'jspdf-autotable';
 import CombinationComponent from '../../Components/Combination/CombinationComponent';
 import SemesterComponent from '../../Components/SemesterUI/SemesterComponent';
 import './StudyPlan.css';
-import { API_BASE_URL, CREDITS, LOCALS } from '../../constants';
+import { API_BASE_URL, CREDITS, LOCALS, PROGRAM_CODE, SUB_TYPE } from '../../constants';
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -350,7 +350,7 @@ function StudyPlan() {
         <button
           className="download-link"
           onClick={() => {
-            window.open(`${API_BASE_URL}/courses/download-courses/BP094P23`, '_blank');
+            window.open(`${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`, '_blank');
           }}
         >
           📄 Download Official Program Course List (PDF)
