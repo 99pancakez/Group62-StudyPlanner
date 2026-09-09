@@ -12,8 +12,10 @@ export const CREDITS = {
   COMBO4_ELECTIVE_MAX: 48,
 };
 
+export const SUB_TYPE = { CORE: 1, UNIVERSITY_ELECTIVE: 16, PROGRAM_COURSE: 17 };
 
-export const PROGRAM_CODE = 'BP094P23'
+
+export const PROGRAM_CODE = 'BP094P23';
 
 export const INTAKE_OPTIONS = ['February (Semester 1)', 'July (Semester 2)'];
 

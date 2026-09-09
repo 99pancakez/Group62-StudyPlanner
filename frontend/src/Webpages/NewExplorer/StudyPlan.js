@@ -48,7 +48,7 @@ function StudyPlan() {
   const calculateProgramCourseCredits = (selectedCourses) => {
     return Object.values(selectedCourses)
       .flat()
-      .filter(course => course.selected_sub_type_id === 17)
+      .filter(course => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE)
       .reduce((sum, course) => sum + (course.credit || 0), 0);
   };
 
@@ -111,7 +111,7 @@ function StudyPlan() {
 
     const coreCourses = Object.values(selectedCourses)
       .flat()
-      .filter(course => course.selected_sub_type_id === 1)
+      .filter(course => course.selected_sub_type_id === SUB_TYPE.CORE)
     const newCoreCredits = coreCourses.reduce((sum, course) => sum + (course.credit || 0), 0);
     setCoreCredits(newCoreCredits);
   }, [selectedCourses]);
