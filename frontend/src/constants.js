@@ -13,6 +13,7 @@ export const CREDITS = {
 };
 
 
+export const PROGRAM_CODE = 'BP094P23'
 
 
 export const SUB_TYPE_MAP = {

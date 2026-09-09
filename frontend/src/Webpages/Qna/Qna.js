@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './qna.css';
 import { useNavigate } from 'react-router-dom';
 
-const programOptions = ['BP094P23'];
 const intakeOptions = ['February (Semester 1)', 'July (Semester 2)'];
 
 const semesterIdMapping = {
