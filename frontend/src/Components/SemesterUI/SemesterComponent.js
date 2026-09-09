@@ -39,7 +39,7 @@ function SemesterComponent({
     const semesterIdKey = `Semester ${semesterNumber}`;
 
     // Step 1: Load credit transfers from QnA
-    const qnaData = localStorage.getItem("qnaResponses");
+    const qnaData = localStorage.getItem(LOCALS.qnaResponses);
     let completedCourses = [];
     if (qnaData) {
       const parsedQna = JSON.parse(qnaData);
@@ -216,7 +216,7 @@ function SemesterComponent({
     setIsLoading(true);
     setFetchError(null);
 
-    const storedData = localStorage.getItem("qnaResponses");
+    const storedData = localStorage.getItem(LOCALS.qnaResponses);
     let startingSemesterId = 1;
     if (storedData) {
       const studyPlan = JSON.parse(storedData);
@@ -341,7 +341,7 @@ function SemesterComponent({
       );
       completed.push(course.id);
       localStorage.setItem(
-        "completedCourses",
+        LOCALS.completedCourses,
         JSON.stringify([...new Set(completed)])
       );
       return updated;
@@ -362,7 +362,7 @@ function SemesterComponent({
         courses.map((c) => c.id)
       );
       localStorage.setItem(
-        "completedCourses",
+        LOCALS.completedCourses,
         JSON.stringify([...new Set(updatedCompleted)])
       );
       // Step 2: Remove invalid future selections
@@ -391,7 +391,7 @@ function SemesterComponent({
           }
         }
       });
-      localStorage.setItem("semesterSelections", JSON.stringify(newState));
+      localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(newState));
       return newState;
     });
   };
@@ -411,14 +411,14 @@ function SemesterComponent({
           : course
       );
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
-      localStorage.setItem("semesterSelections", JSON.stringify(updated)); // Persist immediately
+      localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(updated)); // Persist immediately
       const completed = JSON.parse(
-        localStorage.getItem("completedCourses") || "[]"
+        localStorage.getItem(LOCALS.completedCourses) || "[]"
       );
       const updatedCompleted = completed.filter((id) => id !== oldCourseId);
       updatedCompleted.push(newCourse.id);
       localStorage.setItem(
-        "completedCourses",
+        LOCALS.completedCourses,
         JSON.stringify([...new Set(updatedCompleted)])
       );
       return updated;
