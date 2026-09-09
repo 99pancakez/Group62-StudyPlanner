@@ -18,6 +18,14 @@ export const COMBINATIONS = { SELECT_MINOR: '3', SELECT_ALL: '4' };
 
 export const EXCLUDED_SUB_TYPES = [SUB_TYPE.CORE, SUB_TYPE.PROGRAM_COURSE];
 
+export const SUB_TYPE_NAME_TO_ID = Object.entries(SUB_TYPE_MAP).reduce(
+  (acc, [id, name]) => {
+    acc[name] = parseInt(id);
+    return acc;
+  },
+  {}
+);
+
 
 export const PROGRAM_CODE = 'BP094P23';
 
