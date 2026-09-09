@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CombinationComponent.css';
+import { EXCLUDED_SUB_TYPES } from '../../constants';
 
 export default function CombinationComponent({ setCombinationSelections, combinations , onSubTypeSelectionChange, onClearCombination }) {
 
@@ -8,7 +9,6 @@ export default function CombinationComponent({ setCombinationSelections, combina
   const [selected, setSelected] = useState({});
   const menuRef = useRef(null);
 
-  const EXCLUDED_SUB_TYPES = [1, 17]; 
   const CS_MINOR_IDS = [5,6,7,8,9,10,11,12]; 
   const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,16]; 
   const NONCS_MINOR_IDS = [13,14,15];
