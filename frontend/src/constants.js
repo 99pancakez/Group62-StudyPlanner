@@ -14,6 +14,8 @@ export const CREDITS = {
 
 export const SUB_TYPE = { CORE: 1, UNIVERSITY_ELECTIVE: 16, PROGRAM_COURSE: 17 };
 
+export const COMBINATIONS = { SELECT_MINOR: '3', SELECT_ALL: '4' };
+
 
 export const PROGRAM_CODE = 'BP094P23';
 

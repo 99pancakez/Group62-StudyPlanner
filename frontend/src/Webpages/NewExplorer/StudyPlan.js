@@ -4,7 +4,7 @@ import autoTable from 'jspdf-autotable';
 import CombinationComponent from '../../Components/Combination/CombinationComponent';
 import SemesterComponent from '../../Components/SemesterUI/SemesterComponent';
 import './StudyPlan.css';
-import { API_BASE_URL, CREDITS, LOCALS, PROGRAM_CODE, SUB_TYPE } from '../../constants';
+import { API_BASE_URL, COMBINATIONS, CREDITS, LOCALS, PROGRAM_CODE, SUB_TYPE } from '../../constants';
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -131,7 +131,7 @@ function StudyPlan() {
 
           // Default required
           let required = group.credit;
-          const isCombo4 = comboId === '4';
+          const isCombo4 = comboId === COMBINATIONS.SELECT_ALL;
 
           let min = null;
           let max = null;
@@ -164,7 +164,7 @@ function StudyPlan() {
 
         const seenCourseIds = new Set();
 
-        if (comboId === '3') {
+        if (comboId === COMBINATIONS.SELECT_MINOR) {
           const csMinorGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('cs minor'));
           const csOptionGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('cs option'));
 
@@ -202,7 +202,7 @@ function StudyPlan() {
               const selectedId = course.selected_sub_type_id;
               if (!selectedId || seenCourseIds.has(course.id)) return;
 
-              if (comboId === '4') {
+              if (comboId === COMBINATIONS.SELECT_ALL) {
                 const electiveGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('elective'));
                 const csOptionGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('cs option'));
 
