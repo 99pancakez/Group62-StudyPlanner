@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CombinationComponent.css';
-import { COMBINATIONS, EXCLUDED_SUB_TYPES, SUB_TYPE } from '../../constants';
+import { LOCALS, COMBINATIONS, CS_MINOR_IDS, CS_OPTION_IDS, EXCLUDED_SUB_TYPES, SUB_TYPE } from '../../constants';
+
 
 export default function CombinationComponent({ setCombinationSelections, combinations, onSubTypeSelectionChange, onClearCombination }) {
 
@@ -8,10 +9,6 @@ export default function CombinationComponent({ setCombinationSelections, combina
   const [openSub, setOpenSub] = useState(null);
   const [selected, setSelected] = useState({});
   const menuRef = useRef(null);
-
-  const CS_MINOR_IDS = [5, 6, 7, 8, 9, 10, 11, 12];
-  const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16];
-
 
   useEffect(() => {
     const stored = localStorage.getItem(LOCALS.combinationSelections);

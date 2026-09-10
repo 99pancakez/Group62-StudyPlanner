@@ -206,9 +206,9 @@ function StudyPlan() {
                 const electiveGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('elective'));
                 const csOptionGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('cs option'));
 
-                if (selectedId === 16 && electiveGroup) {
+                if (selectedId === SUB_TYPE.UNIVERSITY_ELECTIVE && electiveGroup) {
                   progressMap[electiveGroup].earned += course.credit || 0;
-                } else if (selectedId !== 1 && selectedId !== 17 && csOptionGroup) {
+                } else if (selectedId !== SUB_TYPE.CORE && selectedId !== SUB_TYPE.PROGRAM_COURSE && csOptionGroup) {
                   progressMap[csOptionGroup].earned += course.credit || 0;
                 }
                 seenCourseIds.add(course.id);

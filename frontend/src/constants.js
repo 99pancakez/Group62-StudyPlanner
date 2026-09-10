@@ -11,6 +11,8 @@ export const CREDITS = {
   COMBO4_ELECTIVE_MIN: 0,
   COMBO4_ELECTIVE_MAX: 48,
 };
+export const CS_MINOR_IDS = [5, 6, 7, 8, 9, 10, 11, 12];
+export const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16];
 
 export const SUB_TYPE = { CORE: 1, UNIVERSITY_ELECTIVE: 16, PROGRAM_COURSE: 17 };
 
