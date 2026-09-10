@@ -1,6 +1,6 @@
 
 
-export default logger = {
+const logger = {
   log: (...args) => {
     if (process.env.NODE_ENV !== 'production') {
       console.log(...args)
@@ -12,3 +12,6 @@ export default logger = {
     }
   }
 }
+
+
+export default logger;
