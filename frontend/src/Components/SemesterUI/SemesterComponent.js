@@ -76,16 +76,7 @@ function SemesterComponent({
     const availableAfterPrereqs = availableAfterCreditTransfer.filter(
       (course) => {
         const prereqString = prereqMap[course.id];
-        if (!prereqString || prereqString === "null") return true;
-        const andGroups = prereqString
-          .split(" AND ")
-          .map((group) => group.trim());
-        return andGroups.every((group) => {
-          const orCourses = group.split(" OR ").map((id) => id.trim());
-          return orCourses.some((courseId) =>
-            completedCourses.includes(courseId)
-          );
-        });
+        isPrereqMet(prereqString, completedCourses)
       }
     );
     setInitialAvailableCourses(availableAfterPrereqs);
