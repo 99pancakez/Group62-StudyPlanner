@@ -217,8 +217,8 @@ export default function CombinationComponent({ setCombinationSelections, combina
   const clearSelection = (e) => {
     e.stopPropagation();
     setSelected({});
-    localStorage.removeItem('combinationSelections');
-    localStorage.removeItem('subTypeGroupMap');
+    localStorage.removeItem(LOCALS.combinationSelections);
+    localStorage.removeItem(LOCALS.subTypeGroupMap);
     setCombinationSelections({});
     setOpenCombo(null);
     setOpenSub(null);
