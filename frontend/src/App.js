@@ -5,7 +5,6 @@ import Qna from './Webpages/Qna/Qna';
 import StudyPlan from './Webpages/NewExplorer/StudyPlan';
 
 function App() {
-  const [selections, setSelections] = useState({});
   return (
     <Router>
       <div className="App">
