@@ -283,7 +283,6 @@ function StudyPlan() {
           onNextSemester={semesterNumber === semesterCount ? handleNextSemester : null}
           selectedCourses={selectedCourses}
           setSelectedCourses={setSelectedCourses}
-          completedCourses={completedCourses}
         />
       );
     });
