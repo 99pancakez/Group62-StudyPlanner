@@ -28,8 +28,6 @@ function SemesterComponent({
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
-  const [semesterId, setSemesterId] = useState(1);
-  const menuRef = useRef(null);
 
   // Function to categorize courses based on selected courses
   const updateCategorizedCourses = (
@@ -39,8 +37,6 @@ function SemesterComponent({
     calculatedSemesterId,
     selectedSubTypeIds
   ) => {
-    const semesterIdKey = `Semester ${semesterNumber}`;
-
     // Step 1: Load credit transfers from QnA
     const qnaData = localStorage.getItem(LOCALS.qnaResponses);
     let completedCourses = [];
@@ -219,7 +215,6 @@ function SemesterComponent({
     const offset = (semesterNumber - 1) % 2;
     const calculatedSemesterId =
       startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
-    setSemesterId(calculatedSemesterId);
 
     let selectedSubTypeIds = [1, SUB_TYPE.PROGRAM_COURSE];
     const combinationData = localStorage.getItem("combinationSelections");
@@ -390,35 +385,6 @@ function SemesterComponent({
     });
   };
 
-  const handleCourseChange = (oldCourseId, newCourse) => {
-    const semesterIdKey = `Semester ${semesterNumber}`;
-    setSelectedCourses((prev) => {
-      const currentCourses = prev[semesterIdKey] || [];
-      const updatedCourses = currentCourses.map((course) =>
-        course.id === oldCourseId
-          ? {
-            id: newCourse.id,
-            name: newCourse.name,
-            credit: newCourse.credit,
-            sub_type_ids: course.sub_type_ids,
-          }
-          : course
-      );
-      const updated = { ...prev, [semesterIdKey]: updatedCourses };
-      localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(updated)); // Persist immediately
-      const completed = JSON.parse(
-        localStorage.getItem(LOCALS.completedCourses) || "[]"
-      );
-      const updatedCompleted = completed.filter((id) => id !== oldCourseId);
-      updatedCompleted.push(newCourse.id);
-      localStorage.setItem(
-        LOCALS.completedCourses,
-        JSON.stringify([...new Set(updatedCompleted)])
-      );
-      return updated;
-    });
-  };
-
   const handleNextSemester = () => {
     if (
       onNextSemester &&
@@ -444,7 +410,7 @@ function SemesterComponent({
   ).flat();
 
   return (
-    <div className="semester-container" ref={menuRef}>
+    <div className="semester-container">
       <div className="semester-header">
         <h4>
           Semester {semesterNumber} (Year {semesterYear})
