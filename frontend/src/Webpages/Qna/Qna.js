@@ -52,7 +52,7 @@ function Qna() {
         [key]: value,
         ...(key === 'intakeSemester' ? { semester_id: INTAKE_TO_SEMESTER_ID[value] || '' } : {})
       };
-      localStorage.setItem('qnaResponses', JSON.stringify(updated));
+      localStorage.setItem(LOCALS.qnaResponses, JSON.stringify(updated));
       return updated;
     });
   };

@@ -217,7 +217,7 @@ function SemesterComponent({
       startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
 
     let selectedSubTypeIds = [1, SUB_TYPE.PROGRAM_COURSE];
-    const combinationData = localStorage.getItem("combinationSelections");
+    const combinationData = localStorage.getItem(LOCALS.combinationSelections);
     if (combinationData) {
       try {
         const parsed = JSON.parse(combinationData);
@@ -324,9 +324,9 @@ function SemesterComponent({
         },
       ];
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
-      localStorage.setItem("semesterSelections", JSON.stringify(updated)); // Persist immediately
+      localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(updated)); // Persist immediately
       const completed = JSON.parse(
-        localStorage.getItem("completedCourses") || "[]"
+        localStorage.getItem(LOCALS.completedCourses) || "[]"
       );
       completed.push(course.id);
       localStorage.setItem(
