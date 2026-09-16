@@ -288,8 +288,6 @@ function StudyPlan() {
     });
   };
 
-  const totalCredits = Object.values(creditProgress).reduce((sum, p) => sum + p.earned, 0) + coreCredits;
-
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
