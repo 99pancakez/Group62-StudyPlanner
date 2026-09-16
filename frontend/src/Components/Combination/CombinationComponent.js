@@ -132,7 +132,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
     }
 
     // Combination 4: Auto-select all sub-types except Core/Program
-    if (comboId === COMBINATIONS.addEventListener) {
+    if (comboId === COMBINATIONS.SELECT_ALL) {
       const autoSelectedIds = [
         ...new Set(
           combinations
@@ -272,7 +272,7 @@ export default function CombinationComponent({ setCombinationSelections, combina
                 className={`menu-item ${selected[combo.id.toString()] ? 'active-combo' : ''}`}
                 onMouseEnter={() => handleComboHover(combo.id.toString())}
                 onClick={() => {
-                  if (combo.id.toString() === '4') {
+                  if (combo.id.toString() === COMBINATIONS.SELECT_ALL) {
                     handleSelect('4', '', '', null);
                   }
                 }}
