@@ -80,7 +80,7 @@ function SemesterComponent({
     const availableAfterPrereqs = availableAfterCreditTransfer.filter(
       (course) => {
         const prereqString = prereqMap[course.id];
-        isPrereqMet(prereqString, completedCourses)
+        return isPrereqMet(prereqString, completedCourses)
       }
     );
     setInitialAvailableCourses(availableAfterPrereqs);
