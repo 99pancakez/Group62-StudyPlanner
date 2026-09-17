@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import "./SemesterComponent.css";
-import { API_BASE_URL, CREDITS, SUB_TYPE, SUB_TYPE_MAP, LOCALS } from "../../constants";
+import {
+  API_BASE_URL,
+  CREDITS,
+  SUB_TYPE,
+  SUB_TYPE_MAP,
+  LOCALS,
+} from "../../constants";
 import { isPrereqMet } from "../../utils/courseCategoriser";
 import logger from "../../log";
 import CourseDropdown from "../common/CourseDropdown";
-
-
-
 
 function SemesterComponent({
   semesterYear,
@@ -33,7 +36,7 @@ function SemesterComponent({
     prereqMap,
     selectedCourses,
     calculatedSemesterId,
-    selectedSubTypeIds
+    selectedSubTypeIds,
   ) => {
     // Step 1: Load credit transfers from QnA
     const qnaData = localStorage.getItem(LOCALS.qnaResponses);
@@ -60,34 +63,38 @@ function SemesterComponent({
     completedCourses = [...new Set(completedCourses)]; // ensure uniqueness
 
     const semesterCourses = allCourses.filter((course) =>
-      course.semesters.some((sem) => sem.semester_id === calculatedSemesterId)
+      course.semesters.some((sem) => sem.semester_id === calculatedSemesterId),
     );
     const subTypeFiltered = semesterCourses.filter((course) =>
       selectedSubTypeIds.some((subTypeId) =>
-        course.sub_type_ids.includes(subTypeId)
-      )
+        course.sub_type_ids.includes(subTypeId),
+      ),
     );
     const availableAfterCreditTransfer = subTypeFiltered.filter(
-      (course) => !completedCourses.includes(course.id)
+      (course) => !completedCourses.includes(course.id),
     );
     const availableAfterPrereqs = availableAfterCreditTransfer.filter(
       (course) => {
         const prereqString = prereqMap[course.id];
-        return isPrereqMet(prereqString, completedCourses)
-      }
+        return isPrereqMet(prereqString, completedCourses);
+      },
     );
     setInitialAvailableCourses(availableAfterPrereqs);
 
     let recommended = [];
     const maxYear = Math.max(...availableAfterPrereqs.map((c) => c.year), 1);
     let totalCredits = 0;
-    for (let year = 1; year <= maxYear && totalCredits < CREDITS.SEMESTER_LOAD; year++) {
+    for (
+      let year = 1;
+      year <= maxYear && totalCredits < CREDITS.SEMESTER_LOAD;
+      year++
+    ) {
       const yearCourses = availableAfterPrereqs.filter(
-        (course) => course.year === year
+        (course) => course.year === year,
       );
       totalCredits += yearCourses.reduce(
         (sum, course) => sum + course.credit,
-        0
+        0,
       );
       recommended.push(...yearCourses);
     }
@@ -98,12 +105,12 @@ function SemesterComponent({
 
     // Get IDs of all selected courses across *all semesters*
     const allSelectedCourseIds = Object.values(selectedCourses).flatMap(
-      (courses) => courses.map((c) => c.id)
+      (courses) => courses.map((c) => c.id),
     );
 
     // Then filter
     const availableFiltered = availableAfterPrereqs.filter(
-      (course) => !allSelectedCourseIds.includes(course.id)
+      (course) => !allSelectedCourseIds.includes(course.id),
     );
 
     const categorizedAvailable = {};
@@ -111,7 +118,9 @@ function SemesterComponent({
     // Check if a Program Course (17) is already selected
     const isProgramCourseSelected = Object.values(selectedCourses)
       .flat()
-      .some((course) => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE);
+      .some(
+        (course) => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE,
+      );
 
     availableFiltered.forEach((course) => {
       // Skip if already selected
@@ -124,7 +133,10 @@ function SemesterComponent({
       }
 
       // Show Program Course only if one hasn't been selected yet
-      if (course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) && !isProgramCourseSelected) {
+      if (
+        course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) &&
+        !isProgramCourseSelected
+      ) {
         categorizedAvailable["Program Course"] =
           categorizedAvailable["Program Course"] || [];
         categorizedAvailable["Program Course"].push(course);
@@ -153,7 +165,7 @@ function SemesterComponent({
     setCategorizedAvailableCourses(categorizedAvailable);
 
     const recommendedFiltered = recommended.filter(
-      (course) => !allSelectedCourseIds.includes(course.id)
+      (course) => !allSelectedCourseIds.includes(course.id),
     );
 
     const categorizedRecommended = {};
@@ -165,7 +177,10 @@ function SemesterComponent({
         categorizedRecommended["Core"].push(course);
       }
 
-      if (course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) && !isProgramCourseSelected) {
+      if (
+        course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) &&
+        !isProgramCourseSelected
+      ) {
         categorizedRecommended["Program Course"] =
           categorizedRecommended["Program Course"] || [];
         categorizedRecommended["Program Course"].push(course);
@@ -192,10 +207,7 @@ function SemesterComponent({
 
     setCategorizedRecommendedCourses(categorizedRecommended);
 
-    logger.log(
-      "categorizedRecommendedCourses:",
-      categorizedRecommendedCourses
-    );
+    logger.log("categorizedRecommendedCourses:", categorizedRecommendedCourses);
     logger.log("categorizedAvailableCourses:", categorizedAvailableCourses);
   };
 
@@ -270,7 +282,7 @@ function SemesterComponent({
             prereqMap,
             selectedCourses,
             calculatedSemesterId,
-            selectedSubTypeIds
+            selectedSubTypeIds,
           );
           setIsLoading(false);
         })
@@ -286,7 +298,7 @@ function SemesterComponent({
         prerequisites,
         selectedCourses,
         calculatedSemesterId,
-        selectedSubTypeIds
+        selectedSubTypeIds,
       );
       setIsLoading(false);
     }
@@ -324,12 +336,12 @@ function SemesterComponent({
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
       localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(updated)); // Persist immediately
       const completed = JSON.parse(
-        localStorage.getItem(LOCALS.completedCourses) || "[]"
+        localStorage.getItem(LOCALS.completedCourses) || "[]",
       );
       completed.push(course.id);
       localStorage.setItem(
         LOCALS.completedCourses,
-        JSON.stringify([...new Set(completed)])
+        JSON.stringify([...new Set(completed)]),
       );
       return updated;
     });
@@ -341,16 +353,16 @@ function SemesterComponent({
     setSelectedCourses((prev) => {
       const currentCourses = prev[semesterIdKey] || [];
       const updatedCourses = currentCourses.filter(
-        (course) => course.id !== courseId
+        (course) => course.id !== courseId,
       );
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
       // Step 1: Recalculate completed courses
       const updatedCompleted = Object.values(updated).flatMap((courses) =>
-        courses.map((c) => c.id)
+        courses.map((c) => c.id),
       );
       localStorage.setItem(
         LOCALS.completedCourses,
-        JSON.stringify([...new Set(updatedCompleted)])
+        JSON.stringify([...new Set(updatedCompleted)]),
       );
       // Step 2: Remove invalid future selections
       const newState = { ...updated };
@@ -369,7 +381,7 @@ function SemesterComponent({
             return andGroups.every((group) => {
               const orCourses = group.split(" OR ").map((id) => id.trim());
               return orCourses.some((prereqId) =>
-                updatedCompleted.includes(prereqId)
+                updatedCompleted.includes(prereqId),
               );
             });
           });
@@ -395,16 +407,15 @@ function SemesterComponent({
   const totalCredits =
     selectedCourses[`Semester ${semesterNumber}`]?.reduce(
       (sum, course) => sum + course.credit,
-      0
+      0,
     ) || 0;
 
   if (isLoading) return <div className="loading-msg">Loading courses...</div>;
-  if (fetchError)
-    return <div className="error-msg">Error: {fetchError}</div>;
+  if (fetchError) return <div className="error-msg">Error: {fetchError}</div>;
 
   const allAvailableCourses = Object.values(categorizedAvailableCourses).flat();
   const allRecommendedCourses = Object.values(
-    categorizedRecommendedCourses
+    categorizedRecommendedCourses,
   ).flat();
 
   return (
@@ -425,9 +436,9 @@ function SemesterComponent({
               onClick={() =>
                 alert(
                   `🦥 Not in a rush, huh?\n\n` +
-                  `You're currently underloading with ${totalCredits} credits.\n` +
-                  `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
-                  `To take fewer, you'll need approval from your Program Manager.`
+                    `You're currently underloading with ${totalCredits} credits.\n` +
+                    `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
+                    `To take fewer, you'll need approval from your Program Manager.`,
                 )
               }
             >
@@ -441,9 +452,9 @@ function SemesterComponent({
               onClick={() =>
                 alert(
                   `🦘 That’s quite a leap!\n\n` +
-                  `You're currently overloading with ${totalCredits} credits.\n` +
-                  `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
-                  `To take more, you'll need approval from your Program Manager.`
+                    `You're currently overloading with ${totalCredits} credits.\n` +
+                    `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
+                    `To take more, you'll need approval from your Program Manager.`,
                 )
               }
             >
@@ -462,7 +473,7 @@ function SemesterComponent({
                 recommendedCourses={recommendedCourses}
                 currentCourse={course}
                 onSelect={handleSelectCourse}
-              />              
+              />
             </div>
             <div className="prerequisites">
               Prerequisites: {prerequisites[course.id] || "None"}
@@ -488,10 +499,7 @@ function SemesterComponent({
                 onSelect={handleSelectCourse}
               />
             </div>
-            <div
-              className="remove-btn"
-              onClick={() => setShowAddCourse(false)}
-            >
+            <div className="remove-btn" onClick={() => setShowAddCourse(false)}>
               ×
             </div>
           </div>
@@ -505,10 +513,11 @@ function SemesterComponent({
           )}
       </div>
       <button
-        className={`next-semester-btn ${!selectedCourses[`Semester ${semesterNumber}`]?.length
-          ? "disabled"
-          : ""
-          }`}
+        className={`next-semester-btn ${
+          !selectedCourses[`Semester ${semesterNumber}`]?.length
+            ? "disabled"
+            : ""
+        }`}
         onClick={handleNextSemester}
         title={
           !selectedCourses[`Semester ${semesterNumber}`]?.length
