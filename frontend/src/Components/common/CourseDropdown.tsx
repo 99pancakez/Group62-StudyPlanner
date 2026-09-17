@@ -27,7 +27,6 @@ function CourseDropdown({
     categorizedRecommendedCourses,
   ).flat();
 
-
   return (
     <select
       value=""
@@ -44,10 +43,13 @@ function CourseDropdown({
     >
       {currentCourse ? (
         <option value="" disabled>
-          {currentCourse.id} - {currentCourse.name} ({currentCourse.credit} credits)
+          {currentCourse.id} - {currentCourse.name} ({currentCourse.credit}{" "}
+          credits)
         </option>
       ) : placeholder ? (
-        <option value="" disabled>{placeholder}</option>
+        <option value="" disabled>
+          {placeholder}
+        </option>
       ) : null}
       {Object.entries(categorizedRecommendedCourses).length > 0 &&
         Object.entries(categorizedRecommendedCourses)
