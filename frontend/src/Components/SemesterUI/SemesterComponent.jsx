@@ -3,6 +3,7 @@ import "./SemesterComponent.css";
 import { API_BASE_URL, CREDITS, SUB_TYPE, SUB_TYPE_MAP, SUB_TYPE_NAME_TO_ID, LOCALS } from "../../constants";
 import { isPrereqMet } from "../../utils/courseCategoriser";
 import logger from "../../log";
+import CourseDropdown from "../common/CourseDropdown";
 
 
 
