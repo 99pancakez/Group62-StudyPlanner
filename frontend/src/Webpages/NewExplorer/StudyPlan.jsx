@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import CombinationComponent from '../../Components/Combination/CombinationComponent';
-import SemesterComponent from '../../Components/SemesterUI/SemesterComponent';
-import './StudyPlan.css';
-import { API_BASE_URL, COMBINATIONS, CREDITS, EXCLUDED_SUB_TYPES, LOCALS, PROGRAM_CODE, SUB_TYPE } from '../../constants';
+import React, { useState, useEffect } from "react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import CombinationComponent from "../../Components/Combination/CombinationComponent";
+import SemesterComponent from "../../Components/SemesterUI/SemesterComponent";
+import "./StudyPlan.css";
+import {
+  API_BASE_URL,
+  COMBINATIONS,
+  CREDITS,
+  EXCLUDED_SUB_TYPES,
+  LOCALS,
+  PROGRAM_CODE,
+  SUB_TYPE,
+} from "../../constants";
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -44,16 +52,20 @@ function StudyPlan() {
     localStorage.removeItem(LOCALS.subTypeGroupMap);
   };
 
-
   const calculateProgramCourseCredits = (selectedCourses) => {
     return Object.values(selectedCourses)
       .flat()
-      .filter(course => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE)
+      .filter(
+        (course) => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE,
+      )
       .reduce((sum, course) => sum + (course.credit || 0), 0);
   };
 
   const calculateTotalCredits = () => {
-    const comboCredits = Object.values(creditProgress).reduce((sum, p) => sum + p.earned, 0);
+    const comboCredits = Object.values(creditProgress).reduce(
+      (sum, p) => sum + p.earned,
+      0,
+    );
     const programCourseCredits = calculateProgramCourseCredits(selectedCourses);
     return coreCredits + comboCredits + programCourseCredits;
   };
@@ -61,12 +73,11 @@ function StudyPlan() {
   const handleSubTypeSelectionChange = ({ subTypeId, groupLabel }) => {
     const updatedMap = {
       ...subTypeGroupMap,
-      [subTypeId]: groupLabel
+      [subTypeId]: groupLabel,
     };
     setSubTypeGroupMap(updatedMap);
     localStorage.setItem(LOCALS.subTypeGroupMap, JSON.stringify(updatedMap));
   };
-
 
   // Fetch combinations on mount
   useEffect(() => {
@@ -89,20 +100,18 @@ function StudyPlan() {
     }
   }, []);
 
-
-
   useEffect(() => {
     const allSelectedCourseIds = Object.values(selectedCourses)
-      .flatMap(courses => courses.map(course => course.id))
-      .filter(id => id !== null && id !== undefined);
+      .flatMap((courses) => courses.map((course) => course.id))
+      .filter((id) => id !== null && id !== undefined);
 
     const qnaData = localStorage.getItem(LOCALS.qnaResponses);
     if (qnaData) {
       const parsedQna = JSON.parse(qnaData);
       if (parsedQna.creditCourses) {
         const creditCourseIds = parsedQna.creditCourses
-          .split(', ')
-          .filter(id => id.trim() !== '');
+          .split(", ")
+          .filter((id) => id.trim() !== "");
         allSelectedCourseIds.push(...creditCourseIds);
       }
     }
@@ -111,21 +120,29 @@ function StudyPlan() {
 
     const coreCourses = Object.values(selectedCourses)
       .flat()
-      .filter(course => course.selected_sub_type_id === SUB_TYPE.CORE)
-    const newCoreCredits = coreCourses.reduce((sum, course) => sum + (course.credit || 0), 0);
+      .filter((course) => course.selected_sub_type_id === SUB_TYPE.CORE);
+    const newCoreCredits = coreCourses.reduce(
+      (sum, course) => sum + (course.credit || 0),
+      0,
+    );
     setCoreCredits(newCoreCredits);
   }, [selectedCourses]);
 
   useEffect(() => {
-    if (Object.keys(combinationSelections).length > 0 && combinations.length > 0) {
+    if (
+      Object.keys(combinationSelections).length > 0 &&
+      combinations.length > 0
+    ) {
       const comboId = Object.keys(combinationSelections)[0];
-      const currentCombo = combinations.find(c => c.id.toString() === comboId);
+      const currentCombo = combinations.find(
+        (c) => c.id.toString() === comboId,
+      );
 
       if (currentCombo) {
         const progressMap = {};
         const breakdownList = {};
 
-        currentCombo.groups.forEach(group => {
+        currentCombo.groups.forEach((group) => {
           const label = group.label;
           const lowerLabel = label.toLowerCase();
 
@@ -137,10 +154,10 @@ function StudyPlan() {
           let max = null;
 
           if (isCombo4) {
-            if (lowerLabel.includes('cs option')) {
+            if (lowerLabel.includes("cs option")) {
               min = CREDITS.COMBO4_CS_OPTION_MIN;
               max = CREDITS.COMBO4_CS_OPTION_MAX;
-            } else if (lowerLabel.includes('elective')) {
+            } else if (lowerLabel.includes("elective")) {
               min = CREDITS.COMBO4_ELECTIVE_MIN;
               max = CREDITS.COMBO4_ELECTIVE_MAX;
             }
@@ -151,26 +168,32 @@ function StudyPlan() {
             required,
             percentage: 0,
             min,
-            max
+            max,
           };
 
           breakdownList[label] = {
             label,
             target: required,
-            subTypeIds: group.options.map(opt => opt.sub_type_id)
+            subTypeIds: group.options.map((opt) => opt.sub_type_id),
           };
         });
-
 
         const seenCourseIds = new Set();
 
         if (comboId === COMBINATIONS.SELECT_MINOR) {
-          const csMinorGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('cs minor'));
-          const csOptionGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('cs option'));
+          const csMinorGroup = Object.keys(progressMap).find((label) =>
+            label.toLowerCase().includes("cs minor"),
+          );
+          const csOptionGroup = Object.keys(progressMap).find((label) =>
+            label.toLowerCase().includes("cs option"),
+          );
 
-          const csMinorSubTypeIds = breakdownList[csMinorGroup]?.subTypeIds || [];
-          const selectedMinorSubTypeId = csMinorSubTypeIds.find(id => {
-            return Object.values(selectedCourses).flat().some(course => course.selected_sub_type_id === id);
+          const csMinorSubTypeIds =
+            breakdownList[csMinorGroup]?.subTypeIds || [];
+          const selectedMinorSubTypeId = csMinorSubTypeIds.find((id) => {
+            return Object.values(selectedCourses)
+              .flat()
+              .some((course) => course.selected_sub_type_id === id);
           });
 
           const updatedMap = { ...subTypeGroupMap };
@@ -178,12 +201,15 @@ function StudyPlan() {
           if (selectedMinorSubTypeId && !updatedMap[selectedMinorSubTypeId]) {
             updatedMap[selectedMinorSubTypeId] = csMinorGroup;
             setSubTypeGroupMap(updatedMap);
-            localStorage.setItem(LOCALS.subTypeGroupMap, JSON.stringify(updatedMap));
+            localStorage.setItem(
+              LOCALS.subTypeGroupMap,
+              JSON.stringify(updatedMap),
+            );
           }
 
           Object.values(selectedCourses)
             .flat()
-            .forEach(course => {
+            .forEach((course) => {
               const selectedId = course.selected_sub_type_id;
               if (!selectedId || seenCourseIds.has(course.id)) return;
 
@@ -198,23 +224,32 @@ function StudyPlan() {
         } else {
           Object.values(selectedCourses)
             .flat()
-            .forEach(course => {
+            .forEach((course) => {
               const selectedId = course.selected_sub_type_id;
               if (!selectedId || seenCourseIds.has(course.id)) return;
 
               if (comboId === COMBINATIONS.SELECT_ALL) {
-                const electiveGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('elective'));
-                const csOptionGroup = Object.keys(progressMap).find(label => label.toLowerCase().includes('cs option'));
+                const electiveGroup = Object.keys(progressMap).find((label) =>
+                  label.toLowerCase().includes("elective"),
+                );
+                const csOptionGroup = Object.keys(progressMap).find((label) =>
+                  label.toLowerCase().includes("cs option"),
+                );
 
-                if (selectedId === SUB_TYPE.UNIVERSITY_ELECTIVE && electiveGroup) {
+                if (
+                  selectedId === SUB_TYPE.UNIVERSITY_ELECTIVE &&
+                  electiveGroup
+                ) {
                   progressMap[electiveGroup].earned += course.credit || 0;
-                } else if (selectedId !== SUB_TYPE.CORE && selectedId !== SUB_TYPE.PROGRAM_COURSE && csOptionGroup) {
+                } else if (
+                  selectedId !== SUB_TYPE.CORE &&
+                  selectedId !== SUB_TYPE.PROGRAM_COURSE &&
+                  csOptionGroup
+                ) {
                   progressMap[csOptionGroup].earned += course.credit || 0;
                 }
                 seenCourseIds.add(course.id);
-              }
-
-              else {
+              } else {
                 const assignedGroup = subTypeGroupMap[selectedId];
 
                 if (assignedGroup && progressMap[assignedGroup]) {
@@ -235,10 +270,11 @@ function StudyPlan() {
 
         for (const label in progressMap) {
           const entry = progressMap[label];
-          entry.percentage = Math.min(100, (entry.earned / entry.required) * 100);
+          entry.percentage = Math.min(
+            100,
+            (entry.earned / entry.required) * 100,
+          );
           entry.over = entry.earned > (entry.max ?? entry.required);
-
-
         }
 
         setCreditProgress(progressMap);
@@ -250,25 +286,29 @@ function StudyPlan() {
     }
   }, [selectedCourses, combinationSelections, combinations, subTypeGroupMap]);
 
-
   useEffect(() => {
     const handleClearNonCoreCourses = (event) => {
       setSelectedCourses(event.detail.newSelections);
     };
 
-    window.addEventListener('clearNonCoreCourses', handleClearNonCoreCourses);
+    window.addEventListener("clearNonCoreCourses", handleClearNonCoreCourses);
     return () => {
-      window.removeEventListener('clearNonCoreCourses', handleClearNonCoreCourses);
+      window.removeEventListener(
+        "clearNonCoreCourses",
+        handleClearNonCoreCourses,
+      );
     };
   }, []);
-
 
   const handleNextSemester = () => {
     const newCount = semesterCount + 1;
     setSemesterCount(newCount);
-    localStorage.setItem(LOCALS.studyPlanState, JSON.stringify({
-      semesterCount: newCount
-    }));
+    localStorage.setItem(
+      LOCALS.studyPlanState,
+      JSON.stringify({
+        semesterCount: newCount,
+      }),
+    );
   };
 
   const renderSemesters = () => {
@@ -280,7 +320,9 @@ function StudyPlan() {
           key={semesterNumber}
           semesterNumber={semesterNumber}
           semesterYear={semesterYear}
-          onNextSemester={semesterNumber === semesterCount ? handleNextSemester : null}
+          onNextSemester={
+            semesterNumber === semesterCount ? handleNextSemester : null
+          }
           selectedCourses={selectedCourses}
           setSelectedCourses={setSelectedCourses}
         />
@@ -288,28 +330,32 @@ function StudyPlan() {
     });
   };
 
-
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-    const selections = JSON.parse(localStorage.getItem(LOCALS.semesterSelections) || '{}');
+    const selections = JSON.parse(
+      localStorage.getItem(LOCALS.semesterSelections) || "{}",
+    );
 
     let overallTotal = 0;
     let yOffset = 20;
 
     doc.setFontSize(14);
-    doc.text('Study Plan Report', 14, 10);
+    doc.text("Study Plan Report", 14, 10);
     doc.setFontSize(10);
     doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 16);
 
     Object.keys(selections).forEach((semesterKey) => {
       const courses = selections[semesterKey];
-      const rows = courses.map(course => [
+      const rows = courses.map((course) => [
         course.id,
         course.name,
-        course.credit
+        course.credit,
       ]);
 
-      const semesterTotal = courses.reduce((sum, course) => sum + (course.credit || 0), 0);
+      const semesterTotal = courses.reduce(
+        (sum, course) => sum + (course.credit || 0),
+        0,
+      );
       overallTotal += semesterTotal;
 
       doc.text(`${semesterKey}`, 14, yOffset);
@@ -317,10 +363,10 @@ function StudyPlan() {
 
       autoTable(doc, {
         startY: yOffset,
-        head: [['Course ID', 'Course Name', 'Credit']],
+        head: [["Course ID", "Course Name", "Credit"]],
         body: rows,
-        theme: 'grid',
-        styles: { fontSize: 10 }
+        theme: "grid",
+        styles: { fontSize: 10 },
       });
 
       // Use doc.lastAutoTable to get finalY safely
@@ -335,25 +381,24 @@ function StudyPlan() {
     });
 
     doc.text(`Overall Total Credits: ${overallTotal}`, 14, yOffset);
-    doc.save('study-plan.pdf');
+    doc.save("study-plan.pdf");
   };
 
   return (
-
-
     <div className="study-plan-layout">
-
       <div className="top-banner">
         <button
           className="download-link"
           onClick={() => {
-            window.open(`${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`, '_blank');
+            window.open(
+              `${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`,
+              "_blank",
+            );
           }}
         >
           📄 Download Official Program Course List (PDF)
         </button>
       </div>
-
 
       <div className="top-row">
         <div className="combination-box">
@@ -363,8 +408,6 @@ function StudyPlan() {
             onSubTypeSelectionChange={handleSubTypeSelectionChange}
             onClearCombination={handleClearCombinationAndMap}
           />
-
-
         </div>
         <div className="scorecard-box">
           <div className="credit-breakdown">
@@ -374,12 +417,16 @@ function StudyPlan() {
             <div className="progress-item">
               <div className="progress-label">
                 <span>Core : </span>
-                <span>{coreCredits}/{CREDITS.CORE_TOTAL}</span>
+                <span>
+                  {coreCredits}/{CREDITS.CORE_TOTAL}
+                </span>
               </div>
               <div className="progress-bar">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(coreCredits / CREDITS.CORE_TOTAL) * 100}%` }}
+                  style={{
+                    width: `${(coreCredits / CREDITS.CORE_TOTAL) * 100}%`,
+                  }}
                 />
               </div>
             </div>
@@ -388,28 +435,36 @@ function StudyPlan() {
             <div className="progress-item">
               <div className="progress-label">
                 <span>Program Course : </span>
-                <span>{calculateProgramCourseCredits(selectedCourses)}/${CREDITS.PROGRAM_COURSE_TOTAL}</span>
+                <span>
+                  {calculateProgramCourseCredits(selectedCourses)}/$
+                  {CREDITS.PROGRAM_COURSE_TOTAL}
+                </span>
               </div>
               <div className="progress-bar">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(calculateProgramCourseCredits(selectedCourses) / CREDITS.PROGRAM_COURSE_TOTAL) * 100}%` }}
+                  style={{
+                    width: `${(calculateProgramCourseCredits(selectedCourses) / CREDITS.PROGRAM_COURSE_TOTAL) * 100}%`,
+                  }}
                 />
               </div>
             </div>
 
             {/* Combo breakdowns */}
             {majorMinorBreakdown.map((item, index) => {
-              const progress = creditProgress[item.label] || { earned: 0, required: item.target };
+              const progress = creditProgress[item.label] || {
+                earned: 0,
+                required: item.target,
+              };
               return (
                 <div key={index} className="progress-item">
                   <div className="progress-label">
                     <span>{item.label} : </span>
                     <span>
                       {progress.earned}/
-                      {(progress.min != null && progress.max != null)
+                      {progress.min != null && progress.max != null
                         ? `${progress.min}-${progress.max}`
-                        : (progress.required ?? 'N/A')}
+                        : (progress.required ?? "N/A")}
                     </span>
 
                     {progress.over && (
@@ -417,14 +472,13 @@ function StudyPlan() {
                         ⚠️ Exceeds maximum allowed credits
                       </div>
                     )}
-
                   </div>
                   <div className="progress-bar">
                     <div
                       className="progress-fill"
                       style={{
                         width: `${progress.percentage}%`,
-                        backgroundColor: progress.over ? 'red' : undefined
+                        backgroundColor: progress.over ? "red" : undefined,
                       }}
                     />
                   </div>
@@ -435,10 +489,11 @@ function StudyPlan() {
             {/* Total */}
             <div className="total-credits">
               <span>Total Credits : </span>
-              <span>{calculateTotalCredits()}/{CREDITS.TOTAL_DEGREE}</span>
+              <span>
+                {calculateTotalCredits()}/{CREDITS.TOTAL_DEGREE}
+              </span>
             </div>
           </div>
-
         </div>
       </div>
       <div className="semester-box">
@@ -450,9 +505,6 @@ function StudyPlan() {
           </button>
         </div>
       </div>
-
-
-
     </div>
   );
 }
