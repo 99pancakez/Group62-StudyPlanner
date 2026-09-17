@@ -42,9 +42,13 @@ function CourseDropdown({
       }}
       className="course-select"
     >
-      <option value={currentCourse?.id}>
-        {currentCourse?.id} - {currentCourse?.name} ({currentCourse?.credit} credits)
-      </option>
+      {currentCourse ? (
+        <option value="" disabled>
+          {currentCourse.id} - {currentCourse.name} ({currentCourse.credit} credits)
+        </option>
+      ) : placeholder ? (
+        <option value="" disabled>{placeholder}</option>
+      ) : null}
       {Object.entries(categorizedRecommendedCourses).length > 0 &&
         Object.entries(categorizedRecommendedCourses)
           .sort(([a], [b]) =>
@@ -114,3 +118,5 @@ function CourseDropdown({
     </select>
   );
 }
+
+export default CourseDropdown;
