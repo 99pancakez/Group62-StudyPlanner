@@ -40,8 +40,8 @@ export const SUB_TYPE_MAP = {
   17: "Program Course",
 };
 
-export const SUB_TYPE_NAME_TO_ID = Object.entries(SUB_TYPE_MAP).reduce(
-  (acc, [id, name]) => {
+export const SUB_TYPE_NAME_TO_ID : Record<string, number> = Object.entries(SUB_TYPE_MAP).reduce(
+  (acc: Record<string, number>, [id, name]) => {
     acc[name] = parseInt(id);
     return acc;
   },
