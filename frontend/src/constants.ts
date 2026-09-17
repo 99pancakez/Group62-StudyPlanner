@@ -1,4 +1,3 @@
-
 export const API_BASE_URL = "http://localhost:3000";
 
 export const CREDITS = {
@@ -14,9 +13,13 @@ export const CREDITS = {
 export const CS_MINOR_IDS = [5, 6, 7, 8, 9, 10, 11, 12];
 export const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16];
 
-export const SUB_TYPE = { CORE: 1, UNIVERSITY_ELECTIVE: 16, PROGRAM_COURSE: 17 };
+export const SUB_TYPE = {
+  CORE: 1,
+  UNIVERSITY_ELECTIVE: 16,
+  PROGRAM_COURSE: 17,
+};
 
-export const COMBINATIONS = { SELECT_MINOR: '3', SELECT_ALL: '4' };
+export const COMBINATIONS = { SELECT_MINOR: "3", SELECT_ALL: "4" };
 
 export const EXCLUDED_SUB_TYPES = [SUB_TYPE.CORE, SUB_TYPE.PROGRAM_COURSE];
 
@@ -40,35 +43,30 @@ export const SUB_TYPE_MAP = {
   17: "Program Course",
 };
 
-export const SUB_TYPE_NAME_TO_ID : Record<string, number> = Object.entries(SUB_TYPE_MAP).reduce(
-  (acc: Record<string, number>, [id, name]) => {
-    acc[name] = parseInt(id);
-    return acc;
-  },
-  {}
-);
+export const SUB_TYPE_NAME_TO_ID: Record<string, number> = Object.entries(
+  SUB_TYPE_MAP,
+).reduce((acc: Record<string, number>, [id, name]) => {
+  acc[name] = parseInt(id);
+  return acc;
+}, {});
 
+export const PROGRAM_CODE = "BP094P23";
 
-export const PROGRAM_CODE = 'BP094P23';
-
-export const INTAKE_OPTIONS = ['February (Semester 1)', 'July (Semester 2)'];
+export const INTAKE_OPTIONS = ["February (Semester 1)", "July (Semester 2)"];
 
 export const INTAKE_TO_SEMESTER_ID = {
-  'February (Semester 1)': 1,
-  'July (Semester 2)': 2
+  "February (Semester 1)": 1,
+  "July (Semester 2)": 2,
 };
-
 
 /**
-* Global constant to standardise accesing localStorage
-*/
+ * Global constant to standardise accesing localStorage
+ */
 export const LOCALS = {
-  studyPlanState: 'studyPlanState',
-  semesterSelections: 'semesterSelections',
-  completedCourses: 'completedCourses',
-  combinationSelections: 'combinationSelections',
-  subTypeGroupMap: 'subTypeGroupMap',
-  qnaResponses: 'qnaResponses',
+  studyPlanState: "studyPlanState",
+  semesterSelections: "semesterSelections",
+  completedCourses: "completedCourses",
+  combinationSelections: "combinationSelections",
+  subTypeGroupMap: "subTypeGroupMap",
+  qnaResponses: "qnaResponses",
 };
-
-
