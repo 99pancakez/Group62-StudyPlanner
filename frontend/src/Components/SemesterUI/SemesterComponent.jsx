@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./SemesterComponent.css";
 import {
-  API_BASE_URL,
+  EXPLORER_API_BASE_URL,
   CREDITS,
   SUB_TYPE,
   SUB_TYPE_MAP,
@@ -249,14 +249,16 @@ function SemesterComponent({
     // Fetch data only if courses or prerequisites are not already loaded
     if (courses.length === 0 || Object.keys(prerequisites).length === 0) {
       Promise.all([
-        fetch(`${API_BASE_URL}/available-courses`).then((res) => {
+        fetch(`${EXPLORER_API_BASE_URL}/available-courses`).then((res) => {
           if (!res.ok) throw new Error("Failed to fetch courses");
           return res.json();
         }),
-        fetch(`${API_BASE_URL}/all-courses-with-prerequisites`).then((res) => {
-          if (!res.ok) throw new Error("Failed to fetch prerequisites");
-          return res.json();
-        }),
+        fetch(`${EXPLORER_API_BASE_URL}/all-courses-with-prerequisites`).then(
+          (res) => {
+            if (!res.ok) throw new Error("Failed to fetch prerequisites");
+            return res.json();
+          },
+        ),
       ])
         .then(([courseData, prereqData]) => {
           logger.log("Fetched courseData:", courseData);
