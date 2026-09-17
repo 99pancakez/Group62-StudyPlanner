@@ -1,4 +1,5 @@
 export const API_BASE_URL = "http://localhost:3000";
+export const EXPLORER_API_BASE_URL = "http://localhost:3000/explorer";
 
 export const CREDITS = {
   SEMESTER_LOAD: 48,
