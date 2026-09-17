@@ -402,7 +402,7 @@ function SemesterComponent({
 
   if (isLoading) return <div className="loading-msg">Loading courses...</div>;
   if (fetchError)
-    return <div className="error-message">Error: {fetchError}</div>;
+    return <div className="error-msg">Error: {fetchError}</div>;
 
   const allAvailableCourses = Object.values(categorizedAvailableCourses).flat();
   const allRecommendedCourses = Object.values(
