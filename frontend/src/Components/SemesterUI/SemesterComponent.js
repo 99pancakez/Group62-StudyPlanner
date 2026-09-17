@@ -458,89 +458,13 @@ function SemesterComponent({
         {selectedCourses[`Semester ${semesterNumber}`]?.map((course) => (
           <div key={course.id} className="course-tag">
             <div className="dropdown-group">
-              <select
-                value=""
-                onChange={(e) => {
-                  const { id, subTypeId } = JSON.parse(e.target.value);
-                  const selectedCourse =
-                    allAvailableCourses.find((c) => c.id === id) ||
-                    allRecommendedCourses.find((c) => c.id === id);
-                  if (selectedCourse) {
-                    handleSelectCourse(selectedCourse, subTypeId);
-                  }
-                }}
-                className="course-select"
-              >
-                <option value={course.id}>
-                  {course.id} - {course.name} ({course.credit} credits)
-                </option>
-                {Object.entries(categorizedRecommendedCourses).length > 0 &&
-                  Object.entries(categorizedRecommendedCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`recommended-${subTypeName}`}
-                            label={`Recommended Courses - ${subTypeName}`}
-                          >
-                            {courses
-                              .filter((c) => c.id !== course.id)
-                              .map((c) => (
-                                <option
-                                  key={c.id}
-                                  value={JSON.stringify({
-                                    id: c.id,
-                                    subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                  })}
-                                  className={`sub-type-option sub-type-${subTypeName
-                                    .toLowerCase()
-                                    .replace(/[^a-z0-9]/g, "-")}`}
-                                >
-                                  {c.id} - {c.name} ({c.credit} credits)
-                                </option>
-                              ))}
-                          </optgroup>
-                        )
-                    )}
-                {Object.entries(categorizedAvailableCourses).length > 0 &&
-                  Object.entries(categorizedAvailableCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`available-${subTypeName}`}
-                            label={`More Available Courses - ${subTypeName}`}
-                          >
-                            {courses
-                              .filter(
-                                (c) =>
-                                  c.id !== course.id &&
-                                  !recommendedCourses.some((r) => r.id === c.id)
-                              )
-                              .map((c) => (
-                                <option
-                                  key={c.id}
-                                  value={JSON.stringify({
-                                    id: c.id,
-                                    subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                  })}
-                                  className={`sub-type-option sub-type-${subTypeName
-                                    .toLowerCase()
-                                    .replace(/[^a-z0-9]/g, "-")}`}
-                                >
-                                  {c.id} - {c.name} ({c.credit} credits)
-                                </option>
-                              ))}
-                          </optgroup>
-                        )
-                    )}
-              </select>
+              <CourseDropdown
+                categorizedRecommendedCourses={categorizedRecommendedCourses}
+                categorizedAvailableCourses={categorizedAvailableCourses}
+                recommendedCourses={recommendedCourses}
+                currentCourse={course}
+                onSelect={handleSelectCourse}
+              />              
             </div>
             <div className="prerequisites">
               Prerequisites: {prerequisites[course.id] || "None"}
@@ -556,92 +480,15 @@ function SemesterComponent({
         {showAddCourse && (
           <div className="course-tag">
             <div className="dropdown-group">
-              <select
-                value=""
-                onChange={(e) => {
-                  const { id, subTypeId } = JSON.parse(e.target.value);
-                  const selectedCourse =
-                    allAvailableCourses.find((c) => c.id === id) ||
-                    allRecommendedCourses.find((c) => c.id === id);
-                  if (selectedCourse) {
-                    handleSelectCourse(selectedCourse, subTypeId);
-                  }
-                }}
-                className="course-select"
-              >
-                <option value="" disabled>
-                  Select a course
-                </option>
-                {Object.entries(categorizedRecommendedCourses).length > 0 &&
-                  Object.entries(categorizedRecommendedCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`recommended-${subTypeName}`}
-                            label={`Recommended Courses - ${subTypeName}`}
-                          >
-                            {courses.map((c) => (
-                              <option
-                                key={c.id}
-                                value={JSON.stringify({
-                                  id: c.id,
-                                  subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                })}
-                                className={`sub-type-option sub-type-${subTypeName
-                                  .toLowerCase()
-                                  .replace(/[^a-z0-9]/g, "-")}`}
-                              >
-                                {c.id} - {c.name} ({c.credit} credits){" "}
-                                {prerequisites[c.id]
-                                  ? `[Prereqs: ${prerequisites[c.id]}]`
-                                  : ""}
-                              </option>
-                            ))}
-                          </optgroup>
-                        )
-                    )}
-                {Object.entries(categorizedAvailableCourses).length > 0 &&
-                  Object.entries(categorizedAvailableCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`available-${subTypeName}`}
-                            label={`More Available Courses - ${subTypeName}`}
-                          >
-                            {courses
-                              .filter(
-                                (c) =>
-                                  !recommendedCourses.some((r) => r.id === c.id)
-                              )
-                              .map((c) => (
-                                <option
-                                  key={c.id}
-                                  value={JSON.stringify({
-                                    id: c.id,
-                                    subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                  })}
-                                  className={`sub-type-option sub-type-${subTypeName
-                                    .toLowerCase()
-                                    .replace(/[^a-z0-9]/g, "-")}`}
-                                >
-                                  {c.id} - {c.name} ({c.credit} credits){" "}
-                                  {prerequisites[c.id]
-                                    ? `[Prereqs: ${prerequisites[c.id]}]`
-                                    : ""}
-                                </option>
-                              ))}
-                          </optgroup>
-                        )
-                    )}
-              </select>
+              <CourseDropdown
+                categorizedRecommendedCourses={categorizedRecommendedCourses}
+                categorizedAvailableCourses={categorizedAvailableCourses}
+                recommendedCourses={recommendedCourses}
+                prerequisites={prerequisites}
+                placeholder="Select a course"
+                showPrereqs
+                onSelect={handleSelectCourse}
+              />
             </div>
             <div
               className="remove-btn"
