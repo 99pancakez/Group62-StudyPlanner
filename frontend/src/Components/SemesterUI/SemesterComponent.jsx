@@ -1,35 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./SemesterComponent.css";
-
-const API_BASE_URL = "http://localhost:3000/explorer";
-
-const SUB_TYPE_MAP = {
-  1: "Core",
-  2: "Advanced Computer Science",
-  3: "Cyber Security",
-  4: "Enterprise Systems Development",
-  5: "Artificial Intelligence & Machine Learning",
-  6: "Blockchain Technologies",
-  7: "Cloud Computing",
-  8: "Creative Computing",
-  9: "Cyber Assurance",
-  10: "Data Science",
-  11: "Design & Develop for Apple Platform",
-  12: "Enterprise Systems Development",
-  13: "Bioinformatics",
-  14: "Data Analysis",
-  15: "Digital Innovation",
-  16: "University Elective",
-  17: "Program Course",
-};
-
-const SUB_TYPE_NAME_TO_ID = Object.entries(SUB_TYPE_MAP).reduce(
-  (acc, [id, name]) => {
-    acc[name] = parseInt(id);
-    return acc;
-  },
-  {}
-);
+import {
+  EXPLORER_API_BASE_URL,
+  CREDITS,
+  SUB_TYPE,
+  SUB_TYPE_MAP,
+  LOCALS,
+} from "../../constants";
+import { isPrereqMet } from "../../utils/courseCategoriser";
+import logger from "../../log";
+import CourseDropdown from "../common/CourseDropdown";
 
 function SemesterComponent({
   semesterYear,
@@ -37,7 +17,6 @@ function SemesterComponent({
   onNextSemester,
   selectedCourses,
   setSelectedCourses,
-  completedCourses,
 }) {
   const [courses, setCourses] = useState([]);
   const [prerequisites, setPrerequisites] = useState({});
@@ -50,8 +29,6 @@ function SemesterComponent({
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
-  const [semesterId, setSemesterId] = useState(1);
-  const menuRef = useRef(null);
 
   // Function to categorize courses based on selected courses
   const updateCategorizedCourses = (
@@ -59,12 +36,10 @@ function SemesterComponent({
     prereqMap,
     selectedCourses,
     calculatedSemesterId,
-    selectedSubTypeIds
+    selectedSubTypeIds,
   ) => {
-    const semesterIdKey = `Semester ${semesterNumber}`;
-
     // Step 1: Load credit transfers from QnA
-    const qnaData = localStorage.getItem("qnaResponses");
+    const qnaData = localStorage.getItem(LOCALS.qnaResponses);
     let completedCourses = [];
     if (qnaData) {
       const parsedQna = JSON.parse(qnaData);
@@ -88,59 +63,54 @@ function SemesterComponent({
     completedCourses = [...new Set(completedCourses)]; // ensure uniqueness
 
     const semesterCourses = allCourses.filter((course) =>
-      course.semesters.some((sem) => sem.semester_id === calculatedSemesterId)
+      course.semesters.some((sem) => sem.semester_id === calculatedSemesterId),
     );
     const subTypeFiltered = semesterCourses.filter((course) =>
       selectedSubTypeIds.some((subTypeId) =>
-        course.sub_type_ids.includes(subTypeId)
-      )
+        course.sub_type_ids.includes(subTypeId),
+      ),
     );
     const availableAfterCreditTransfer = subTypeFiltered.filter(
-      (course) => !completedCourses.includes(course.id)
+      (course) => !completedCourses.includes(course.id),
     );
     const availableAfterPrereqs = availableAfterCreditTransfer.filter(
       (course) => {
         const prereqString = prereqMap[course.id];
-        if (!prereqString || prereqString === "null") return true;
-        const andGroups = prereqString
-          .split(" AND ")
-          .map((group) => group.trim());
-        return andGroups.every((group) => {
-          const orCourses = group.split(" OR ").map((id) => id.trim());
-          return orCourses.some((courseId) =>
-            completedCourses.includes(courseId)
-          );
-        });
-      }
+        return isPrereqMet(prereqString, completedCourses);
+      },
     );
     setInitialAvailableCourses(availableAfterPrereqs);
 
     let recommended = [];
     const maxYear = Math.max(...availableAfterPrereqs.map((c) => c.year), 1);
     let totalCredits = 0;
-    for (let year = 1; year <= maxYear && totalCredits < 48; year++) {
+    for (
+      let year = 1;
+      year <= maxYear && totalCredits < CREDITS.SEMESTER_LOAD;
+      year++
+    ) {
       const yearCourses = availableAfterPrereqs.filter(
-        (course) => course.year === year
+        (course) => course.year === year,
       );
       totalCredits += yearCourses.reduce(
         (sum, course) => sum + course.credit,
-        0
+        0,
       );
       recommended.push(...yearCourses);
     }
     setRecommendedCourses(recommended);
 
-    console.log("initialAvailableCourses:", availableAfterPrereqs);
-    console.log("recommendedCourses:", recommended);
+    logger.log("initialAvailableCourses:", availableAfterPrereqs);
+    logger.log("recommendedCourses:", recommended);
 
     // Get IDs of all selected courses across *all semesters*
     const allSelectedCourseIds = Object.values(selectedCourses).flatMap(
-      (courses) => courses.map((c) => c.id)
+      (courses) => courses.map((c) => c.id),
     );
 
     // Then filter
     const availableFiltered = availableAfterPrereqs.filter(
-      (course) => !allSelectedCourseIds.includes(course.id)
+      (course) => !allSelectedCourseIds.includes(course.id),
     );
 
     const categorizedAvailable = {};
@@ -148,20 +118,25 @@ function SemesterComponent({
     // Check if a Program Course (17) is already selected
     const isProgramCourseSelected = Object.values(selectedCourses)
       .flat()
-      .some((course) => course.selected_sub_type_id === 17);
+      .some(
+        (course) => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE,
+      );
 
     availableFiltered.forEach((course) => {
       // Skip if already selected
       if (allSelectedCourseIds.includes(course.id)) return;
 
       // Always show Core
-      if (course.sub_type_ids.includes(1)) {
+      if (course.sub_type_ids.includes(SUB_TYPE.CORE)) {
         categorizedAvailable["Core"] = categorizedAvailable["Core"] || [];
         categorizedAvailable["Core"].push(course);
       }
 
       // Show Program Course only if one hasn't been selected yet
-      if (course.sub_type_ids.includes(17) && !isProgramCourseSelected) {
+      if (
+        course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) &&
+        !isProgramCourseSelected
+      ) {
         categorizedAvailable["Program Course"] =
           categorizedAvailable["Program Course"] || [];
         categorizedAvailable["Program Course"].push(course);
@@ -171,8 +146,8 @@ function SemesterComponent({
       course.sub_type_ids.forEach((subTypeId) => {
         if (
           selectedSubTypeIds.includes(subTypeId) &&
-          subTypeId !== 1 &&
-          subTypeId !== 17
+          subTypeId !== SUB_TYPE.CORE &&
+          subTypeId !== SUB_TYPE.PROGRAM_COURSE
         ) {
           const subTypeName =
             SUB_TYPE_MAP[subTypeId] || `Unknown Sub-Type (${subTypeId})`;
@@ -190,19 +165,22 @@ function SemesterComponent({
     setCategorizedAvailableCourses(categorizedAvailable);
 
     const recommendedFiltered = recommended.filter(
-      (course) => !allSelectedCourseIds.includes(course.id)
+      (course) => !allSelectedCourseIds.includes(course.id),
     );
 
     const categorizedRecommended = {};
 
     // Same check for already selected Program Course
     recommendedFiltered.forEach((course) => {
-      if (course.sub_type_ids.includes(1)) {
+      if (course.sub_type_ids.includes(SUB_TYPE.CORE)) {
         categorizedRecommended["Core"] = categorizedRecommended["Core"] || [];
         categorizedRecommended["Core"].push(course);
       }
 
-      if (course.sub_type_ids.includes(17) && !isProgramCourseSelected) {
+      if (
+        course.sub_type_ids.includes(SUB_TYPE.PROGRAM_COURSE) &&
+        !isProgramCourseSelected
+      ) {
         categorizedRecommended["Program Course"] =
           categorizedRecommended["Program Course"] || [];
         categorizedRecommended["Program Course"].push(course);
@@ -211,8 +189,8 @@ function SemesterComponent({
       course.sub_type_ids.forEach((subTypeId) => {
         if (
           selectedSubTypeIds.includes(subTypeId) &&
-          subTypeId !== 1 &&
-          subTypeId !== 17
+          subTypeId !== SUB_TYPE.CORE &&
+          subTypeId !== SUB_TYPE.PROGRAM_COURSE
         ) {
           const subTypeName =
             SUB_TYPE_MAP[subTypeId] || `Unknown Sub-Type (${subTypeId})`;
@@ -229,11 +207,8 @@ function SemesterComponent({
 
     setCategorizedRecommendedCourses(categorizedRecommended);
 
-    console.log(
-      "categorizedRecommendedCourses:",
-      categorizedRecommendedCourses
-    );
-    console.log("categorizedAvailableCourses:", categorizedAvailableCourses);
+    logger.log("categorizedRecommendedCourses:", categorizedRecommendedCourses);
+    logger.log("categorizedAvailableCourses:", categorizedAvailableCourses);
   };
 
   useEffect(() => {
@@ -241,7 +216,7 @@ function SemesterComponent({
     setIsLoading(true);
     setFetchError(null);
 
-    const storedData = localStorage.getItem("qnaResponses");
+    const storedData = localStorage.getItem(LOCALS.qnaResponses);
     let startingSemesterId = 1;
     if (storedData) {
       const studyPlan = JSON.parse(storedData);
@@ -250,10 +225,9 @@ function SemesterComponent({
     const offset = (semesterNumber - 1) % 2;
     const calculatedSemesterId =
       startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
-    setSemesterId(calculatedSemesterId);
 
-    let selectedSubTypeIds = [1, 17];
-    const combinationData = localStorage.getItem("combinationSelections");
+    let selectedSubTypeIds = [1, SUB_TYPE.PROGRAM_COURSE];
+    const combinationData = localStorage.getItem(LOCALS.combinationSelections);
     if (combinationData) {
       try {
         const parsed = JSON.parse(combinationData);
@@ -275,18 +249,20 @@ function SemesterComponent({
     // Fetch data only if courses or prerequisites are not already loaded
     if (courses.length === 0 || Object.keys(prerequisites).length === 0) {
       Promise.all([
-        fetch(`${API_BASE_URL}/available-courses`).then((res) => {
+        fetch(`${EXPLORER_API_BASE_URL}/available-courses`).then((res) => {
           if (!res.ok) throw new Error("Failed to fetch courses");
           return res.json();
         }),
-        fetch(`${API_BASE_URL}/all-courses-with-prerequisites`).then((res) => {
-          if (!res.ok) throw new Error("Failed to fetch prerequisites");
-          return res.json();
-        }),
+        fetch(`${EXPLORER_API_BASE_URL}/all-courses-with-prerequisites`).then(
+          (res) => {
+            if (!res.ok) throw new Error("Failed to fetch prerequisites");
+            return res.json();
+          },
+        ),
       ])
         .then(([courseData, prereqData]) => {
-          console.log("Fetched courseData:", courseData);
-          console.log("Fetched prereqData:", prereqData);
+          logger.log("Fetched courseData:", courseData);
+          logger.log("Fetched prereqData:", prereqData);
           const newCourses = courseData.map((c) => ({
             id: c.course_id,
             name: c.course_title,
@@ -308,7 +284,7 @@ function SemesterComponent({
             prereqMap,
             selectedCourses,
             calculatedSemesterId,
-            selectedSubTypeIds
+            selectedSubTypeIds,
           );
           setIsLoading(false);
         })
@@ -324,7 +300,7 @@ function SemesterComponent({
         prerequisites,
         selectedCourses,
         calculatedSemesterId,
-        selectedSubTypeIds
+        selectedSubTypeIds,
       );
       setIsLoading(false);
     }
@@ -360,14 +336,14 @@ function SemesterComponent({
         },
       ];
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
-      localStorage.setItem("semesterSelections", JSON.stringify(updated)); // Persist immediately
+      localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(updated)); // Persist immediately
       const completed = JSON.parse(
-        localStorage.getItem("completedCourses") || "[]"
+        localStorage.getItem(LOCALS.completedCourses) || "[]",
       );
       completed.push(course.id);
       localStorage.setItem(
-        "completedCourses",
-        JSON.stringify([...new Set(completed)])
+        LOCALS.completedCourses,
+        JSON.stringify([...new Set(completed)]),
       );
       return updated;
     });
@@ -379,16 +355,16 @@ function SemesterComponent({
     setSelectedCourses((prev) => {
       const currentCourses = prev[semesterIdKey] || [];
       const updatedCourses = currentCourses.filter(
-        (course) => course.id !== courseId
+        (course) => course.id !== courseId,
       );
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
       // Step 1: Recalculate completed courses
       const updatedCompleted = Object.values(updated).flatMap((courses) =>
-        courses.map((c) => c.id)
+        courses.map((c) => c.id),
       );
       localStorage.setItem(
-        "completedCourses",
-        JSON.stringify([...new Set(updatedCompleted)])
+        LOCALS.completedCourses,
+        JSON.stringify([...new Set(updatedCompleted)]),
       );
       // Step 2: Remove invalid future selections
       const newState = { ...updated };
@@ -407,7 +383,7 @@ function SemesterComponent({
             return andGroups.every((group) => {
               const orCourses = group.split(" OR ").map((id) => id.trim());
               return orCourses.some((prereqId) =>
-                updatedCompleted.includes(prereqId)
+                updatedCompleted.includes(prereqId),
               );
             });
           });
@@ -416,37 +392,8 @@ function SemesterComponent({
           }
         }
       });
-      localStorage.setItem("semesterSelections", JSON.stringify(newState));
+      localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(newState));
       return newState;
-    });
-  };
-
-  const handleCourseChange = (oldCourseId, newCourse) => {
-    const semesterIdKey = `Semester ${semesterNumber}`;
-    setSelectedCourses((prev) => {
-      const currentCourses = prev[semesterIdKey] || [];
-      const updatedCourses = currentCourses.map((course) =>
-        course.id === oldCourseId
-          ? {
-              id: newCourse.id,
-              name: newCourse.name,
-              credit: newCourse.credit,
-              sub_type_ids: course.sub_type_ids,
-            }
-          : course
-      );
-      const updated = { ...prev, [semesterIdKey]: updatedCourses };
-      localStorage.setItem("semesterSelections", JSON.stringify(updated)); // Persist immediately
-      const completed = JSON.parse(
-        localStorage.getItem("completedCourses") || "[]"
-      );
-      const updatedCompleted = completed.filter((id) => id !== oldCourseId);
-      updatedCompleted.push(newCourse.id);
-      localStorage.setItem(
-        "completedCourses",
-        JSON.stringify([...new Set(updatedCompleted)])
-      );
-      return updated;
     });
   };
 
@@ -462,30 +409,29 @@ function SemesterComponent({
   const totalCredits =
     selectedCourses[`Semester ${semesterNumber}`]?.reduce(
       (sum, course) => sum + course.credit,
-      0
+      0,
     ) || 0;
 
   if (isLoading) return <div className="loading-msg">Loading courses...</div>;
-  if (fetchError)
-    return <div className="error-message">Error: {fetchError}</div>;
+  if (fetchError) return <div className="error-msg">Error: {fetchError}</div>;
 
   const allAvailableCourses = Object.values(categorizedAvailableCourses).flat();
   const allRecommendedCourses = Object.values(
-    categorizedRecommendedCourses
+    categorizedRecommendedCourses,
   ).flat();
 
   return (
-    <div className="semester-container" ref={menuRef}>
+    <div className="semester-container">
       <div className="semester-header">
         <h4>
           Semester {semesterNumber} (Year {semesterYear})
         </h4>
         <span className="credit-total">
           Total Credits: {totalCredits}{" "}
-          {totalCredits === 48 && (
+          {totalCredits === CREDITS.SEMESTER_LOAD && (
             <span className="normal-load">✅ Normal Load</span>
           )}
-          {totalCredits < 48 && (
+          {totalCredits < CREDITS.SEMESTER_LOAD && (
             <span
               className="underload clickable-warning"
               title="Click to see why underloading needs approval 🦥"
@@ -493,15 +439,15 @@ function SemesterComponent({
                 alert(
                   `🦥 Not in a rush, huh?\n\n` +
                     `You're currently underloading with ${totalCredits} credits.\n` +
-                    `Students are normally expected to take 48 credits per semester.\n\n` +
-                    `To take fewer, you'll need approval from your Program Manager.`
+                    `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
+                    `To take fewer, you'll need approval from your Program Manager.`,
                 )
               }
             >
               ⚠️ Underloading
             </span>
           )}
-          {totalCredits > 48 && (
+          {totalCredits > CREDITS.SEMESTER_LOAD && (
             <span
               className="overload clickable-warning"
               title="Click to see why overloading needs approval 🦘"
@@ -509,8 +455,8 @@ function SemesterComponent({
                 alert(
                   `🦘 That’s quite a leap!\n\n` +
                     `You're currently overloading with ${totalCredits} credits.\n` +
-                    `Students are normally expected to take 48 credits per semester.\n\n` +
-                    `To take more, you'll need approval from your Program Manager.`
+                    `Students are normally expected to take ${CREDITS.SEMESTER_LOAD} credits per semester.\n\n` +
+                    `To take more, you'll need approval from your Program Manager.`,
                 )
               }
             >
@@ -523,89 +469,13 @@ function SemesterComponent({
         {selectedCourses[`Semester ${semesterNumber}`]?.map((course) => (
           <div key={course.id} className="course-tag">
             <div className="dropdown-group">
-              <select
-                value=""
-                onChange={(e) => {
-                  const { id, subTypeId } = JSON.parse(e.target.value);
-                  const selectedCourse =
-                    allAvailableCourses.find((c) => c.id === id) ||
-                    allRecommendedCourses.find((c) => c.id === id);
-                  if (selectedCourse) {
-                    handleSelectCourse(selectedCourse, subTypeId);
-                  }
-                }}
-                className="course-select"
-              >
-                <option value={course.id}>
-                  {course.id} - {course.name} ({course.credit} credits)
-                </option>
-                {Object.entries(categorizedRecommendedCourses).length > 0 &&
-                  Object.entries(categorizedRecommendedCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`recommended-${subTypeName}`}
-                            label={`Recommended Courses - ${subTypeName}`}
-                          >
-                            {courses
-                              .filter((c) => c.id !== course.id)
-                              .map((c) => (
-                                <option
-                                  key={c.id}
-                                  value={JSON.stringify({
-                                    id: c.id,
-                                    subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                  })}
-                                  className={`sub-type-option sub-type-${subTypeName
-                                    .toLowerCase()
-                                    .replace(/[^a-z0-9]/g, "-")}`}
-                                >
-                                  {c.id} - {c.name} ({c.credit} credits)
-                                </option>
-                              ))}
-                          </optgroup>
-                        )
-                    )}
-                {Object.entries(categorizedAvailableCourses).length > 0 &&
-                  Object.entries(categorizedAvailableCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`available-${subTypeName}`}
-                            label={`More Available Courses - ${subTypeName}`}
-                          >
-                            {courses
-                              .filter(
-                                (c) =>
-                                  c.id !== course.id &&
-                                  !recommendedCourses.some((r) => r.id === c.id)
-                              )
-                              .map((c) => (
-                                <option
-                                  key={c.id}
-                                  value={JSON.stringify({
-                                    id: c.id,
-                                    subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                  })}
-                                  className={`sub-type-option sub-type-${subTypeName
-                                    .toLowerCase()
-                                    .replace(/[^a-z0-9]/g, "-")}`}
-                                >
-                                  {c.id} - {c.name} ({c.credit} credits)
-                                </option>
-                              ))}
-                          </optgroup>
-                        )
-                    )}
-              </select>
+              <CourseDropdown
+                categorizedRecommendedCourses={categorizedRecommendedCourses}
+                categorizedAvailableCourses={categorizedAvailableCourses}
+                recommendedCourses={recommendedCourses}
+                currentCourse={course}
+                onSelect={handleSelectCourse}
+              />
             </div>
             <div className="prerequisites">
               Prerequisites: {prerequisites[course.id] || "None"}
@@ -621,97 +491,17 @@ function SemesterComponent({
         {showAddCourse && (
           <div className="course-tag">
             <div className="dropdown-group">
-              <select
-                value=""
-                onChange={(e) => {
-                  const { id, subTypeId } = JSON.parse(e.target.value);
-                  const selectedCourse =
-                    allAvailableCourses.find((c) => c.id === id) ||
-                    allRecommendedCourses.find((c) => c.id === id);
-                  if (selectedCourse) {
-                    handleSelectCourse(selectedCourse, subTypeId);
-                  }
-                }}
-                className="course-select"
-              >
-                <option value="" disabled>
-                  Select a course
-                </option>
-                {Object.entries(categorizedRecommendedCourses).length > 0 &&
-                  Object.entries(categorizedRecommendedCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`recommended-${subTypeName}`}
-                            label={`Recommended Courses - ${subTypeName}`}
-                          >
-                            {courses.map((c) => (
-                              <option
-                                key={c.id}
-                                value={JSON.stringify({
-                                  id: c.id,
-                                  subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                })}
-                                className={`sub-type-option sub-type-${subTypeName
-                                  .toLowerCase()
-                                  .replace(/[^a-z0-9]/g, "-")}`}
-                              >
-                                {c.id} - {c.name} ({c.credit} credits){" "}
-                                {prerequisites[c.id]
-                                  ? `[Prereqs: ${prerequisites[c.id]}]`
-                                  : ""}
-                              </option>
-                            ))}
-                          </optgroup>
-                        )
-                    )}
-                {Object.entries(categorizedAvailableCourses).length > 0 &&
-                  Object.entries(categorizedAvailableCourses)
-                    .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
-                    )
-                    .map(
-                      ([subTypeName, courses]) =>
-                        courses.length > 0 && (
-                          <optgroup
-                            key={`available-${subTypeName}`}
-                            label={`More Available Courses - ${subTypeName}`}
-                          >
-                            {courses
-                              .filter(
-                                (c) =>
-                                  !recommendedCourses.some((r) => r.id === c.id)
-                              )
-                              .map((c) => (
-                                <option
-                                  key={c.id}
-                                  value={JSON.stringify({
-                                    id: c.id,
-                                    subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                                  })}
-                                  className={`sub-type-option sub-type-${subTypeName
-                                    .toLowerCase()
-                                    .replace(/[^a-z0-9]/g, "-")}`}
-                                >
-                                  {c.id} - {c.name} ({c.credit} credits){" "}
-                                  {prerequisites[c.id]
-                                    ? `[Prereqs: ${prerequisites[c.id]}]`
-                                    : ""}
-                                </option>
-                              ))}
-                          </optgroup>
-                        )
-                    )}
-              </select>
+              <CourseDropdown
+                categorizedRecommendedCourses={categorizedRecommendedCourses}
+                categorizedAvailableCourses={categorizedAvailableCourses}
+                recommendedCourses={recommendedCourses}
+                prerequisites={prerequisites}
+                placeholder="Select a course"
+                showPrereqs
+                onSelect={handleSelectCourse}
+              />
             </div>
-            <div
-              className="remove-btn"
-              onClick={() => setShowAddCourse(false)}
-            >
+            <div className="remove-btn" onClick={() => setShowAddCourse(false)}>
               ×
             </div>
           </div>
