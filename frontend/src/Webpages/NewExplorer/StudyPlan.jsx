@@ -13,6 +13,7 @@ import {
   PROGRAM_CODE,
   SUB_TYPE,
 } from "../../constants";
+import ProgressComponent from "../../Components/common/ProgressComponent";
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -414,41 +415,22 @@ function StudyPlan() {
             <h4>Credit Breakdown</h4>
 
             {/* Core */}
-            <div className="progress-item">
-              <div className="progress-label">
-                <span>Core : </span>
-                <span>
-                  {coreCredits}/{CREDITS.CORE_TOTAL}
-                </span>
-              </div>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{
-                    width: `${(coreCredits / CREDITS.CORE_TOTAL) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
+            <ProgressComponent
+              label="Core"
+              valueText={`${coreCredits}/${CREDITS.CORE_TOTAL}`}
+              percentage={(coreCredits / CREDITS.CORE_TOTAL) * 100}
+            />
 
             {/* Program Course */}
-            <div className="progress-item">
-              <div className="progress-label">
-                <span>Program Course : </span>
-                <span>
-                  {calculateProgramCourseCredits(selectedCourses)}/$
-                  {CREDITS.PROGRAM_COURSE_TOTAL}
-                </span>
-              </div>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{
-                    width: `${(calculateProgramCourseCredits(selectedCourses) / CREDITS.PROGRAM_COURSE_TOTAL) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
+            <ProgressComponent
+              label="Program Course"
+              valueText={`${calculateProgramCourseCredits(selectedCourses)}/${CREDITS.PROGRAM_COURSE_TOTAL}`}
+              percentage={
+                (calculateProgramCourseCredits(selectedCourses) /
+                  CREDITS.PROGRAM_COURSE_TOTAL) *
+                100
+              }
+            />
 
             {/* Combo breakdowns */}
             {majorMinorBreakdown.map((item, index) => {
@@ -457,32 +439,18 @@ function StudyPlan() {
                 required: item.target,
               };
               return (
-                <div key={index} className="progress-item">
-                  <div className="progress-label">
-                    <span>{item.label} : </span>
-                    <span>
-                      {progress.earned}/
-                      {progress.min != null && progress.max != null
-                        ? `${progress.min}-${progress.max}`
-                        : (progress.required ?? "N/A")}
-                    </span>
-
-                    {progress.over && (
-                      <div className="credit-warning">
-                        ⚠️ Exceeds maximum allowed credits
-                      </div>
-                    )}
-                  </div>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{
-                        width: `${progress.percentage}%`,
-                        backgroundColor: progress.over ? "red" : undefined,
-                      }}
-                    />
-                  </div>
-                </div>
+                <ProgressComponent
+                  key={index}
+                  label={item.label}
+                  valueText={`${progress.earned}/${
+                    progress.min != null && progress.max != null
+                      ? `${progress.min}-${progress.max}`
+                      : (progress.required ?? "N/A")
+                  }`}
+                  percentage={progress.percentage}
+                  over={progress.over}
+                  warning="Exceeds maximum allowed credits"
+                />
               );
             })}
 
