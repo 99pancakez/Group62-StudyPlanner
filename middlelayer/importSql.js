@@ -10,6 +10,7 @@ async function importSQL() {
       host: config.HOST,
       user: config.USER,
       password: config.PASSWORD,
+      port: config.PORT,
       multipleStatements: true,
     });
 
