@@ -1,0 +1,570 @@
+:root {
+  --rmit-red: #e41c2c;
+  --leagues-blue: #171764;
+  --after-dark: #3d3736;
+  --white: #ffffff;
+  --black: #000000;
+}
+
+.admin-portal {
+  font-family: sans-serif;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.program-dropdown {
+  font-size: 16px;
+  padding: 6px 10px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.search-box {
+  padding: 8px 12px;
+  border: 1px solid var(--after-dark);
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 200px;
+}
+
+.dropdown-toggle {
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+}
+
+.dropdown-toggle:hover {
+  background-color: #3d373635;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: #fff;
+  border: 3px solid #ccc;
+  padding: 8px;
+  list-style: none;
+  margin: 0;
+  z-index: 1000;
+  min-width: 200px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  align-items: left;
+}
+
+.dropdown-menu li {
+  padding: 4px 0;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dropdown-menu li:hover {
+  background-color: var(--white);
+}
+
+.table-container {
+  overflow-x: auto;
+  position: relative; /* Establish a new stacking context */
+  z-index: 1; /* Lower than the dropdown menu */
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f4f4f4;
+}
+
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f4f4f4;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.course-table {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  display: table;
+  width: 1040px;
+  table-layout: fixed; 
+  background: #fff;
+}
+
+.course-code-cell {
+  font-family: Arial,sans-serif;
+  text-decoration: underline;
+  color: var(--rmit-red);
+}
+
+.table-header,
+.table-row {
+  display: table-row;
+  border-bottom: 1px solid #000000;
+  min-height: 48px;
+}
+
+.header-cell {
+  font-weight: bold;
+  background-color: var(--leagues-blue);
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 12px;
+  border-right: 1px solid #ddd;
+  color: var(--white)
+}
+
+.table-cell {
+  display: table-cell;
+  padding: 12px;
+  border-right: 1px solid #ddd;
+  border: 0.5px solid #ddd;
+  font-size: 14px;
+  position: relative; /* Ensure proper stacking context */
+  overflow: visible !important; /* Allow dropdown to overflow */
+  text-overflow: clip;
+  white-space: normal;
+  text-align: left;
+  vertical-align: middle;
+  max-width: 550px;
+  word-break: break-word;
+}
+
+.center-align-cell {
+  text-align: center;
+}
+
+.table-cell:last-child {
+  border-right: none;
+}
+
+.add-row .table-cell {
+  background: #f9f9f9;
+  text-align: center;
+  font-weight: 500;
+  color: #717375;
+  cursor: pointer;
+  display: table-cell;
+}
+
+.add-row .table-cell:hover {
+  background: #e6f0ff;
+}
+
+.checkbox-cell {
+  width: 40px !important;
+  text-align: center;
+}
+
+.bulk-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #f4f4f4;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  z-index: 999;
+}
+
+.bulk-actions > div {
+  width: 100%;
+  max-width: 1200px;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.sortable {
+  cursor: pointer;
+  position: relative;
+  padding-right: 20px;
+}
+
+.sortable:hover {
+  background-color: #171764d1;
+}
+
+.sort-indicator {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+}
+
+.sort-indicator svg {
+  fill: #333;
+}
+
+.resize-handle {
+  position: absolute;
+  right: -4px;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  background: transparent;
+  cursor: col-resize;
+  z-index: 10;
+}
+
+.resize-handle:hover,
+.resize-handle:active {
+  background: #aaa;
+}
+
+.url-cell,
+.text-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.url-text,
+.text-content {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-button,
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--after-dark);
+  transition: color 0.2s ease;
+}
+
+.link-button:hover,
+.copy-button:hover {
+  color: var(--rmit-red);
+}
+
+.link-icon,
+.copy-icon {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.link-button:hover .link-icon,
+.copy-button:hover .copy-icon {
+  transform: scale(1.2);
+}
+
+.success-icon {
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.link-button:not(:hover) .success-icon,
+.copy-button:not(:hover) .success-icon {
+  animation: fadeOut 0.2s ease forwards 0.8s;
+}
+
+.link-button:not(:hover) .link-icon,
+.copy-button:not(:hover) .copy-icon {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 12px;
+  justify-content: center;
+}
+
+.pagination-controls button {
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination-controls button.active-page {
+  background-color: #007bff;
+  border-color: #007bff;
+  font-weight: bold;
+}
+
+
+.multi-select {
+  width: 100% !important; /* Ensure the control takes full cell width */
+  min-width: 200px; /* Minimum width to ensure usability */
+  max-width: none !important; /* Override any max-width constraints */
+}
+
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  width: 800px; /* Or try 700px or 80% */
+  max-width: 90vw;
+  padding: 20px 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+
+.modal-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-actions button:first-child {
+  background-color: #d4f4dd;
+  border: 1px solid #22c55e;
+  color: #166534;
+}
+
+.modal-actions button:last-child {
+  background-color: #ffe4e6;
+  border: 1px solid #e11d48;
+  color: #881337;
+}
+
+.summary-box {
+  padding: 8px;
+  background-color: #f9f9f9;
+  border: 1px dashed #bbb;
+  border-radius: 6px;
+}
+
+.prereq-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.or-group {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.course-input {
+  display: flex;
+  align-items: center;
+}
+
+.course-input input {
+  padding: 6px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.or-button,
+.and-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.or-button:hover,
+.and-button:hover {
+  background-color: #e0e0e0;
+}
+
+.and-button-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.course-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.course-input input {
+  padding: 6px 0px 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.close-course-button {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #d9534f; /* Red color */
+  color: #ffffff; /* White "×" */
+  border: 2px solid #ffffff; /* White border */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.close-course-button:hover {
+  background-color: #c9302c; /* Slightly darker red on hover */
+}
+
+.course-select {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Ensure the dropdown menu stays within the OR group */
+/* Ensure the dropdown menu appears above all elements and isn't constrained by the table */
+.course-select__menu {
+  z-index: 10001;
+  position: absolute;
+  max-height: 300px;
+  overflow-y: auto;
+  width: auto;
+  min-width: 200px;
+  box-sizing: border-box;
+}
+
+/* Adjust the control (input area) to fit nicely */
+.course-select__control {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 32px;
+  font-size: 14px;
+
+  width: 100% !important; /* Ensure the control takes full cell width */
+  min-width: 200px; /* Minimum width to ensure usability */
+  max-width: none !important; /* Override any max-width constraints */
+}
+
+/* Ensure the dropdown arrow has enough space */
+.course-select__indicators {
+  padding-right: 8px;
+}
+
+/* Style the placeholder */
+.course-select__placeholder {
+  color: #999;
+}
+
+.remove-group-button {
+  background-color: #ffffff;
+  border: 1px solid #d9534f; /* Red border to indicate removal */
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #d9534f; /* Red text */
+  margin-top: 8px; /* Space between +OR and Remove buttons */
+}
+
+.remove-group-button:hover {
+  background-color: #f8d7da; /* Light red background on hover */
+}
+
+.selected-row-option {
+  background-color: #e0e0e0;
+  position: relative;
+  padding-right: 20px; /* Make space for the checkmark */
+}
+
+.selected-row-option::after {
+  content: "✓";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+}
