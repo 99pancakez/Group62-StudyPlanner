@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Qna from './Webpages/Qna/Qna';
 import StudyPlan from './Webpages/NewExplorer/StudyPlan';
+import AdminPortal from "./Webpages/AdminPortal/admin";
+import HistoryPage from "./Webpages/History/HistoryPage";
 
 function App() {
   const [selections, setSelections] = useState({});
@@ -18,6 +20,9 @@ function App() {
           <Route path="/studyplan" element={<StudyPlan/>}/>
           
         </Routes>  
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminPortal />} />
+          <Route path="/history" element={<HistoryPage />} />
       </div>
     </Router>
   );
