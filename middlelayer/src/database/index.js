@@ -22,8 +22,14 @@ db.Type = require("./models/type")(db.sequelize, DataTypes);
 db.SubType = require("./models/sub_type")(db.sequelize, DataTypes);
 db.CourseType = require("./models/course_type")(db.sequelize, DataTypes);
 db.Group = require("./models/group")(db.sequelize, DataTypes);
-db.PreRequisiteGroupAND = require("./models/pre_requisite_group_AND")(db.sequelize, DataTypes);
-db.PreRequisiteGroupOR = require("./models/pre_requisite_group_OR")(db.sequelize, DataTypes);
+db.PreRequisiteGroupAND = require("./models/pre_requisite_group_AND")(
+  db.sequelize,
+  DataTypes,
+);
+db.PreRequisiteGroupOR = require("./models/pre_requisite_group_OR")(
+  db.sequelize,
+  DataTypes,
+);
 db.Availability = require("./models/availability")(db.sequelize, DataTypes);
 db.CourseAvailability = require("./models/course_availability")(
   db.sequelize,
@@ -251,6 +257,34 @@ db.RequisiteGroup.belongsTo(db.RequisiteRule, {
   foreignKey: { name: "rule_id", allowNull: false },
 });
 
+// requisite_group self-reference (parent/children)
+db.RequisiteGroup.belongsTo(db.RequisiteGroup, {
+  foreignKey: { name: "parent_group_id", allowNull: true },
+  as: "parent",
+});
+db.RequisiteGroup.hasMany(db.RequisiteGroup, {
+  foreignKey: { name: "parent_group_id", allowNull: true },
+  as: "children",
+});
+
+// requisite_group to requisite (one-to-many)
+db.RequisiteGroup.hasMany(db.Requisite, {
+  foreignKey: { name: "group_id", allowNull: false },
+  as: "requisites",
+});
+db.Requisite.belongsTo(db.RequisiteGroup, {
+  foreignKey: { name: "group_id", allowNull: false },
+});
+
+// course (as required) to requisite (one-to-many)
+db.Course.hasMany(db.Requisite, {
+  foreignKey: { name: "course_id", allowNull: false },
+  as: "requisites",
+});
+db.Requisite.belongsTo(db.Course, {
+  foreignKey: { name: "course_id", allowNull: false },
+  as: "required_course",
+});
 
 // Include a sync option
 db.sync = async () => {

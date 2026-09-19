@@ -1,68 +1,68 @@
 .semester-container {
   background: #f9f9f9;
-  padding: 20px; 
+  padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   width: 100%;
-  min-height: 250px; 
+  min-height: 250px;
 }
 
 .semester-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px; 
+  margin-bottom: 12px;
 }
 
 .semester-header h4 {
-  font-size: 18px; 
+  font-size: 18px;
   color: #333;
   margin: 0;
 }
 
 .credit-total {
-  font-size: 16px; 
+  font-size: 16px;
   color: #777;
 }
 
 .course-area {
-  margin-bottom: 12px; 
+  margin-bottom: 12px;
 }
 
 .course-tag {
   position: relative;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: flex-start;
   background: #f5f5f5;
-  padding: 10px; 
+  padding: 10px;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   animation: fadeIn 0.3s ease-in;
 }
 
 .dropdown-group {
   display: flex;
   align-items: left;
-  gap: 8px; 
+  gap: 8px;
   flex: 1;
 }
 
 .course-select {
   border: none;
   background: transparent;
-  font-size: 16px; 
+  font-size: 16px;
   cursor: pointer;
-  padding: 4px; 
+  padding: 4px;
   width: 100%;
-  max-width: 320px; 
+  max-width: 320px;
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
   text-overflow: ellipsis;
-  line-height: 1.5; 
+  line-height: 1.5;
 }
 
 .course-select {
@@ -72,37 +72,77 @@
   line-height: 1.5;
   display: block;
   width: 100%;
-  max-width: 100%; 
+  max-width: 100%;
 }
 
 .course-select option {
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: 80%; 
+  max-width: 80%;
   padding: 4px;
 }
 
-.sub-type-core { background-color: #fff9c4; }
-.sub-type-cyber-security { background-color: #e0f2e9; }
-.sub-type-digital-innovation { background-color: #e3f2fd; }
-.sub-type-enterprise-systems-development { background-color: #f7f9e3; }
-.sub-type-artificial-intelligence-machine-learning { background-color: #ffebee; }
-.sub-type-blockchain-technologies { background-color: #ede7f6; }
-.sub-type-cloud-computing { background-color: #e0f7fa; }
-.sub-type-creative-computing { background-color: #fffde7; }
-.sub-type-cyber-assurance { background-color: #e8eaf6; }
-.sub-type-data-science { background-color: #eceff1; }
-.sub-type-design-develop-for-apple-platform { background-color: #fce4ec; }
-.sub-type-bioinformatics { background-color: #fff3e0; }
-.sub-type-blockchain-enabled-business { background-color: #e8f5e9; }
-.sub-type-business-analytics { background-color: #e1f5fe; }
-.sub-type-business-information-systems { background-color: #ffecb3; }
-.sub-type-cisco-networking { background-color: #e0f7fa; }
-.sub-type-data-analysis { background-color: #f3e5f5; }
-.sub-type-entrepreneurship { background-color: #ffccbc; }
-.sub-type-strategy-innovation { background-color: #d0f8ce; }
-.sub-type-university-elective { background-color: #f7f7f7; }
+.sub-type-core {
+  background-color: #fff9c4;
+}
+.sub-type-cyber-security {
+  background-color: #e0f2e9;
+}
+.sub-type-digital-innovation {
+  background-color: #e3f2fd;
+}
+.sub-type-enterprise-systems-development {
+  background-color: #f7f9e3;
+}
+.sub-type-artificial-intelligence-machine-learning {
+  background-color: #ffebee;
+}
+.sub-type-blockchain-technologies {
+  background-color: #ede7f6;
+}
+.sub-type-cloud-computing {
+  background-color: #e0f7fa;
+}
+.sub-type-creative-computing {
+  background-color: #fffde7;
+}
+.sub-type-cyber-assurance {
+  background-color: #e8eaf6;
+}
+.sub-type-data-science {
+  background-color: #eceff1;
+}
+.sub-type-design-develop-for-apple-platform {
+  background-color: #fce4ec;
+}
+.sub-type-bioinformatics {
+  background-color: #fff3e0;
+}
+.sub-type-blockchain-enabled-business {
+  background-color: #e8f5e9;
+}
+.sub-type-business-analytics {
+  background-color: #e1f5fe;
+}
+.sub-type-business-information-systems {
+  background-color: #ffecb3;
+}
+.sub-type-cisco-networking {
+  background-color: #e0f7fa;
+}
+.sub-type-data-analysis {
+  background-color: #f3e5f5;
+}
+.sub-type-entrepreneurship {
+  background-color: #ffccbc;
+}
+.sub-type-strategy-innovation {
+  background-color: #d0f8ce;
+}
+.sub-type-university-elective {
+  background-color: #f7f7f7;
+}
 
 .course-select optgroup[label] {
   font-weight: bold;
@@ -110,8 +150,13 @@
   font-size: 16px; /* Moderate size */
 }
 
-.course-select::-webkit-scrollbar { width: 8px; } /* Slightly wider */
-.course-select::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+.course-select::-webkit-scrollbar {
+  width: 8px;
+} /* Slightly wider */
+.course-select::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 4px;
+}
 
 .semester-label {
   font-size: 16px;
@@ -144,7 +189,7 @@
 .add-course-btn {
   display: flex;
   align-items: center;
-  padding: 8px 15px; 
+  padding: 8px 15px;
   background: #e8ecef;
   border: none;
   border-radius: 5px;
@@ -154,8 +199,8 @@
 }
 
 .add-course-btn span {
-  margin-right: 8px; 
-  font-size: 18px; 
+  margin-right: 8px;
+  font-size: 18px;
   line-height: 1.2;
 }
 
@@ -172,7 +217,9 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px; /* Moderate size */
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .next-semester-btn:hover:not(.disabled) {
@@ -194,8 +241,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .prerequisites {
@@ -203,7 +256,7 @@
   color: #666;
   margin-top: 5px;
   font-style: italic;
-  white-space: normal;      
+  white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;

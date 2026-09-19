@@ -28,7 +28,7 @@ const SUB_TYPE_NAME_TO_ID = Object.entries(SUB_TYPE_MAP).reduce(
     acc[name] = parseInt(id);
     return acc;
   },
-  {}
+  {},
 );
 
 function SemesterComponent({
@@ -59,7 +59,7 @@ function SemesterComponent({
     prereqMap,
     selectedCourses,
     calculatedSemesterId,
-    selectedSubTypeIds
+    selectedSubTypeIds,
   ) => {
     const semesterIdKey = `Semester ${semesterNumber}`;
 
@@ -88,15 +88,15 @@ function SemesterComponent({
     completedCourses = [...new Set(completedCourses)]; // ensure uniqueness
 
     const semesterCourses = allCourses.filter((course) =>
-      course.semesters.some((sem) => sem.semester_id === calculatedSemesterId)
+      course.semesters.some((sem) => sem.semester_id === calculatedSemesterId),
     );
     const subTypeFiltered = semesterCourses.filter((course) =>
       selectedSubTypeIds.some((subTypeId) =>
-        course.sub_type_ids.includes(subTypeId)
-      )
+        course.sub_type_ids.includes(subTypeId),
+      ),
     );
     const availableAfterCreditTransfer = subTypeFiltered.filter(
-      (course) => !completedCourses.includes(course.id)
+      (course) => !completedCourses.includes(course.id),
     );
     const availableAfterPrereqs = availableAfterCreditTransfer.filter(
       (course) => {
@@ -108,10 +108,10 @@ function SemesterComponent({
         return andGroups.every((group) => {
           const orCourses = group.split(" OR ").map((id) => id.trim());
           return orCourses.some((courseId) =>
-            completedCourses.includes(courseId)
+            completedCourses.includes(courseId),
           );
         });
-      }
+      },
     );
     setInitialAvailableCourses(availableAfterPrereqs);
 
@@ -120,11 +120,11 @@ function SemesterComponent({
     let totalCredits = 0;
     for (let year = 1; year <= maxYear && totalCredits < 48; year++) {
       const yearCourses = availableAfterPrereqs.filter(
-        (course) => course.year === year
+        (course) => course.year === year,
       );
       totalCredits += yearCourses.reduce(
         (sum, course) => sum + course.credit,
-        0
+        0,
       );
       recommended.push(...yearCourses);
     }
@@ -135,12 +135,12 @@ function SemesterComponent({
 
     // Get IDs of all selected courses across *all semesters*
     const allSelectedCourseIds = Object.values(selectedCourses).flatMap(
-      (courses) => courses.map((c) => c.id)
+      (courses) => courses.map((c) => c.id),
     );
 
     // Then filter
     const availableFiltered = availableAfterPrereqs.filter(
-      (course) => !allSelectedCourseIds.includes(course.id)
+      (course) => !allSelectedCourseIds.includes(course.id),
     );
 
     const categorizedAvailable = {};
@@ -190,7 +190,7 @@ function SemesterComponent({
     setCategorizedAvailableCourses(categorizedAvailable);
 
     const recommendedFiltered = recommended.filter(
-      (course) => !allSelectedCourseIds.includes(course.id)
+      (course) => !allSelectedCourseIds.includes(course.id),
     );
 
     const categorizedRecommended = {};
@@ -231,7 +231,7 @@ function SemesterComponent({
 
     console.log(
       "categorizedRecommendedCourses:",
-      categorizedRecommendedCourses
+      categorizedRecommendedCourses,
     );
     console.log("categorizedAvailableCourses:", categorizedAvailableCourses);
   };
@@ -308,7 +308,7 @@ function SemesterComponent({
             prereqMap,
             selectedCourses,
             calculatedSemesterId,
-            selectedSubTypeIds
+            selectedSubTypeIds,
           );
           setIsLoading(false);
         })
@@ -324,7 +324,7 @@ function SemesterComponent({
         prerequisites,
         selectedCourses,
         calculatedSemesterId,
-        selectedSubTypeIds
+        selectedSubTypeIds,
       );
       setIsLoading(false);
     }
@@ -362,12 +362,12 @@ function SemesterComponent({
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
       localStorage.setItem("semesterSelections", JSON.stringify(updated)); // Persist immediately
       const completed = JSON.parse(
-        localStorage.getItem("completedCourses") || "[]"
+        localStorage.getItem("completedCourses") || "[]",
       );
       completed.push(course.id);
       localStorage.setItem(
         "completedCourses",
-        JSON.stringify([...new Set(completed)])
+        JSON.stringify([...new Set(completed)]),
       );
       return updated;
     });
@@ -379,16 +379,16 @@ function SemesterComponent({
     setSelectedCourses((prev) => {
       const currentCourses = prev[semesterIdKey] || [];
       const updatedCourses = currentCourses.filter(
-        (course) => course.id !== courseId
+        (course) => course.id !== courseId,
       );
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
       // Step 1: Recalculate completed courses
       const updatedCompleted = Object.values(updated).flatMap((courses) =>
-        courses.map((c) => c.id)
+        courses.map((c) => c.id),
       );
       localStorage.setItem(
         "completedCourses",
-        JSON.stringify([...new Set(updatedCompleted)])
+        JSON.stringify([...new Set(updatedCompleted)]),
       );
       // Step 2: Remove invalid future selections
       const newState = { ...updated };
@@ -407,7 +407,7 @@ function SemesterComponent({
             return andGroups.every((group) => {
               const orCourses = group.split(" OR ").map((id) => id.trim());
               return orCourses.some((prereqId) =>
-                updatedCompleted.includes(prereqId)
+                updatedCompleted.includes(prereqId),
               );
             });
           });
@@ -433,18 +433,18 @@ function SemesterComponent({
               credit: newCourse.credit,
               sub_type_ids: course.sub_type_ids,
             }
-          : course
+          : course,
       );
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
       localStorage.setItem("semesterSelections", JSON.stringify(updated)); // Persist immediately
       const completed = JSON.parse(
-        localStorage.getItem("completedCourses") || "[]"
+        localStorage.getItem("completedCourses") || "[]",
       );
       const updatedCompleted = completed.filter((id) => id !== oldCourseId);
       updatedCompleted.push(newCourse.id);
       localStorage.setItem(
         "completedCourses",
-        JSON.stringify([...new Set(updatedCompleted)])
+        JSON.stringify([...new Set(updatedCompleted)]),
       );
       return updated;
     });
@@ -462,7 +462,7 @@ function SemesterComponent({
   const totalCredits =
     selectedCourses[`Semester ${semesterNumber}`]?.reduce(
       (sum, course) => sum + course.credit,
-      0
+      0,
     ) || 0;
 
   if (isLoading) return <div className="loading-msg">Loading courses...</div>;
@@ -471,7 +471,7 @@ function SemesterComponent({
 
   const allAvailableCourses = Object.values(categorizedAvailableCourses).flat();
   const allRecommendedCourses = Object.values(
-    categorizedRecommendedCourses
+    categorizedRecommendedCourses,
   ).flat();
 
   return (
@@ -494,7 +494,7 @@ function SemesterComponent({
                   `🦥 Not in a rush, huh?\n\n` +
                     `You're currently underloading with ${totalCredits} credits.\n` +
                     `Students are normally expected to take 48 credits per semester.\n\n` +
-                    `To take fewer, you'll need approval from your Program Manager.`
+                    `To take fewer, you'll need approval from your Program Manager.`,
                 )
               }
             >
@@ -510,7 +510,7 @@ function SemesterComponent({
                   `🦘 That’s quite a leap!\n\n` +
                     `You're currently overloading with ${totalCredits} credits.\n` +
                     `Students are normally expected to take 48 credits per semester.\n\n` +
-                    `To take more, you'll need approval from your Program Manager.`
+                    `To take more, you'll need approval from your Program Manager.`,
                 )
               }
             >
@@ -542,7 +542,7 @@ function SemesterComponent({
                 {Object.entries(categorizedRecommendedCourses).length > 0 &&
                   Object.entries(categorizedRecommendedCourses)
                     .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
+                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b),
                     )
                     .map(
                       ([subTypeName, courses]) =>
@@ -568,12 +568,12 @@ function SemesterComponent({
                                 </option>
                               ))}
                           </optgroup>
-                        )
+                        ),
                     )}
                 {Object.entries(categorizedAvailableCourses).length > 0 &&
                   Object.entries(categorizedAvailableCourses)
                     .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
+                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b),
                     )
                     .map(
                       ([subTypeName, courses]) =>
@@ -586,7 +586,9 @@ function SemesterComponent({
                               .filter(
                                 (c) =>
                                   c.id !== course.id &&
-                                  !recommendedCourses.some((r) => r.id === c.id)
+                                  !recommendedCourses.some(
+                                    (r) => r.id === c.id,
+                                  ),
                               )
                               .map((c) => (
                                 <option
@@ -603,7 +605,7 @@ function SemesterComponent({
                                 </option>
                               ))}
                           </optgroup>
-                        )
+                        ),
                     )}
               </select>
             </div>
@@ -640,7 +642,7 @@ function SemesterComponent({
                 {Object.entries(categorizedRecommendedCourses).length > 0 &&
                   Object.entries(categorizedRecommendedCourses)
                     .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
+                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b),
                     )
                     .map(
                       ([subTypeName, courses]) =>
@@ -667,12 +669,12 @@ function SemesterComponent({
                               </option>
                             ))}
                           </optgroup>
-                        )
+                        ),
                     )}
                 {Object.entries(categorizedAvailableCourses).length > 0 &&
                   Object.entries(categorizedAvailableCourses)
                     .sort(([a], [b]) =>
-                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b)
+                      a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b),
                     )
                     .map(
                       ([subTypeName, courses]) =>
@@ -684,7 +686,9 @@ function SemesterComponent({
                             {courses
                               .filter(
                                 (c) =>
-                                  !recommendedCourses.some((r) => r.id === c.id)
+                                  !recommendedCourses.some(
+                                    (r) => r.id === c.id,
+                                  ),
                               )
                               .map((c) => (
                                 <option
@@ -704,14 +708,11 @@ function SemesterComponent({
                                 </option>
                               ))}
                           </optgroup>
-                        )
+                        ),
                     )}
               </select>
             </div>
-            <div
-              className="remove-btn"
-              onClick={() => setShowAddCourse(false)}
-            >
+            <div className="remove-btn" onClick={() => setShowAddCourse(false)}>
               ×
             </div>
           </div>

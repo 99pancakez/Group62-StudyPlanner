@@ -1,12 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
-  const PreRequisiteGroupAND = sequelize.define(
-    "pre_requisite_group_AND",
+  const Requisite = sequelize.define(
+    "requisite",
     {
       group_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
-          model: "group",
+          model: "requisite_group",
           key: "group_id",
         },
       },
@@ -18,11 +18,20 @@ module.exports = (sequelize, DataTypes) => {
           key: "course_id",
         },
       },
+      relation: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
+      sort_order: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
     },
     {
       timestamps: false,
     },
   );
 
-  return PreRequisiteGroupAND;
+  return Requisite;
 };

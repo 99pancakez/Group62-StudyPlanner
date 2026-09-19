@@ -1,23 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
-  const Combination = sequelize.define(
-    "combination",
+  const RequisiteRule = sequelize.define(
+    "requisite_rule",
     {
-      combination_id: {
+      rule_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      combination_name: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-      },
-      program_code: {
+      target_course_id: {
         type: DataTypes.STRING(50),
         allowNull: false,
         references: {
-          model: "program_plan",
-          key: "program_code",
+          model: "course",
+          key: "course_id",
         },
+      },
+      enabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
     },
     {
@@ -25,5 +26,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  return Combination;
+  return RequisiteRule;
 };

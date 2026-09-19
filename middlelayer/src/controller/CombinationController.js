@@ -21,37 +21,37 @@ exports.getAllCombinations = async (req, res) => {
                   include: [
                     {
                       model: Type,
-                      include: [{ model: SubType }]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                      include: [{ model: SubType }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
 
-    const formatted = combinations.map(combo => {
+    const formatted = combinations.map((combo) => {
       return {
         id: combo.combination_id,
         name: combo.combination_name,
         credit: combo.total_credit,
-        groups: combo.combination_group_mappings.map(mapping => {
+        groups: combo.combination_group_mappings.map((mapping) => {
           const group = mapping.combination_group;
           const types = group.combo_group_type_mappings;
-          const subTypes = types.flatMap(t => t.type.sub_types);
+          const subTypes = types.flatMap((t) => t.type.sub_types);
           return {
             label: group.combo_group_label,
             credit: mapping.total_credit,
-            options: subTypes.map(s => ({
+            options: subTypes.map((s) => ({
               sub_type_id: s.sub_type_id,
               sub_type_name: s.sub_type_name,
-              course_type_id: s.course_type_id
-            }))
+              course_type_id: s.course_type_id,
+            })),
           };
-        })
-      }
+        }),
+      };
     });
 
     res.json(formatted);

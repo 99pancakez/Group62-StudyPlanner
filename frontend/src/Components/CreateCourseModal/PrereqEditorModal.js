@@ -1,13 +1,18 @@
-import React from 'react';
-import Select from 'react-select';
+import React from "react";
+import Select from "react-select";
 
-
-const PrereqEditorModal = ({ prerequisites, setPrerequisites, onClose, allCourseCodes = [], onSave }) => {
+const PrereqEditorModal = ({
+  prerequisites,
+  setPrerequisites,
+  onClose,
+  allCourseCodes = [],
+  onSave,
+}) => {
   console.log("⚡ allCourseCodes in modal:", allCourseCodes);
   const cleanAndSave = async () => {
     const cleaned = prerequisites
-      .map(group => group.map(code => code.trim()).filter(Boolean))
-      .filter(group => group.length > 0);
+      .map((group) => group.map((code) => code.trim()).filter(Boolean))
+      .filter((group) => group.length > 0);
 
     if (onSave) {
       await onSave(cleaned);
@@ -30,15 +35,16 @@ const PrereqEditorModal = ({ prerequisites, setPrerequisites, onClose, allCourse
                       menuPlacement="auto"
                       value={code ? { label: code, value: code } : null}
                       options={allCourseCodes
-                        .filter(c => typeof c === 'string' && c.trim() !== '')
+                        .filter((c) => typeof c === "string" && c.trim() !== "")
                         .map((code) => ({
                           label: code,
                           value: code,
-                        }))
-                      }
+                        }))}
                       onChange={(selectedOption) => {
                         const updated = [...prerequisites];
-                        updated[idx][i] = selectedOption ? selectedOption.value : '';
+                        updated[idx][i] = selectedOption
+                          ? selectedOption.value
+                          : "";
                         setPrerequisites(updated);
                       }}
                       placeholder={`Course ${i + 1}`}
@@ -55,7 +61,7 @@ const PrereqEditorModal = ({ prerequisites, setPrerequisites, onClose, allCourse
                           updated.splice(idx, 1);
                         }
                         if (updated.length === 0) {
-                          updated.push(['']);
+                          updated.push([""]);
                         }
                         setPrerequisites(updated);
                       }}
@@ -69,7 +75,7 @@ const PrereqEditorModal = ({ prerequisites, setPrerequisites, onClose, allCourse
                 className="or-button"
                 onClick={() => {
                   const updated = [...prerequisites];
-                  updated[idx].push('');
+                  updated[idx].push("");
                   setPrerequisites(updated);
                 }}
               >
@@ -81,7 +87,7 @@ const PrereqEditorModal = ({ prerequisites, setPrerequisites, onClose, allCourse
                   const updated = [...prerequisites];
                   updated.splice(idx, 1);
                   if (updated.length === 0) {
-                    updated.push(['']);
+                    updated.push([""]);
                   }
                   setPrerequisites(updated);
                 }}
@@ -93,7 +99,7 @@ const PrereqEditorModal = ({ prerequisites, setPrerequisites, onClose, allCourse
           <div className="and-button-container">
             <button
               className="and-button"
-              onClick={() => setPrerequisites([...prerequisites, ['']])}
+              onClick={() => setPrerequisites([...prerequisites, [""]])}
             >
               +AND
             </button>
@@ -101,13 +107,17 @@ const PrereqEditorModal = ({ prerequisites, setPrerequisites, onClose, allCourse
         </div>
 
         <div className="summary-box">
-          Summary:{' '}
-          {prerequisites.length === 0 || prerequisites.every(group => group.every(code => !code.trim()))
-            ? 'None'
+          Summary:{" "}
+          {prerequisites.length === 0 ||
+          prerequisites.every((group) => group.every((code) => !code.trim()))
+            ? "None"
             : prerequisites
-                .filter(group => group.some(code => code.trim()))
-                .map(group => `(${group.filter(code => code.trim()).join(' OR ')})`)
-                .join(' AND ')}
+                .filter((group) => group.some((code) => code.trim()))
+                .map(
+                  (group) =>
+                    `(${group.filter((code) => code.trim()).join(" OR ")})`,
+                )
+                .join(" AND ")}
         </div>
 
         <div className="modal-actions">
