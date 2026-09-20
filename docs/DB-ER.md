@@ -113,7 +113,7 @@ erDiagram
 
 # Co-requisites update
 
-The below diagram incorporates a potential update to the requisite logic. This 
+The below diagram incorporates a potential update to the requisite logic. This
 includes a centralised rule table, with groups and course requisites:
 
 ```mermaid

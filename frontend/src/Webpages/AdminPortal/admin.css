@@ -115,12 +115,12 @@
   overflow: hidden;
   display: table;
   width: 1040px;
-  table-layout: fixed; 
+  table-layout: fixed;
   background: #fff;
 }
 
 .course-code-cell {
-  font-family: Arial,sans-serif;
+  font-family: Arial, sans-serif;
   text-decoration: underline;
   color: var(--rmit-red);
 }
@@ -140,7 +140,7 @@
   vertical-align: middle;
   padding: 12px;
   border-right: 1px solid #ddd;
-  color: var(--white)
+  color: var(--white);
 }
 
 .table-cell {
@@ -285,7 +285,9 @@
   width: 12px;
   height: 12px;
   stroke: currentColor;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .link-button:hover .link-icon,
@@ -309,13 +311,21 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .pagination-controls {
@@ -341,13 +351,11 @@
   font-weight: bold;
 }
 
-
 .multi-select {
   width: 100% !important; /* Ensure the control takes full cell width */
   min-width: 200px; /* Minimum width to ensure usability */
   max-width: none !important; /* Override any max-width constraints */
 }
-
 
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.5);
@@ -368,9 +376,8 @@
   padding: 20px 30px;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
-
 
 .modal-actions {
   margin-top: 16px;

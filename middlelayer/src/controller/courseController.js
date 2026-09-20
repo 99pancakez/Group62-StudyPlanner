@@ -8,14 +8,17 @@ const {
   CourseAvailability,
   Availability,
   credit_points,
-  PreRequisiteGroupAND,
-  PreRequisiteGroupOR,
-  History,
-  Admin,
+  RequisiteRule,
 } = require("../database");
 const fieldNameMap = require("../utils/fieldNameMap");
 const Sequelize = require("sequelize");
 const { sequelize } = require("../database");
+const {
+  getCourseRequisites,
+  getAllCourseRequisites,
+  replaceCourseRequisites,
+  formatRequisites,
+} = require("./requisiteService");
 
 function readable(field) {
   return fieldNameMap[field] || field;
@@ -50,8 +53,7 @@ console.log("Imported models:", {
   Type,
   CourseAvailability,
   Availability,
-  PreRequisiteGroupAND,
-  PreRequisiteGroupOR,
+  RequisiteRule,
 });
 
 exports.getCoursesByProgram = async (req, res) => {
@@ -100,14 +102,6 @@ exports.getCoursesByProgram = async (req, res) => {
                 },
               ],
             },
-            {
-              model: PreRequisiteGroupAND,
-              as: "pre_requisite_group_ANDs",
-            },
-            {
-              model: PreRequisiteGroupOR,
-              as: "pre_requisite_group_ORs",
-            },
           ],
         },
       ],
@@ -135,34 +129,9 @@ exports.getCoursesByProgram = async (req, res) => {
         const isSemester2 = semesters.includes("Semester 2");
         const isFlexTerm = semesters.includes("Flex Term");
 
-        // Extract prerequisites
-        // Extract prerequisites using the same logic as CreateCourseModal summary
-        let prerequisites = "-";
-        if (course.prerequisite) {
-          const andGroups = await PreRequisiteGroupAND.findAll({
-            where: { course_id: course.course_id },
-          });
-
-          const groupIds = andGroups.map((g) => g.group_id);
-          const allGroups = await Promise.all(
-            groupIds.map(async (groupId) => {
-              const orCourses = await PreRequisiteGroupOR.findAll({
-                where: { group_id: groupId },
-                include: [
-                  {
-                    model: Course,
-                    attributes: ["course_code"],
-                    as: "prereq_course",
-                  },
-                ],
-              });
-              return orCourses.map((oc) => oc.prereq_course.course_code);
-            }),
-          );
-
-          prerequisites =
-            allGroups.map((group) => group.join(" OR ")).join(" AND ") || "-";
-        }
+        const reqs = await getCourseRequisites(course.course_id);
+        const prerequisites = formatRequisites(reqs).prerequisites || "-";
+        const corequisites = formatRequisites(reqs).corequisites || "-";
 
         return {
           "Course Code": course.course_code,
@@ -173,6 +142,7 @@ exports.getCoursesByProgram = async (req, res) => {
           "Semester 2": isSemester2,
           "Flex Term": isFlexTerm,
           "Pre-requisites": prerequisites,
+          "Co-requisites": corequisites,
           "Course Id": course.course_id,
           Year: course.year || "-",
           "Credit Points": course.course_credit || "",
@@ -205,7 +175,6 @@ exports.updateCourse = async (req, res) => {
       semester_1,
       semester_2,
       flex_term,
-      prerequisites,
     } = req.body;
 
     // Step 1: Find the course
@@ -465,52 +434,6 @@ exports.updateCourse = async (req, res) => {
         }
       }
     }
-    // Step 7: Update prerequisites
-    if (prerequisites && prerequisites !== "-") {
-      const prereqCodes = prerequisites
-        .split(" OR ")
-        .map((code) => code.trim());
-      const prereqCourses = await Course.findAll({
-        where: { course_code: prereqCodes },
-        attributes: ["course_id", "course_code"],
-      });
-
-      if (prereqCourses.length !== prereqCodes.length) {
-        return res.status(400).json({
-          success: false,
-          message: "Invalid prerequisite course codes",
-        });
-      }
-
-      // Update prerequisite flag
-      course.prerequisite = true;
-      await course.save();
-
-      // Clear existing groups
-      await PreRequisiteGroupAND.destroy({ where: { course_id: courseId } });
-      await PreRequisiteGroupOR.destroy({ where: { course_id: courseId } });
-
-      // Create new group
-      const group = await sequelize.models.group.create({});
-      const groupId = group.group_id;
-
-      await PreRequisiteGroupAND.create({
-        course_id: courseId,
-        group_id: groupId,
-      });
-
-      for (const prereqCourse of prereqCourses) {
-        await PreRequisiteGroupOR.create({
-          course_id: prereqCourse.course_id,
-          group_id: groupId,
-        });
-      }
-    } else if (prerequisites === "-") {
-      course.prerequisite = false;
-      await course.save();
-      await PreRequisiteGroupAND.destroy({ where: { course_id: courseId } });
-      await PreRequisiteGroupOR.destroy({ where: { course_id: courseId } });
-    }
 
     res
       .status(200)
@@ -621,28 +544,7 @@ exports.deleteCourse = async (req, res) => {
     await ProgramCourse.destroy({ where: { course_id: courseId } });
     await CourseType.destroy({ where: { course_id: courseId } });
     await CourseAvailability.destroy({ where: { course_id: courseId } });
-    // Handle prerequisite groups cleanup
-    const andGroups = await PreRequisiteGroupAND.findAll({
-      where: { course_id: courseId },
-    });
-
-    const groupIds = andGroups.map((g) => g.group_id);
-
-    // Delete AND groups for this course
-    await PreRequisiteGroupAND.destroy({ where: { course_id: courseId } });
-
-    for (const groupId of groupIds) {
-      // Check if any other AND entry still uses this group
-      const stillUsed = await PreRequisiteGroupAND.findOne({
-        where: { group_id: groupId },
-      });
-
-      if (!stillUsed) {
-        // No one else uses this group — delete its OR courses + the group
-        await PreRequisiteGroupOR.destroy({ where: { group_id: groupId } });
-        await sequelize.models.group.destroy({ where: { group_id: groupId } });
-      }
-    }
+    await RequisiteRule.destroy({ where: { target_course_id: courseId } });
 
     if (!stillUsed) {
       // No one else uses this group — delete its OR courses + the group
@@ -701,106 +603,28 @@ exports.createSubType = async (req, res) => {
   }
 };
 
-exports.getStructuredPrerequisites = async (req, res) => {
+exports.getRequisites = async (req, res) => {
   const { courseId } = req.params;
-
   try {
-    const andGroups = await PreRequisiteGroupAND.findAll({
-      where: { course_id: courseId },
-    });
-
-    const groupIds = andGroups.map((g) => g.group_id);
-
-    const allGroups = await Promise.all(
-      groupIds.map(async (groupId) => {
-        const orCourses = await PreRequisiteGroupOR.findAll({
-          where: { group_id: groupId },
-          include: [
-            { model: Course, attributes: ["course_code"], as: "prereq_course" },
-          ],
-        });
-
-        return orCourses.map((oc) => oc.prereq_course.course_code);
-      }),
-    );
-
-    res.json({ success: true, data: allGroups });
+    res.json({ success: true, data: await getCourseRequisites(courseId) });
   } catch (err) {
-    console.error("Error fetching structured prerequisites:", err);
+    console.error("Error fetching requisites:", err);
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
-exports.updateStructuredPrerequisites = async (req, res) => {
+exports.updateRequisites = async (req, res) => {
   const { courseId } = req.params;
-  const { prerequisites } = req.body;
-
-  console.log("🛠️ Called updateStructuredPrerequisites");
-  console.log("courseId param:", courseId);
-  console.log("prerequisites body:", prerequisites);
-
-  if (!Array.isArray(prerequisites)) {
-    return res.status(400).json({ success: false, message: "Invalid format" });
-  }
-
-  const course = await Course.findByPk(courseId);
-  if (!course) {
-    return res.status(404).json({
-      success: false,
-      message: `Course with ID ${courseId} not found`,
-    });
-  }
-
+  const { requisites } = req.body;
+  const adminId = 1; // replace with session id later
   try {
-    await PreRequisiteGroupAND.destroy({ where: { course_id: courseId } });
-
-    const Group = sequelize.models.group;
-
-    for (const orGroup of prerequisites) {
-      const group = await Group.create({ group_type: "prerequisite" });
-      const groupId = group.group_id;
-
-      await PreRequisiteGroupAND.create({
-        course_id: courseId,
-        group_id: groupId,
-      });
-
-      const prereqCourses = await Course.findAll({
-        where: { course_code: orGroup },
-        attributes: ["course_id", "course_code"],
-      });
-
-      if (prereqCourses.length !== orGroup.length) {
-        return res.status(400).json({
-          success: false,
-          message: "One or more course codes not found",
-          missing: orGroup.filter(
-            (code) => !prereqCourses.find((c) => c.course_code === code),
-          ),
-        });
-      }
-
-      for (const prereq of prereqCourses) {
-        await PreRequisiteGroupOR.create({
-          course_id: prereq.course_id,
-          group_id: groupId,
-        });
-      }
-    }
-
-    await course.update({ prerequisite: prerequisites.length > 0 });
-
-    await createHistory({
-      adminId: 1,
-      courseId,
-      fieldName: "structured_prerequisites",
-      oldValue: null,
-      newValue: prerequisites.map((group) => group.join(" OR ")).join(" AND "),
+    const result = await replaceCourseRequisites(courseId, requisites, {
+      adminId,
     });
-
-    res.json({ success: true, message: "Updated structured prerequisites" });
+    if (!result.success) return res.status(400).json(result);
+    res.json({ success: true, message: "Updated requisites" });
   } catch (err) {
-    console.error("❌ Error updating structured prerequisites:", err);
+    console.error("Error updating requisites:", err);
     res
       .status(500)
       .json({ success: false, message: "Server error", error: err.message });
@@ -834,6 +658,7 @@ exports.createCourse = async (req, res) => {
       availability = {},
       prerequisites,
       program_code,
+      requisites = [],
     } = req.body;
 
     const { semester1, semester2, flexTerm } = availability;
@@ -889,6 +714,23 @@ exports.createCourse = async (req, res) => {
       });
     }
 
+    const effective =
+      Array.isArray(requisites) && requisites.length > 0
+        ? requisites
+        : Array.isArray(prerequisites) && prerequisites.length > 0
+          ? prerequisites.map((grp) => ({
+              relation: "prerequisite",
+              courses: grp,
+            }))
+          : [];
+
+    const reqResult = await replaceCourseRequisites(course_id, effective, {
+      adminId,
+    });
+    if (!reqResult.success) {
+      return res.status(400).json(reqResult);
+    }
+
     // Create course
     const newCourse = await Course.create({
       course_id,
@@ -897,7 +739,7 @@ exports.createCourse = async (req, res) => {
       web_url,
       course_credit: credit_points,
       year,
-      prerequisite: Array.isArray(prerequisites) && prerequisites.length > 0,
+      prerequisite: effective.some((g) => g.relation === "prerequisite"),
     });
 
     // Link to program
@@ -921,40 +763,6 @@ exports.createCourse = async (req, res) => {
     for (const [value, id] of semesterMapping) {
       if (value) {
         await CourseAvailability.create({ course_id, semester_id: id });
-      }
-    }
-
-    // Link prerequisites (structured format)
-    if (Array.isArray(prerequisites) && prerequisites.length > 0) {
-      const Group = sequelize.models.group;
-
-      for (const orGroup of prerequisites) {
-        const group = await Group.create({ group_type: "prerequisite" });
-        const groupId = group.group_id;
-
-        await PreRequisiteGroupAND.create({ course_id, group_id: groupId });
-
-        const prereqCourses = await Course.findAll({
-          where: { course_code: orGroup },
-          attributes: ["course_id", "course_code"],
-        });
-
-        if (prereqCourses.length !== orGroup.length) {
-          return res.status(400).json({
-            success: false,
-            message: "One or more prerequisite course codes are invalid",
-            missing: orGroup.filter(
-              (code) => !prereqCourses.find((c) => c.course_code === code),
-            ),
-          });
-        }
-
-        for (const prereq of prereqCourses) {
-          await PreRequisiteGroupOR.create({
-            course_id: prereq.course_id,
-            group_id: groupId,
-          });
-        }
       }
     }
 
@@ -1044,18 +852,6 @@ exports.createCourse = async (req, res) => {
         oldValue: null,
         newValue: "Available",
       });
-
-    if (Array.isArray(prerequisites) && prerequisites.length > 0) {
-      await createHistory({
-        adminId,
-        courseId: course_id,
-        fieldName: "structured_prerequisites",
-        oldValue: null,
-        newValue: prerequisites
-          .map((group) => group.join(" OR "))
-          .join(" AND "),
-      });
-    }
 
     res.status(201).json({ success: true, data: newCourse });
   } catch (error) {

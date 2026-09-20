@@ -57,7 +57,9 @@ select,
   font-size: 1rem;
   box-sizing: border-box;
   margin-bottom: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 select:focus,
@@ -73,8 +75,8 @@ select:focus,
 }
 
 .search-input {
-  padding-right: 2.5rem; 
-  background-color: #f9f9f9; 
+  padding-right: 2.5rem;
+  background-color: #f9f9f9;
 }
 
 .suggestions-list {
@@ -126,7 +128,7 @@ select:focus,
   padding: 0.5rem;
   background-color: #f9f9f9;
   border-radius: 5px;
-  min-height: 2rem; 
+  min-height: 2rem;
 }
 
 .course-tag {
@@ -140,7 +142,7 @@ select:focus,
 }
 
 .course-tag:hover {
-  filter: brightness(90%); 
+  filter: brightness(90%);
 }
 
 .remove-course {

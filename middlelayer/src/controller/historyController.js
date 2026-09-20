@@ -1,17 +1,25 @@
-const db = require('../database');
+const db = require("../database");
 const Course = db.Course;
 const History = db.History;
 
 // Reusable function to log history entries
-async function createHistory({ adminId, courseId, fieldName, oldValue, newValue }) {
+async function createHistory({
+  adminId,
+  courseId,
+  fieldName,
+  oldValue,
+  newValue,
+}) {
   await History.create({
     admin_id: adminId,
     course_id: courseId,
     program_code: null,
     time_stamp: new Date(),
     field_name: fieldName,
-    old_value: oldValue !== undefined && oldValue !== null ? String(oldValue) : '',
-    new_value: newValue !== undefined && newValue !== null ? String(newValue) : ''
+    old_value:
+      oldValue !== undefined && oldValue !== null ? String(oldValue) : "",
+    new_value:
+      newValue !== undefined && newValue !== null ? String(newValue) : "",
   });
 }
 
@@ -20,8 +28,8 @@ exports.getCourses = async (req, res) => {
     const courses = await Course.findAll();
     res.json(courses);
   } catch (error) {
-    console.error('Error fetching courses:', error);
-    res.status(500).json({ message: 'Error fetching courses' });
+    console.error("Error fetching courses:", error);
+    res.status(500).json({ message: "Error fetching courses" });
   }
 };
 
@@ -35,14 +43,14 @@ exports.createCourse = async (req, res) => {
           courseId: newCourse.course_id,
           fieldName: key,
           oldValue: null,
-          newValue: req.body[key]
+          newValue: req.body[key],
         });
       }
     }
     res.status(201).json(newCourse);
   } catch (error) {
-    console.error('Error creating course:', error);
-    res.status(500).json({ message: 'Error creating course' });
+    console.error("Error creating course:", error);
+    res.status(500).json({ message: "Error creating course" });
   }
 };
 
@@ -52,26 +60,29 @@ exports.updateCourse = async (req, res) => {
     const existingCourse = await Course.findByPk(courseId);
 
     if (!existingCourse) {
-      return res.status(404).json({ message: 'Course not found' });
+      return res.status(404).json({ message: "Course not found" });
     }
 
     for (const key in req.body) {
-      if (req.body.hasOwnProperty(key) && existingCourse[key] !== req.body[key]) {
+      if (
+        req.body.hasOwnProperty(key) &&
+        existingCourse[key] !== req.body[key]
+      ) {
         await createHistory({
           adminId: 1,
           courseId,
           fieldName: key,
           oldValue: existingCourse[key],
-          newValue: req.body[key]
+          newValue: req.body[key],
         });
       }
     }
 
     await existingCourse.update(req.body);
-    res.json({ message: 'Course updated successfully' });
+    res.json({ message: "Course updated successfully" });
   } catch (error) {
-    console.error('Error updating course:', error);
-    res.status(500).json({ message: 'Error updating course' });
+    console.error("Error updating course:", error);
+    res.status(500).json({ message: "Error updating course" });
   }
 };
 
@@ -81,7 +92,7 @@ exports.deleteCourse = async (req, res) => {
     const existingCourse = await Course.findByPk(courseId);
 
     if (!existingCourse) {
-      return res.status(404).json({ message: 'Course not found' });
+      return res.status(404).json({ message: "Course not found" });
     }
 
     const courseData = existingCourse.toJSON();
@@ -92,16 +103,16 @@ exports.deleteCourse = async (req, res) => {
           courseId,
           fieldName: key,
           oldValue: courseData[key],
-          newValue: null
+          newValue: null,
         });
       }
     }
 
     await existingCourse.destroy();
-    res.json({ message: 'Course deleted successfully' });
+    res.json({ message: "Course deleted successfully" });
   } catch (error) {
-    console.error('Error deleting course:', error);
-    res.status(500).json({ message: 'Error deleting course' });
+    console.error("Error deleting course:", error);
+    res.status(500).json({ message: "Error deleting course" });
   }
 };
 
@@ -111,31 +122,28 @@ exports.getHistoryLogs = async (req, res) => {
       include: [
         {
           model: Course,
-          as: 'course',
-          attributes: ['course_title']
-        }
+          as: "course",
+          attributes: ["course_title"],
+        },
       ],
-      order: [['time_stamp', 'DESC']]
+      order: [["time_stamp", "DESC"]],
     });
 
-    const formattedLogs = logs.map(log => {
-      console.log('Joined Course:', log.course);
+    const formattedLogs = logs.map((log) => {
+      console.log("Joined Course:", log.course);
       return {
         time_stamp: log.time_stamp,
         admin_id: log.admin_id,
         course: log.course?.course_title || `Course ID ${log.course_id}`,
         field_name: log.field_name,
         old_value: log.old_value,
-        new_value: log.new_value
+        new_value: log.new_value,
       };
     });
 
     res.json(formattedLogs);
   } catch (error) {
-    console.error('Error fetching history:', error);
-    res.status(500).json({ message: 'Error fetching history' });
+    console.error("Error fetching history:", error);
+    res.status(500).json({ message: "Error fetching history" });
   }
-
-  
 };
-

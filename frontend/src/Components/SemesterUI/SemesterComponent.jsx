@@ -17,6 +17,7 @@ function SemesterComponent({
   onNextSemester,
   selectedCourses,
   setSelectedCourses,
+  completedCourses,
 }) {
   const [courses, setCourses] = useState([]);
   const [prerequisites, setPrerequisites] = useState({});

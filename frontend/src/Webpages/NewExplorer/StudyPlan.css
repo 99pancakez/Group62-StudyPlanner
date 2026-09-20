@@ -2,7 +2,6 @@
   max-width: 1200px;
   margin: 20px auto;
   padding-top: 60px;
-  
 }
 
 .top-row {
@@ -12,7 +11,9 @@
   margin-bottom: 20px;
 }
 
-.combination-box, .scorecard-box, .semester-box {
+.combination-box,
+.scorecard-box,
+.semester-box {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
@@ -79,7 +80,9 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -106,12 +109,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #ee8f13; 
+  background-color: #ee8f13;
   color: white;
   text-align: center;
   padding: 10px 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .download-link {

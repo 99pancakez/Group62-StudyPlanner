@@ -291,7 +291,7 @@ The detailed design is owned by the UX role and will be delivered as wireframes 
 The client raised these items in the first meeting but gave them low priority or marked them as future work. They are recorded here so they are not lost and can be reconsidered later.
 
 | Item                                                                                           | Client priority | Reason                                                  |
-|------------------------------------------------------------------------------------------------|-----------------|---------------------------------------------------------|
+| ---------------------------------------------------------------------------------------------- | --------------- | ------------------------------------------------------- |
 | Course advice, such as recommended study timing and warnings for difficult course combinations | Medium          | Not confirmed as a Sprint 2 deliverable                 |
 | Part-time study, underloading and overloading                                                  | Low             | The client indicated this is not a high priority        |
 | Credit transfer                                                                                | Low / Future    | Complex to implement and treated as an advanced feature |

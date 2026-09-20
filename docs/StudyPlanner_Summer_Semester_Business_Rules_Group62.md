@@ -68,12 +68,12 @@ The Programming Project 1 warning is based on accumulated credit points at that 
 
 ## 4. Impact on other requirements
 
-| Requirement | Impact |
-|---|---|
-| R4 Course database | Summer availability is part of the course data. The requirement that the data can be updated and shared is what makes BR4 possible. |
-| R5 Eligibility guidance | Summer study can bring a student to 192 credit points sooner, as described in BR8. |
-| R6 Flex term handling | Summer is separate from flex terms. Removing flex terms does not remove or change summer. |
-| R7 UI/UX | The summer semester needs the same card treatment as Semester 1 and Semester 2, positioned after Semester 2, and should not be labelled as optional. |
+| Requirement             | Impact                                                                                                                                               |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| R4 Course database      | Summer availability is part of the course data. The requirement that the data can be updated and shared is what makes BR4 possible.                  |
+| R5 Eligibility guidance | Summer study can bring a student to 192 credit points sooner, as described in BR8.                                                                   |
+| R6 Flex term handling   | Summer is separate from flex terms. Removing flex terms does not remove or change summer.                                                            |
+| R7 UI/UX                | The summer semester needs the same card treatment as Semester 1 and Semester 2, positioned after Semester 2, and should not be labelled as optional. |
 
 ## 5. Open point
 

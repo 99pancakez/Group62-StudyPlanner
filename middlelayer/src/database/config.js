@@ -1,7 +1,7 @@
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "root",
-    DB: "cs",
-    DIALECT: "mysql"
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "root",
+  DB: "cs",
+  DIALECT: "mysql",
 };

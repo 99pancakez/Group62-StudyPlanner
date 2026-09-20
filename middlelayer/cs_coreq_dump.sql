@@ -1,15 +1,15 @@
--- MySQL dump 10.13  Distrib 5.7.24, for osx11.1 (x86_64)
+-- MySQL dump 10.13  Distrib 26.7.0, for Win64 (x86_64)
 --
 -- Host: localhost    Database: cs
 -- ------------------------------------------------------
--- Server version	9.3.0
+-- Server version	26.7.0
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 
@@ -23,6 +23,12 @@
 
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+-- SET @@SESSION.SQL_LOG_BIN= 0;
+--
+-- GTID state at the beginning of the backup 
+--
+-- SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'f2e142f1-a341-11f1-b22e-80fa5b7bcae0:1-483';
 --
 -- Table structure for table `admin`
 --
@@ -30,7 +36,7 @@ DROP TABLE IF EXISTS `admin`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `admin` (
@@ -72,7 +78,7 @@ DROP TABLE IF EXISTS `availability`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `availability` (
@@ -108,7 +114,7 @@ DROP TABLE IF EXISTS `combination`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `combination` (
@@ -152,7 +158,7 @@ DROP TABLE IF EXISTS `combination_group`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `combination_group` (
@@ -191,7 +197,7 @@ DROP TABLE IF EXISTS `combination_group_mapping`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `combination_group_mapping` (
@@ -235,7 +241,7 @@ DROP TABLE IF EXISTS `combo_group_type_mapping`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `combo_group_type_mapping` (
@@ -281,7 +287,7 @@ DROP TABLE IF EXISTS `course`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `course` (
@@ -1014,7 +1020,7 @@ DROP TABLE IF EXISTS `course_availability`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `course_availability` (
@@ -1143,7 +1149,7 @@ DROP TABLE IF EXISTS `course_type`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `course_type` (
@@ -1279,171 +1285,13 @@ VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `group`
---
-DROP TABLE IF EXISTS `group`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-
-/*!40101 SET character_set_client = utf8 */;
-
-CREATE TABLE
-  `group` (
-    `group_id` int NOT NULL AUTO_INCREMENT,
-    `group_type` varchar(50) NOT NULL,
-    PRIMARY KEY (`group_id`)
-  ) ENGINE = InnoDB AUTO_INCREMENT = 141 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `group`
---
-LOCK TABLES `group` WRITE;
-
-/*!40000 ALTER TABLE `group` DISABLE KEYS */;
-
-INSERT INTO
-  `group`
-VALUES
-  (2, 'prerequisite'),
-  (3, 'prerequisite'),
-  (4, 'prerequisite'),
-  (5, 'prerequisite'),
-  (6, 'prerequisite'),
-  (7, 'prerequisite'),
-  (8, 'prerequisite'),
-  (10, 'prerequisite'),
-  (11, 'prerequisite'),
-  (12, 'prerequisite'),
-  (13, 'prerequisite'),
-  (14, 'prerequisite'),
-  (15, 'prerequisite'),
-  (16, 'prerequisite'),
-  (17, 'prerequisite'),
-  (20, 'prerequisite'),
-  (23, 'prerequisite'),
-  (24, 'prerequisite'),
-  (25, 'prerequisite'),
-  (26, 'prerequisite'),
-  (27, 'prerequisite'),
-  (28, 'prerequisite'),
-  (29, 'prerequisite'),
-  (30, 'prerequisite'),
-  (31, 'prerequisite'),
-  (33, 'prerequisite'),
-  (34, 'prerequisite'),
-  (35, 'prerequisite'),
-  (36, 'prerequisite'),
-  (38, 'prerequisite'),
-  (39, 'prerequisite'),
-  (40, 'prerequisite'),
-  (41, 'prerequisite'),
-  (42, 'prerequisite'),
-  (43, 'prerequisite'),
-  (44, 'prerequisite'),
-  (45, 'prerequisite'),
-  (46, 'prerequisite'),
-  (47, 'prerequisite'),
-  (49, 'prerequisite'),
-  (52, 'prerequisite'),
-  (53, 'prerequisite'),
-  (54, 'prerequisite'),
-  (55, 'prerequisite'),
-  (59, 'prerequisite'),
-  (60, 'prerequisite'),
-  (62, 'prerequisite'),
-  (63, 'prerequisite'),
-  (64, 'prerequisite'),
-  (65, 'prerequisite'),
-  (66, 'prerequisite'),
-  (67, 'prerequisite'),
-  (68, 'prerequisite'),
-  (69, 'prerequisite'),
-  (70, 'prerequisite'),
-  (71, 'prerequisite'),
-  (72, 'prerequisite'),
-  (73, 'prerequisite'),
-  (74, 'prerequisite'),
-  (75, 'prerequisite'),
-  (76, 'prerequisite'),
-  (77, 'prerequisite'),
-  (78, 'prerequisite'),
-  (79, 'prerequisite'),
-  (80, 'prerequisite'),
-  (81, 'prerequisite'),
-  (82, 'prerequisite'),
-  (83, 'prerequisite'),
-  (84, 'prerequisite'),
-  (85, 'prerequisite'),
-  (86, 'prerequisite'),
-  (87, 'prerequisite'),
-  (88, 'prerequisite'),
-  (89, 'prerequisite'),
-  (90, 'prerequisite'),
-  (91, 'prerequisite'),
-  (92, 'prerequisite'),
-  (93, 'prerequisite'),
-  (94, 'prerequisite'),
-  (95, 'prerequisite'),
-  (96, 'prerequisite'),
-  (97, 'prerequisite'),
-  (98, 'prerequisite'),
-  (99, 'prerequisite'),
-  (100, 'prerequisite'),
-  (101, 'prerequisite'),
-  (102, 'prerequisite'),
-  (103, 'prerequisite'),
-  (104, 'prerequisite'),
-  (105, 'prerequisite'),
-  (106, 'prerequisite'),
-  (107, 'prerequisite'),
-  (108, 'prerequisite'),
-  (109, 'prerequisite'),
-  (110, 'prerequisite'),
-  (111, 'prerequisite'),
-  (112, 'prerequisite'),
-  (113, 'prerequisite'),
-  (114, 'prerequisite'),
-  (115, 'prerequisite'),
-  (116, 'prerequisite'),
-  (117, 'prerequisite'),
-  (118, 'prerequisite'),
-  (119, 'prerequisite'),
-  (120, 'prerequisite'),
-  (121, 'prerequisite'),
-  (122, 'prerequisite'),
-  (123, 'prerequisite'),
-  (124, 'prerequisite'),
-  (125, 'prerequisite'),
-  (126, 'prerequisite'),
-  (127, 'prerequisite'),
-  (128, 'prerequisite'),
-  (129, 'prerequisite'),
-  (130, 'prerequisite'),
-  (131, 'prerequisite'),
-  (132, 'prerequisite'),
-  (133, 'prerequisite'),
-  (134, 'prerequisite'),
-  (135, 'prerequisite'),
-  (136, 'prerequisite'),
-  (137, 'prerequisite'),
-  (138, 'prerequisite'),
-  (139, 'prerequisite'),
-  (140, 'prerequisite');
-
-/*!40000 ALTER TABLE `group` ENABLE KEYS */;
-
-UNLOCK TABLES;
-
---
 -- Table structure for table `history`
 --
 DROP TABLE IF EXISTS `history`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `history` (
@@ -14532,303 +14380,13 @@ VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `pre_requisite_group_AND`
---
-DROP TABLE IF EXISTS `pre_requisite_group_AND`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-
-/*!40101 SET character_set_client = utf8 */;
-
-CREATE TABLE
-  `pre_requisite_group_AND` (
-    `group_id` int NOT NULL,
-    `course_id` varchar(50) NOT NULL,
-    PRIMARY KEY (`group_id`, `course_id`),
-    KEY `course_id` (`course_id`),
-    CONSTRAINT `pre_requisite_group_and_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `group` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `pre_requisite_group_and_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pre_requisite_group_AND`
---
-LOCK TABLES `pre_requisite_group_AND` WRITE;
-
-/*!40000 ALTER TABLE `pre_requisite_group_AND` DISABLE KEYS */;
-
-INSERT INTO
-  `pre_requisite_group_AND`
-VALUES
-  (117, '004108'),
-  (118, '004108'),
-  (67, '004111'),
-  (114, '004123'),
-  (130, '004175'),
-  (83, '004178'),
-  (8, '004186'),
-  (102, '004199'),
-  (10, '004218'),
-  (116, '004302'),
-  (12, '004309'),
-  (93, '014049'),
-  (94, '014049'),
-  (88, '014052'),
-  (123, '035217'),
-  (91, '035218'),
-  (131, '036671'),
-  (132, '036671'),
-  (139, '037889'),
-  (140, '037889'),
-  (20, '038407'),
-  (78, '039985'),
-  (79, '039985'),
-  (133, '044233'),
-  (134, '044272'),
-  (135, '044272'),
-  (92, '044450'),
-  (100, '044481'),
-  (96, '045680'),
-  (80, '045940'),
-  (104, '048558'),
-  (136, '049803'),
-  (65, '051831'),
-  (66, '051831'),
-  (95, '051832'),
-  (84, '053170'),
-  (85, '053170'),
-  (98, '053171'),
-  (90, '053172'),
-  (60, '054076'),
-  (59, '054080'),
-  (38, '054114'),
-  (103, '054117'),
-  (127, '054118'),
-  (39, '054140'),
-  (126, '054141'),
-  (99, '054142'),
-  (40, '054478'),
-  (121, '054479'),
-  (119, '054989'),
-  (120, '054989'),
-  (122, '054991'),
-  (82, '054992'),
-  (124, '054993'),
-  (125, '054995'),
-  (137, '054996'),
-  (73, '054997'),
-  (105, '056544'),
-  (106, '056545'),
-  (128, '056546'),
-  (129, '056546');
-
-/*!40000 ALTER TABLE `pre_requisite_group_AND` ENABLE KEYS */;
-
-UNLOCK TABLES;
-
---
--- Table structure for table `pre_requisite_group_OR`
---
-DROP TABLE IF EXISTS `pre_requisite_group_OR`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-
-/*!40101 SET character_set_client = utf8 */;
-
-CREATE TABLE
-  `pre_requisite_group_OR` (
-    `group_id` int NOT NULL,
-    `course_id` varchar(50) NOT NULL,
-    PRIMARY KEY (`group_id`, `course_id`),
-    KEY `course_id` (`course_id`),
-    CONSTRAINT `pre_requisite_group_or_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `group` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `pre_requisite_group_or_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pre_requisite_group_OR`
---
-LOCK TABLES `pre_requisite_group_OR` WRITE;
-
-/*!40000 ALTER TABLE `pre_requisite_group_OR` DISABLE KEYS */;
-
-INSERT INTO
-  `pre_requisite_group_OR`
-VALUES
-  (38, '004123'),
-  (96, '004302'),
-  (100, '004302'),
-  (110, '004302'),
-  (112, '004302'),
-  (114, '004302'),
-  (117, '004302'),
-  (119, '004302'),
-  (121, '004302'),
-  (8, '004309'),
-  (13, '004309'),
-  (24, '004309'),
-  (63, '004309'),
-  (76, '004309'),
-  (79, '004309'),
-  (93, '004309'),
-  (101, '004309'),
-  (102, '004309'),
-  (122, '004309'),
-  (123, '004309'),
-  (24, '014049'),
-  (62, '014049'),
-  (78, '014049'),
-  (11, '014052'),
-  (14, '014052'),
-  (16, '014052'),
-  (17, '014052'),
-  (27, '014052'),
-  (28, '014052'),
-  (31, '014052'),
-  (52, '014052'),
-  (53, '014052'),
-  (64, '014052'),
-  (68, '014052'),
-  (69, '014052'),
-  (77, '014052'),
-  (89, '014052'),
-  (91, '014052'),
-  (94, '014052'),
-  (95, '014052'),
-  (96, '014052'),
-  (116, '014052'),
-  (136, '014052'),
-  (55, '044231'),
-  (133, '044231'),
-  (134, '044231'),
-  (138, '044231'),
-  (139, '044231'),
-  (135, '044233'),
-  (140, '044233'),
-  (81, '045940'),
-  (83, '045940'),
-  (85, '045940'),
-  (86, '045940'),
-  (40, '051831'),
-  (49, '052739'),
-  (70, '052739'),
-  (73, '052739'),
-  (127, '052739'),
-  (39, '053171'),
-  (99, '053171'),
-  (126, '053171'),
-  (3, '054076'),
-  (29, '054076'),
-  (42, '054076'),
-  (65, '054076'),
-  (113, '054076'),
-  (118, '054076'),
-  (120, '054076'),
-  (104, '054077'),
-  (45, '054079'),
-  (46, '054079'),
-  (59, '054079'),
-  (97, '054079'),
-  (103, '054079'),
-  (137, '054079'),
-  (11, '054080'),
-  (14, '054080'),
-  (27, '054080'),
-  (49, '054080'),
-  (52, '054080'),
-  (64, '054080'),
-  (70, '054080'),
-  (73, '054080'),
-  (77, '054080'),
-  (89, '054080'),
-  (94, '054080'),
-  (96, '054080'),
-  (116, '054080'),
-  (6, '054081'),
-  (10, '054081'),
-  (12, '054081'),
-  (15, '054081'),
-  (20, '054081'),
-  (25, '054081'),
-  (26, '054081'),
-  (27, '054081'),
-  (28, '054081'),
-  (30, '054081'),
-  (33, '054081'),
-  (35, '054081'),
-  (36, '054081'),
-  (52, '054081'),
-  (53, '054081'),
-  (54, '054081'),
-  (66, '054081'),
-  (68, '054081'),
-  (69, '054081'),
-  (84, '054081'),
-  (88, '054081'),
-  (90, '054081'),
-  (92, '054081'),
-  (96, '054081'),
-  (98, '054081'),
-  (100, '054081'),
-  (124, '054081'),
-  (125, '054081'),
-  (130, '054081'),
-  (132, '054081'),
-  (136, '054081'),
-  (4, '054082'),
-  (24, '054082'),
-  (62, '054082'),
-  (67, '054082'),
-  (71, '054082'),
-  (75, '054082'),
-  (78, '054082'),
-  (91, '054082'),
-  (95, '054082'),
-  (111, '054082'),
-  (115, '054082'),
-  (136, '054082'),
-  (16, '054117'),
-  (97, '054229'),
-  (7, '054986'),
-  (17, '054986'),
-  (34, '054986'),
-  (43, '054986'),
-  (44, '054986'),
-  (45, '054986'),
-  (47, '054986'),
-  (80, '054986'),
-  (81, '054986'),
-  (82, '054986'),
-  (83, '054986'),
-  (85, '054986'),
-  (86, '054986'),
-  (87, '054986'),
-  (131, '054986'),
-  (60, '055925'),
-  (105, '056543'),
-  (106, '056543'),
-  (107, '056543'),
-  (128, '056543'),
-  (108, '056544'),
-  (129, '056544'),
-  (109, '056545');
-
-/*!40000 ALTER TABLE `pre_requisite_group_OR` ENABLE KEYS */;
-
-UNLOCK TABLES;
-
---
 -- Table structure for table `program_course`
 --
 DROP TABLE IF EXISTS `program_course`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `program_course` (
@@ -14941,7 +14499,7 @@ DROP TABLE IF EXISTS `program_plan`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `program_plan` (
@@ -14971,13 +14529,372 @@ VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `requisite`
+--
+DROP TABLE IF EXISTS `requisite`;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+
+/*!50503 SET character_set_client = utf8mb4 */;
+
+CREATE TABLE
+  `requisite` (
+    `group_id` int NOT NULL,
+    `course_id` varchar(50) NOT NULL,
+    `relation` varchar(50) NOT NULL,
+    `sort_order` int NOT NULL DEFAULT '0',
+    PRIMARY KEY (`group_id`, `course_id`),
+    KEY `course_id` (`course_id`),
+    CONSTRAINT `requisite_ibfk_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `requisite_ibfk_group` FOREIGN KEY (`group_id`) REFERENCES `requisite_group` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `requisite`
+--
+LOCK TABLES `requisite` WRITE;
+
+/*!40000 ALTER TABLE `requisite` DISABLE KEYS */;
+
+INSERT INTO
+  `requisite`
+VALUES
+  (8, '004309', 'prerequisite', 1),
+  (10, '054081', 'prerequisite', 1),
+  (12, '054081', 'prerequisite', 1),
+  (20, '054081', 'prerequisite', 1),
+  (38, '004123', 'prerequisite', 1),
+  (39, '053171', 'prerequisite', 1),
+  (40, '051831', 'prerequisite', 1),
+  (59, '054079', 'prerequisite', 1),
+  (60, '055925', 'prerequisite', 1),
+  (65, '054076', 'prerequisite', 1),
+  (66, '054081', 'prerequisite', 1),
+  (67, '054082', 'prerequisite', 1),
+  (73, '052739', 'prerequisite', 1),
+  (73, '054080', 'prerequisite', 2),
+  (78, '014049', 'prerequisite', 1),
+  (78, '054082', 'prerequisite', 2),
+  (79, '004309', 'prerequisite', 1),
+  (80, '054986', 'prerequisite', 1),
+  (82, '054986', 'prerequisite', 1),
+  (83, '045940', 'prerequisite', 1),
+  (83, '054986', 'prerequisite', 2),
+  (84, '054081', 'prerequisite', 1),
+  (85, '045940', 'prerequisite', 1),
+  (85, '054986', 'prerequisite', 2),
+  (88, '054081', 'prerequisite', 1),
+  (90, '054081', 'prerequisite', 1),
+  (91, '014052', 'prerequisite', 1),
+  (91, '054082', 'prerequisite', 2),
+  (92, '054081', 'prerequisite', 1),
+  (93, '004309', 'prerequisite', 1),
+  (94, '014052', 'prerequisite', 1),
+  (94, '054080', 'prerequisite', 2),
+  (95, '014052', 'prerequisite', 1),
+  (95, '054082', 'prerequisite', 2),
+  (96, '004302', 'prerequisite', 1),
+  (96, '014052', 'prerequisite', 2),
+  (96, '054080', 'prerequisite', 3),
+  (96, '054081', 'prerequisite', 4),
+  (98, '054081', 'prerequisite', 1),
+  (99, '053171', 'prerequisite', 1),
+  (100, '004302', 'prerequisite', 1),
+  (100, '054081', 'prerequisite', 2),
+  (102, '004309', 'prerequisite', 1),
+  (103, '054079', 'prerequisite', 1),
+  (104, '054077', 'prerequisite', 1),
+  (105, '056543', 'prerequisite', 1),
+  (106, '056543', 'prerequisite', 1),
+  (114, '004302', 'prerequisite', 1),
+  (116, '014052', 'prerequisite', 1),
+  (116, '054080', 'prerequisite', 2),
+  (117, '004302', 'prerequisite', 1),
+  (118, '054076', 'prerequisite', 1),
+  (119, '004302', 'prerequisite', 1),
+  (120, '054076', 'prerequisite', 1),
+  (121, '004302', 'prerequisite', 1),
+  (122, '004309', 'prerequisite', 1),
+  (123, '004309', 'prerequisite', 1),
+  (124, '054081', 'prerequisite', 1),
+  (125, '054081', 'prerequisite', 1),
+  (126, '053171', 'prerequisite', 1),
+  (127, '052739', 'prerequisite', 1),
+  (128, '056543', 'prerequisite', 1),
+  (129, '056544', 'prerequisite', 1),
+  (130, '054081', 'prerequisite', 1),
+  (131, '054986', 'prerequisite', 1),
+  (132, '054081', 'prerequisite', 1),
+  (133, '044231', 'prerequisite', 1),
+  (134, '044231', 'prerequisite', 1),
+  (135, '044233', 'prerequisite', 1),
+  (136, '014052', 'prerequisite', 1),
+  (136, '054081', 'prerequisite', 2),
+  (136, '054082', 'prerequisite', 3),
+  (137, '054079', 'prerequisite', 1),
+  (139, '044231', 'prerequisite', 1),
+  (140, '044233', 'prerequisite', 1),
+  (1066, '054079', 'corequisite', 1),
+  (1067, '054080', 'corequisite', 1);
+
+/*!40000 ALTER TABLE `requisite` ENABLE KEYS */;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `requisite_group`
+--
+DROP TABLE IF EXISTS `requisite_group`;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+
+/*!50503 SET character_set_client = utf8mb4 */;
+
+CREATE TABLE
+  `requisite_group` (
+    `group_id` int NOT NULL AUTO_INCREMENT,
+    `rule_id` int NOT NULL,
+    `parent_group_id` int DEFAULT NULL,
+    `operator` varchar(50) NOT NULL,
+    PRIMARY KEY (`group_id`),
+    KEY `rule_id` (`rule_id`),
+    KEY `parent_group_id` (`parent_group_id`),
+    CONSTRAINT `requisite_group_ibfk_parent` FOREIGN KEY (`parent_group_id`) REFERENCES `requisite_group` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `requisite_group_ibfk_rule` FOREIGN KEY (`rule_id`) REFERENCES `requisite_rule` (`rule_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  ) ENGINE = InnoDB AUTO_INCREMENT = 1069 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `requisite_group`
+--
+LOCK TABLES `requisite_group` WRITE;
+
+/*!40000 ALTER TABLE `requisite_group` DISABLE KEYS */;
+
+INSERT INTO
+  `requisite_group`
+VALUES
+  (8, 6, 1005, 'OR'),
+  (10, 8, 1007, 'OR'),
+  (12, 10, 1009, 'OR'),
+  (20, 17, 1016, 'OR'),
+  (38, 34, 1033, 'OR'),
+  (39, 37, 1036, 'OR'),
+  (40, 40, 1039, 'OR'),
+  (59, 33, 1032, 'OR'),
+  (60, 32, 1031, 'OR'),
+  (65, 27, 1026, 'OR'),
+  (66, 27, 1026, 'OR'),
+  (67, 2, 1001, 'OR'),
+  (73, 48, 1047, 'OR'),
+  (78, 18, 1017, 'OR'),
+  (79, 18, 1017, 'OR'),
+  (80, 24, 1023, 'OR'),
+  (82, 44, 1043, 'OR'),
+  (83, 5, 1004, 'OR'),
+  (84, 29, 1028, 'OR'),
+  (85, 29, 1028, 'OR'),
+  (88, 12, 1011, 'OR'),
+  (90, 31, 1030, 'OR'),
+  (91, 14, 1013, 'OR'),
+  (92, 21, 1020, 'OR'),
+  (93, 11, 1010, 'OR'),
+  (94, 11, 1010, 'OR'),
+  (95, 28, 1027, 'OR'),
+  (96, 23, 1022, 'OR'),
+  (98, 30, 1029, 'OR'),
+  (99, 39, 1038, 'OR'),
+  (100, 22, 1021, 'OR'),
+  (102, 7, 1006, 'OR'),
+  (103, 35, 1034, 'OR'),
+  (104, 25, 1024, 'OR'),
+  (105, 49, 1048, 'OR'),
+  (106, 50, 1049, 'OR'),
+  (114, 3, 1002, 'OR'),
+  (116, 9, 1008, 'OR'),
+  (117, 1, 1000, 'OR'),
+  (118, 1, 1000, 'OR'),
+  (119, 42, 1041, 'OR'),
+  (120, 42, 1041, 'OR'),
+  (121, 41, 1040, 'OR'),
+  (122, 43, 1042, 'OR'),
+  (123, 13, 1012, 'OR'),
+  (124, 45, 1044, 'OR'),
+  (125, 46, 1045, 'OR'),
+  (126, 38, 1037, 'OR'),
+  (127, 36, 1035, 'OR'),
+  (128, 51, 1050, 'OR'),
+  (129, 51, 1050, 'OR'),
+  (130, 4, 1003, 'OR'),
+  (131, 15, 1014, 'OR'),
+  (132, 15, 1014, 'OR'),
+  (133, 19, 1018, 'OR'),
+  (134, 20, 1019, 'OR'),
+  (135, 20, 1019, 'OR'),
+  (136, 26, 1025, 'OR'),
+  (137, 47, 1046, 'OR'),
+  (139, 16, 1015, 'OR'),
+  (140, 16, 1015, 'OR'),
+  (1000, 1, NULL, 'AND'),
+  (1001, 2, NULL, 'AND'),
+  (1002, 3, NULL, 'AND'),
+  (1003, 4, NULL, 'AND'),
+  (1004, 5, NULL, 'AND'),
+  (1005, 6, NULL, 'AND'),
+  (1006, 7, NULL, 'AND'),
+  (1007, 8, NULL, 'AND'),
+  (1008, 9, NULL, 'AND'),
+  (1009, 10, NULL, 'AND'),
+  (1010, 11, NULL, 'AND'),
+  (1011, 12, NULL, 'AND'),
+  (1012, 13, NULL, 'AND'),
+  (1013, 14, NULL, 'AND'),
+  (1014, 15, NULL, 'AND'),
+  (1015, 16, NULL, 'AND'),
+  (1016, 17, NULL, 'AND'),
+  (1017, 18, NULL, 'AND'),
+  (1018, 19, NULL, 'AND'),
+  (1019, 20, NULL, 'AND'),
+  (1020, 21, NULL, 'AND'),
+  (1021, 22, NULL, 'AND'),
+  (1022, 23, NULL, 'AND'),
+  (1023, 24, NULL, 'AND'),
+  (1024, 25, NULL, 'AND'),
+  (1025, 26, NULL, 'AND'),
+  (1026, 27, NULL, 'AND'),
+  (1027, 28, NULL, 'AND'),
+  (1028, 29, NULL, 'AND'),
+  (1029, 30, NULL, 'AND'),
+  (1030, 31, NULL, 'AND'),
+  (1031, 32, NULL, 'AND'),
+  (1032, 33, NULL, 'AND'),
+  (1033, 34, NULL, 'AND'),
+  (1034, 35, NULL, 'AND'),
+  (1035, 36, NULL, 'AND'),
+  (1036, 37, NULL, 'AND'),
+  (1037, 38, NULL, 'AND'),
+  (1038, 39, NULL, 'AND'),
+  (1039, 40, NULL, 'AND'),
+  (1040, 41, NULL, 'AND'),
+  (1041, 42, NULL, 'AND'),
+  (1042, 43, NULL, 'AND'),
+  (1043, 44, NULL, 'AND'),
+  (1044, 45, NULL, 'AND'),
+  (1045, 46, NULL, 'AND'),
+  (1046, 47, NULL, 'AND'),
+  (1047, 48, NULL, 'AND'),
+  (1048, 49, NULL, 'AND'),
+  (1049, 50, NULL, 'AND'),
+  (1050, 51, NULL, 'AND'),
+  (1063, 64, NULL, 'AND'),
+  (1064, 65, NULL, 'AND'),
+  (1066, 64, 1063, 'OR'),
+  (1067, 65, 1064, 'OR');
+
+/*!40000 ALTER TABLE `requisite_group` ENABLE KEYS */;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `requisite_rule`
+--
+DROP TABLE IF EXISTS `requisite_rule`;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+
+/*!50503 SET character_set_client = utf8mb4 */;
+
+CREATE TABLE
+  `requisite_rule` (
+    `rule_id` int NOT NULL AUTO_INCREMENT,
+    `target_course_id` varchar(50) NOT NULL,
+    `enabled` tinyint (1) NOT NULL DEFAULT '1',
+    PRIMARY KEY (`rule_id`),
+    KEY `target_course_id` (`target_course_id`),
+    CONSTRAINT `requisite_rule_ibfk` FOREIGN KEY (`target_course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  ) ENGINE = InnoDB AUTO_INCREMENT = 67 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `requisite_rule`
+--
+LOCK TABLES `requisite_rule` WRITE;
+
+/*!40000 ALTER TABLE `requisite_rule` DISABLE KEYS */;
+
+INSERT INTO
+  `requisite_rule`
+VALUES
+  (1, '004108', 1),
+  (2, '004111', 1),
+  (3, '004123', 1),
+  (4, '004175', 1),
+  (5, '004178', 1),
+  (6, '004186', 1),
+  (7, '004199', 1),
+  (8, '004218', 1),
+  (9, '004302', 1),
+  (10, '004309', 1),
+  (11, '014049', 1),
+  (12, '014052', 1),
+  (13, '035217', 1),
+  (14, '035218', 1),
+  (15, '036671', 1),
+  (16, '037889', 1),
+  (17, '038407', 1),
+  (18, '039985', 1),
+  (19, '044233', 1),
+  (20, '044272', 1),
+  (21, '044450', 1),
+  (22, '044481', 1),
+  (23, '045680', 1),
+  (24, '045940', 1),
+  (25, '048558', 1),
+  (26, '049803', 1),
+  (27, '051831', 1),
+  (28, '051832', 1),
+  (29, '053170', 1),
+  (30, '053171', 1),
+  (31, '053172', 1),
+  (32, '054076', 1),
+  (33, '054080', 1),
+  (34, '054114', 1),
+  (35, '054117', 1),
+  (36, '054118', 1),
+  (37, '054140', 1),
+  (38, '054141', 1),
+  (39, '054142', 1),
+  (40, '054478', 1),
+  (41, '054479', 1),
+  (42, '054989', 1),
+  (43, '054991', 1),
+  (44, '054992', 1),
+  (45, '054993', 1),
+  (46, '054995', 1),
+  (47, '054996', 1),
+  (48, '054997', 1),
+  (49, '056544', 1),
+  (50, '056545', 1),
+  (51, '056546', 1),
+  (64, '054081', 1),
+  (65, '054082', 1);
+
+/*!40000 ALTER TABLE `requisite_rule` ENABLE KEYS */;
+
+UNLOCK TABLES;
+
+--
 -- Table structure for table `sub_type`
 --
 DROP TABLE IF EXISTS `sub_type`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `sub_type` (
@@ -15034,7 +14951,7 @@ DROP TABLE IF EXISTS `type`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE
   `type` (
@@ -15067,6 +14984,7 @@ VALUES
 
 UNLOCK TABLES;
 
+-- SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -15083,4 +15001,4 @@ UNLOCK TABLES;
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-09  7:58:11
+-- Dump completed on 2026-09-19 17:59:22
