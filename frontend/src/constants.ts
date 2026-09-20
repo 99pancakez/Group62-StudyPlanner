@@ -1,0 +1,81 @@
+export const API_BASE_URL = "http://localhost:3000";
+export const EXPLORER_API_BASE_URL = "http://localhost:3000/explorer";
+
+export const CREDITS = {
+  SEMESTER_LOAD: 48,
+  CORE_TOTAL: 180,
+  PROGRAM_COURSE_TOTAL: 12,
+  TOTAL_DEGREE: 288,
+  COMBO4_CS_OPTION_MIN: 48,
+  COMBO4_CS_OPTION_MAX: 96,
+  COMBO4_ELECTIVE_MIN: 0,
+  COMBO4_ELECTIVE_MAX: 48,
+} as const;
+
+export const CS_MINOR_IDS = [5, 6, 7, 8, 9, 10, 11, 12] as const;
+export const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16] as const;
+
+export const SUB_TYPE = {
+  CORE: 1,
+  UNIVERSITY_ELECTIVE: 16,
+  PROGRAM_COURSE: 17,
+} as const;
+
+export const COMBINATIONS = { SELECT_MINOR: "3", SELECT_ALL: "4" } as const;
+
+export const EXCLUDED_SUB_TYPES = [
+  SUB_TYPE.CORE,
+  SUB_TYPE.PROGRAM_COURSE,
+] as const;
+
+// FIXME, 4 and 12 have same values
+export const SUB_TYPE_MAP: Record<number, string> = {
+  1: "Core",
+  2: "Advanced Computer Science",
+  3: "Cyber Security",
+  4: "Enterprise Systems Development",
+  5: "Artificial Intelligence & Machine Learning",
+  6: "Blockchain Technologies",
+  7: "Cloud Computing",
+  8: "Creative Computing",
+  9: "Cyber Assurance",
+  10: "Data Science",
+  11: "Design & Develop for Apple Platform",
+  12: "Enterprise Systems Development",
+  13: "Bioinformatics",
+  14: "Data Analysis",
+  15: "Digital Innovation",
+  16: "University Elective",
+  17: "Program Course",
+};
+
+export const SUB_TYPE_NAME_TO_ID: Record<string, number> = Object.entries(
+  SUB_TYPE_MAP,
+).reduce((acc: Record<string, number>, [id, name]) => {
+  acc[name] = parseInt(id);
+  return acc;
+}, {});
+
+export const PROGRAM_CODE: string = "BP094P23";
+
+export const INTAKE_OPTIONS: string[] = [
+  "February (Semester 1)",
+  "July (Semester 2)",
+] as const;
+
+export const INTAKE_TO_SEMESTER_ID: Record<string, number> = {
+  "February (Semester 1)": 1,
+  "July (Semester 2)": 2,
+} as const;
+
+/**
+ * Global constant to standardise accesing localStorage
+ */
+export const LOCALS = {
+  studyPlanState: "studyPlanState",
+  semesterSelections: "semesterSelections",
+  completedCourses: "completedCourses",
+  combinationSelections: "combinationSelections",
+  subTypeGroupMap: "subTypeGroupMap",
+  qnaResponses: "qnaResponses",
+} as const;
