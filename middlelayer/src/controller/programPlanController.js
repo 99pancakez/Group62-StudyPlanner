@@ -1,11 +1,10 @@
 const {
   Course,
   Availability,
-  PreRequisiteGroupAND,
-  PreRequisiteGroupOR,
   CourseType,
   CourseAvailability,
 } = require("../database");
+const { getAllCourseRequisites } = require("./requisiteService");
 
 const getAvailableCourses = async (req, res) => {
   try {
