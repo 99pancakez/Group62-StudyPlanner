@@ -28,7 +28,7 @@ const CreateCourseModal = ({
   const [semester2, setSemester2] = useState(false);
   const [flexTerm, setFlexTerm] = useState(false);
 
-  const [prerequisites, setPrerequisites] = useState([]); // Empty by default
+  const [requisites, setRequisites] = useState([]); // Empty by default
   const [showPrereqModal, setShowPrereqModal] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [serverErrors, setServerErrors] = useState({});
@@ -80,6 +80,16 @@ const CreateCourseModal = ({
           };
         })
       : [];
+
+  const summaryOf = (relation) => {
+    const groups = requisites
+      .filter((g) => g.relation === relation)
+      .map((g) => (g.courses || []).map((c) => c.trim()).filter(Boolean))
+      .filter((g) => g.length > 0);
+    return groups.length === 0
+      ? "None"
+      : groups.map((g) => `(${g.join(" OR ")})`).join(" AND ");
+  };
 
   return (
     <div className="modal-overlay">
@@ -267,7 +277,6 @@ const CreateCourseModal = ({
                         : null;
                     })
                     .filter(Boolean)}
-
                   onChange={(selected) => {
                     const unique = Array.from(
                       new Set(selected.map((s) => s.value)),
@@ -308,19 +317,16 @@ const CreateCourseModal = ({
               </label>
 
               <div style={{ marginTop: "20px" }}>
-                <strong>Pre-requisites</strong>
+                <strong>Requisites</strong>
                 <p>
-                  {prerequisites.length === 0 ||
-                  prerequisites.every((g) => g.every((code) => !code.trim()))
-                    ? "None"
-                    : prerequisites
-                        .map(
-                          (group) => `(${group.filter(Boolean).join(" OR ")})`,
-                        )
-                        .join(" AND ")}
+                  <span style={{ fontWeight: 600 }}>Prerequisites:</span>{" "}
+                  {summaryOf("prerequisite")}
+                  <br />
+                  <span style={{ fontWeight: 600 }}>Corequisites:</span>{" "}
+                  {summaryOf("corequisite")}
                 </p>
                 <button onClick={() => setShowPrereqModal(true)}>
-                  Edit Pre-requisites
+                  Edit Requisites
                 </button>
               </div>
             </div>
@@ -367,15 +373,9 @@ const CreateCourseModal = ({
                     .join(", ") || "None"}
                 </li>
                 <li>
-                  <strong>Prerequisites:</strong>{" "}
-                  {prerequisites.length === 0 ||
-                  prerequisites.every((g) => g.every((code) => !code.trim()))
-                    ? "None"
-                    : prerequisites
-                        .map(
-                          (group) => `(${group.filter(Boolean).join(" OR ")})`,
-                        )
-                        .join(" AND ")}
+                  <strong>Prerequisites:</strong> {summaryOf("prerequisite")}
+                  <br />
+                  <strong>Corequisites:</strong> {summaryOf("corequisite")}
                 </li>
               </ul>
             </div>
@@ -464,7 +464,7 @@ const CreateCourseModal = ({
                       semester2,
                       flexTerm,
                     },
-                    prerequisites,
+                    requisites: requisites,
                     program_code: programCode,
                   };
 
@@ -518,11 +518,11 @@ const CreateCourseModal = ({
       </div>
       {showPrereqModal && (
         <PrereqEditorModal
-          prerequisites={prerequisites}
-          setPrerequisites={setPrerequisites}
+          requisites={requisites}
+          setRequisites={setRequisites}
           allCourseCodes={allCourseCodes}
           onClose={() => setShowPrereqModal(false)}
-          onSave={(updated) => setPrerequisites(updated)}
+          onSave={(updated) => setRequisites(updated)}
         />
       )}
     </div>

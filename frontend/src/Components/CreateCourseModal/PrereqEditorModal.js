@@ -2,68 +2,86 @@ import React from "react";
 import Select from "react-select";
 
 const PrereqEditorModal = ({
-  prerequisites,
-  setPrerequisites,
+  requisites,
+  setRequisites,
   onClose,
   allCourseCodes = [],
   onSave,
 }) => {
-  console.log("⚡ allCourseCodes in modal:", allCourseCodes);
-  const cleanAndSave = async () => {
-    const cleaned = prerequisites
-      .map((group) => group.map((code) => code.trim()).filter(Boolean))
-      .filter((group) => group.length > 0);
+  const options = (Array.isArray(allCourseCodes) ? allCourseCodes : [])
+    .filter((c) => typeof c === "string" && c.trim() !== "")
+    .map((code) => ({ label: code, value: code }));
 
-    if (onSave) {
-      await onSave(cleaned);
-    }
+  const summaryOf = (relation) => {
+    const groups = requisites
+      .filter((g) => g.relation === relation)
+      .map((g) => g.courses.filter((c) => c.trim()))
+      .filter((g) => g.length > 0);
+    return groups.map((g) => `(${g.join(" OR ")})`).join(" AND ") || "None";
+  };
+
+  const updateGroup = (idx, patch) => {
+    const updated = [...requisites];
+    updated[idx] = { ...updated[idx], ...patch };
+    setRequisites(updated);
+  };
+
+  const cleanAndSave = async () => {
+    const cleaned = requisites
+      .map((g) => ({
+        relation: g.relation === "corequisite" ? "corequisite" : "prerequisite",
+        courses: (g.courses || []).map((c) => c.trim()).filter(Boolean),
+      }))
+      .filter((g) => g.courses.length > 0);
+    if (onSave) await onSave(cleaned);
     onClose();
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Edit Prerequisites</h2>
-
+        <h2>Edit Requisites</h2>
         <div className="prereq-groups">
-          {prerequisites.map((orGroup, idx) => (
+          {requisites.map((group, idx) => (
             <div key={idx} className="or-group">
-              {orGroup.map((code, i) => (
+              <select
+                value={group.relation || "prerequisite"}
+                onChange={(e) => updateGroup(idx, { relation: e.target.value })}
+              >
+                <option value="prerequisite">Prerequisite</option>
+                <option value="corequisite">Corequisite</option>
+              </select>
+              {(group.courses || []).map((code, i) => (
                 <div key={i} className="course-input">
                   <div className="course-input-wrapper">
                     <Select
                       menuPlacement="auto"
                       value={code ? { label: code, value: code } : null}
-                      options={allCourseCodes
-                        .filter((c) => typeof c === "string" && c.trim() !== "")
-                        .map((code) => ({
-                          label: code,
-                          value: code,
-                        }))}
-                      onChange={(selectedOption) => {
-                        const updated = [...prerequisites];
-                        updated[idx][i] = selectedOption
-                          ? selectedOption.value
-                          : "";
-                        setPrerequisites(updated);
-                      }}
+                      options={options}
+                      onChange={(sel) =>
+                        updateGroup(idx, {
+                          courses: group.courses.map((c, j) =>
+                            j === i ? (sel ? sel.value : "") : c,
+                          ),
+                        })
+                      }
                       placeholder={`Course ${i + 1}`}
                       className="course-select"
                       isClearable
                     />
-
                     <button
                       className="close-course-button"
                       onClick={() => {
-                        const updated = [...prerequisites];
-                        updated[idx].splice(i, 1);
-                        if (updated[idx].length === 0) {
-                          updated.splice(idx, 1);
-                        }
-                        if (updated.length === 0) {
-                          updated.push([""]);
-                        }
-                        setPrerequisites(updated);
+                        const updated = [...requisites];
+                        const courses = updated[idx].courses.slice();
+                        courses.splice(i, 1);
+                        if (!courses.length) updated.splice(idx, 1);
+                        if (!updated.length)
+                          updated.push({
+                            relation: "prerequisite",
+                            courses: [""],
+                          });
+                        setRequisites(updated);
                       }}
                     >
                       ×
@@ -73,23 +91,20 @@ const PrereqEditorModal = ({
               ))}
               <button
                 className="or-button"
-                onClick={() => {
-                  const updated = [...prerequisites];
-                  updated[idx].push("");
-                  setPrerequisites(updated);
-                }}
+                onClick={() =>
+                  updateGroup(idx, { courses: [...group.courses, ""] })
+                }
               >
                 +OR
               </button>
               <button
                 className="remove-group-button"
                 onClick={() => {
-                  const updated = [...prerequisites];
+                  const updated = requisites.slice();
                   updated.splice(idx, 1);
-                  if (updated.length === 0) {
-                    updated.push([""]);
-                  }
-                  setPrerequisites(updated);
+                  if (!updated.length)
+                    updated.push({ relation: "prerequisite", courses: [""] });
+                  setRequisites(updated);
                 }}
               >
                 Remove
@@ -99,27 +114,22 @@ const PrereqEditorModal = ({
           <div className="and-button-container">
             <button
               className="and-button"
-              onClick={() => setPrerequisites([...prerequisites, [""]])}
+              onClick={() =>
+                setRequisites([
+                  ...requisites,
+                  { relation: "prerequisite", courses: [""] },
+                ])
+              }
             >
               +AND
             </button>
           </div>
         </div>
-
         <div className="summary-box">
-          Summary:{" "}
-          {prerequisites.length === 0 ||
-          prerequisites.every((group) => group.every((code) => !code.trim()))
-            ? "None"
-            : prerequisites
-                .filter((group) => group.some((code) => code.trim()))
-                .map(
-                  (group) =>
-                    `(${group.filter((code) => code.trim()).join(" OR ")})`,
-                )
-                .join(" AND ")}
+          Prerequisites: {summaryOf("prerequisite")}
+          <br />
+          Corequisites: {summaryOf("corequisite")}
         </div>
-
         <div className="modal-actions">
           <button onClick={cleanAndSave}>✅ Save</button>
           <button onClick={onClose}>❌ Cancel</button>

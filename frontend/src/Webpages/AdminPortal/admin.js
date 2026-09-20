@@ -18,6 +18,7 @@ const columns = [
   "Semester 2",
   "Flex Term",
   "Pre-requisites",
+  "Co-requisites",
 ];
 
 // Define the backend API base URL
@@ -48,7 +49,7 @@ const AdminPortal = () => {
 
   const [allCourseCodes, setAllCourseCodes] = useState([]);
   const [showPrereqModal, setShowPrereqModal] = useState(false);
-  const [structuredPrereqs, setStructuredPrereqs] = useState([]); // New
+  const [structuredReqs, setStructuredReqs] = useState([]); // New
   const [activePrereqRowIdx, setActivePrereqRowIdx] = useState(null); // New
   const [activePrereqCourseId, setActivePrereqCourseId] = useState(null); // NEW
 
@@ -278,7 +279,6 @@ const AdminPortal = () => {
     if (colKey === "Semester 1") payload.semester_1 = newValue;
     if (colKey === "Semester 2") payload.semester_2 = newValue;
     if (colKey === "Flex Term") payload.flex_term = newValue;
-    if (colKey === "Pre-requisites") payload.prerequisites = newValue;
     if (colKey === "Year") payload.year = parseInt(newValue);
     if (colKey === "Credit Points") payload.credit_points = parseInt(newValue);
 
@@ -329,22 +329,14 @@ const AdminPortal = () => {
 
   const handleOpenPrereqModal = async (courseId, rowIdx) => {
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/courses/${courseId}/prerequisites/structured`,
-      );
+      const res = await fetch(`${API_BASE_URL}/courses/${courseId}/requisites`);
       const result = await res.json();
       if (result.success) {
-        let prereqs = result.data;
-
-        // ✅ Normalize: ensure it's always an array of arrays
-        if (
-          Array.isArray(prereqs) &&
-          prereqs.every((item) => typeof item === "string")
-        ) {
-          prereqs = [prereqs];
-        }
-
-        setStructuredPrereqs(prereqs);
+        setStructuredReqs(
+          result.data?.length
+            ? result.data
+            : [{ relation: "prerequisite", courses: [""] }],
+        );
         setActivePrereqRowIdx(rowIdx);
         setActivePrereqCourseId(courseId);
         setShowPrereqModal(true);
@@ -503,7 +495,8 @@ const AdminPortal = () => {
     visibleColumns.some((col) =>
       col.includes("Semester") ||
       col === "Flex Term" ||
-      col === "Pre-requisites"
+      col === "Pre-requisites" ||
+      col === "Co-requisites"
         ? false
         : row[col]?.toString().toLowerCase().includes(searchTerm.toLowerCase()),
     ),
@@ -648,7 +641,7 @@ const AdminPortal = () => {
                 {visibleColumns.map((col) => (
                   <div
                     key={col}
-                    className={`table-cell header-cell ${sortableColumns.includes(col) ? "sortable" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
+                    className={`table-cell header-cell ${sortableColumns.includes(col) ? "sortable" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
                     style={{ width: `${columnWidths[col]}px` }}
                     onClick={(e) => {
                       // Only sort if the click wasn't on the resize handle
@@ -692,13 +685,16 @@ const AdminPortal = () => {
                   {visibleColumns.map((col) => (
                     <div
                       key={col}
-                      className={`table-cell ${col === "Course Code" ? "course-code-cell" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
+                      className={`table-cell ${col === "Course Code" ? "course-code-cell" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
                       style={{ width: `${columnWidths[col]}px` }}
                       onClick={(e) => {
                         const tag = e.target.tagName;
 
                         // 🚫 Block edit mode for Pre-requisites column
-                        if (col === "Pre-requisites") {
+                        if (
+                          col === "Pre-requisites" ||
+                          col === "Co-requisites"
+                        ) {
                           return;
                         }
 
@@ -763,7 +759,6 @@ const AdminPortal = () => {
                             options={courseTypes
                               .filter((v, i, self) => self.indexOf(v) === i)
                               .map((t) => ({ label: t, value: t }))}
-
                             onChange={(selectedOptions) => {
                               const uniqueOptions = Array.from(
                                 new Map(
@@ -821,7 +816,6 @@ const AdminPortal = () => {
 
                               setEditingCell({ row: null, col: null });
                             }}
-
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
@@ -1106,6 +1100,24 @@ const AdminPortal = () => {
                         >
                           {row[col] && row[col] !== "-" ? row[col] : "Edit"}
                         </button>
+                      ) : col === "Co-requisites" ? (
+                        <button
+                          className="prereq-button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleOpenPrereqModal(row["Course Id"], rowIdx);
+                          }}
+                          style={{
+                            background: "transparent",
+                            border: "none",
+                            color: "#1a0dab",
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                            padding: 0,
+                          }}
+                        >
+                          {row[col] && row[col] !== "-" ? row[col] : "Edit"}
+                        </button>
                       ) : col === "Course Code" || col === "Course Title" ? (
                         <div className="text-cell">
                           <span className="text-content">{row[col] || ""}</span>
@@ -1357,12 +1369,27 @@ const AdminPortal = () => {
       {showPrereqModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>Edit Prerequisites</h2>
+            <h2>Edit Requisites</h2>
 
             <div className="prereq-groups">
-              {structuredPrereqs.map((orGroup, idx) => (
+              {structuredReqs.map((group, idx) => (
                 <div key={idx} className="or-group">
-                  {orGroup.map((code, i) => (
+                  <select
+                    value={group.relation || "prerequisite"}
+                    onChange={(e) => {
+                      const updated = [...structuredReqs];
+                      updated[idx] = {
+                        ...updated[idx],
+                        relation: e.target.value,
+                      };
+                      setStructuredReqs(updated);
+                    }}
+                  >
+                    <option value="prerequisite">Prerequisite</option>
+                    <option value="corequisite">Corequisite</option>
+                  </select>
+
+                  {(group.courses || []).map((code, i) => (
                     <div key={i} className="course-input">
                       <div className="course-input-wrapper">
                         <Select
@@ -1373,11 +1400,18 @@ const AdminPortal = () => {
                             value: code,
                           }))}
                           onChange={(selectedOption) => {
-                            const updated = [...structuredPrereqs];
-                            updated[idx][i] = selectedOption
-                              ? selectedOption.value
-                              : "";
-                            setStructuredPrereqs(updated);
+                            const updated = [...structuredReqs];
+                            updated[idx] = {
+                              ...updated[idx],
+                              courses: updated[idx].courses.map((c, j) =>
+                                j === i
+                                  ? selectedOption
+                                    ? selectedOption.value
+                                    : ""
+                                  : c,
+                              ),
+                            };
+                            setStructuredReqs(updated);
                           }}
                           placeholder={`Course ${i + 1}`}
                           className="course-select"
@@ -1386,15 +1420,17 @@ const AdminPortal = () => {
                         <button
                           className="close-course-button"
                           onClick={() => {
-                            const updated = [...structuredPrereqs];
-                            updated[idx].splice(i, 1);
-                            if (updated[idx].length === 0) {
-                              updated.splice(idx, 1);
-                            }
-                            if (updated.length === 0) {
-                              updated.push([""]);
-                            }
-                            setStructuredPrereqs(updated);
+                            const updated = [...structuredReqs];
+                            const courses = updated[idx].courses.slice();
+                            courses.splice(i, 1);
+                            updated[idx] = { ...updated[idx], courses };
+                            if (courses.length === 0) updated.splice(idx, 1);
+                            if (updated.length === 0)
+                              updated.push({
+                                relation: "prerequisite",
+                                courses: [""],
+                              });
+                            setStructuredReqs(updated);
                           }}
                         >
                           ×
@@ -1402,12 +1438,16 @@ const AdminPortal = () => {
                       </div>
                     </div>
                   ))}
+
                   <button
                     className="or-button"
                     onClick={() => {
-                      const updated = [...structuredPrereqs];
-                      updated[idx].push("");
-                      setStructuredPrereqs(updated);
+                      const updated = [...structuredReqs];
+                      updated[idx] = {
+                        ...updated[idx],
+                        courses: [...updated[idx].courses, ""],
+                      };
+                      setStructuredReqs(updated);
                     }}
                   >
                     +OR
@@ -1415,12 +1455,14 @@ const AdminPortal = () => {
                   <button
                     className="remove-group-button"
                     onClick={() => {
-                      const updated = [...structuredPrereqs];
-                      updated.splice(idx, 1); // Remove the entire OR group
-                      if (updated.length === 0) {
-                        updated.push([""]); // Ensure at least one OR group remains
-                      }
-                      setStructuredPrereqs(updated);
+                      const updated = [...structuredReqs];
+                      updated.splice(idx, 1);
+                      if (updated.length === 0)
+                        updated.push({
+                          relation: "prerequisite",
+                          courses: [""],
+                        });
+                      setStructuredReqs(updated);
                     }}
                   >
                     Remove
@@ -1431,7 +1473,10 @@ const AdminPortal = () => {
                 <button
                   className="and-button"
                   onClick={() =>
-                    setStructuredPrereqs([...structuredPrereqs, [""]])
+                    setStructuredReqs([
+                      ...structuredReqs,
+                      { relation: "prerequisite", courses: [""] },
+                    ])
                   }
                 >
                   +AND
@@ -1440,44 +1485,51 @@ const AdminPortal = () => {
             </div>
 
             <div className="summary-box">
-              Summary:{" "}
-              {structuredPrereqs.length === 0 ||
-              structuredPrereqs.every((group) =>
-                group.every((code) => !code.trim()),
-              )
-                ? "None"
-                : structuredPrereqs
-                    .filter((group) => group.some((code) => code.trim()))
-                    .map(
-                      (group) =>
-                        `(${group.filter((code) => code.trim()).join(" OR ")})`,
-                    )
-                    .join(" AND ")}
+              Prerequisites:{" "}
+              {structuredReqs
+                .filter((g) => g.relation === "prerequisite")
+                .map((g) => (g.courses || []).filter((c) => c.trim()))
+                .filter((g) => g.length > 0)
+                .map((g) => `(${g.join(" OR ")})`)
+                .join(" AND ") || "None"}
+              <br />
+              Corequisites:{" "}
+              {structuredReqs
+                .filter((g) => g.relation === "corequisite")
+                .map((g) => (g.courses || []).filter((c) => c.trim()))
+                .filter((g) => g.length > 0)
+                .map((g) => `(${g.join(" OR ")})`)
+                .join(" AND ") || "None"}
             </div>
 
             <div className="modal-actions">
               <button
                 onClick={async () => {
-                  const courseId = activePrereqCourseId; // INSTEAD OF using tableData[activePrereqRowIdx]
-                  const clean = structuredPrereqs
-                    .map((group) =>
-                      group.map((code) => code.trim()).filter(Boolean),
-                    )
-                    .filter((group) => group.length > 0);
+                  const courseId = activePrereqCourseId;
+                  const clean = structuredReqs
+                    .map((group) => ({
+                      relation:
+                        group.relation === "corequisite"
+                          ? "corequisite"
+                          : "prerequisite",
+                      courses: (group.courses || [])
+                        .map((code) => code.trim())
+                        .filter(Boolean),
+                    }))
+                    .filter((group) => group.courses.length > 0);
 
                   try {
                     const res = await fetch(
-                      `${API_BASE_URL}/courses/${courseId}/prerequisites/structured`,
+                      `${API_BASE_URL}/courses/${courseId}/requisites`,
                       {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ prerequisites: clean }),
+                        body: JSON.stringify({ requisites: clean }),
                       },
                     );
 
                     const result = await res.json();
                     if (result.success) {
-                      // ✅ Reload table data from server to reflect updated prereqs
                       const refreshed = await fetch(
                         `${API_BASE_URL}/courses/${selectedProgram}`,
                       );
@@ -1485,14 +1537,13 @@ const AdminPortal = () => {
                       if (json.success) {
                         setTableData(json.data);
                       }
-
                       setShowPrereqModal(false);
                       setActivePrereqCourseId(null);
                     } else {
                       alert(result.message);
                     }
                   } catch (err) {
-                    alert("Failed to update prerequisites");
+                    alert("Failed to update requisites");
                     console.error(err);
                   }
                 }}
@@ -1503,7 +1554,7 @@ const AdminPortal = () => {
               <button
                 onClick={() => {
                   setShowPrereqModal(false);
-                  setStructuredPrereqs([]);
+                  setStructuredReqs([]);
                   setActivePrereqCourseId(null);
                 }}
               >
@@ -1535,7 +1586,6 @@ const AdminPortal = () => {
             }
             setShowCreateModal(false);
           }}
-
           courseTypes={courseTypes}
           subTypes={subTypes}
           programCode={selectedProgram}
