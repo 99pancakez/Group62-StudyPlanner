@@ -54,68 +54,30 @@ const getAvailableCourses = async (req, res) => {
 
 const getAllCoursesWithPrerequisites = async (req, res) => {
   try {
-    // Fetch all courses where prerequisite = true with their PreRequisiteGroupAND
-    const courses = await Course.findAll({
-      where: { prerequisite: true },
-      include: [
-        {
-          model: PreRequisiteGroupAND,
-          as: "pre_requisite_group_ANDs",
-          attributes: ["group_id", "course_id"], // Include only necessary fields
-        },
-      ],
-    });
+    const rulesMap = await getAllCourseRequisites({ field: "course_id" });
+    const courseIds = Object.keys(rulesMap);
 
-    // Process each course to fetch its prerequisites
-    const response = await Promise.all(
-      courses.map(async (course) => {
-        const andGroups = course.pre_requisite_group_ANDs || [];
-        if (andGroups.length === 0) {
-          return {
-            course_id: course.course_id,
-            course_title: course.course_title,
-            prerequisites: null,
-          };
-        }
-
-        // Fetch PreRequisiteGroupOR for each group_id
-        const groupIds = andGroups.map((group) => group.group_id);
-        const orEntries = await PreRequisiteGroupOR.findAll({
-          where: { group_id: groupIds },
-          attributes: ["group_id", "course_id"],
-        });
-
-        // Group OR entries by group_id
-        const orGroups = {};
-        orEntries.forEach((entry) => {
-          if (!orGroups[entry.group_id]) orGroups[entry.group_id] = [];
-          orGroups[entry.group_id].push(entry.course_id);
-        });
-
-        // Format prerequisites
-        const prerequisiteStrings = andGroups
-          .map((group) => {
-            const orCourses = orGroups[group.group_id] || [];
-            return orCourses.join(" OR ");
-          })
-          .filter((str) => str.length > 0); // Filter out empty groups
-
-        const prerequisites = prerequisiteStrings.join(" AND ");
-
-        return {
-          course_id: course.course_id,
-          course_title: course.course_title,
-          prerequisites: prerequisites || null,
-        };
-      }),
+    const courses = courseIds.length
+      ? await Course.findAll({
+          where: { course_id: courseIds },
+          attributes: ["course_id", "course_title"],
+        })
+      : [];
+    const titleById = new Map(
+      courses.map((c) => [c.course_id, c.course_title]),
     );
+
+    const response = courseIds.map((courseId) => ({
+      course_id: courseId,
+      course_title: titleById.get(courseId),
+      prerequisites: rulesMap[courseId].prerequisites,
+      corequisites: rulesMap[courseId].corequisites,
+    }));
 
     res.json(response);
   } catch (error) {
-    console.error("Error fetching all courses with prerequisites:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to fetch courses with prerequisites" });
+    console.error("Error fetching all courses with requisites:", error);
+    res.status(500).json({ error: "Failed to fetch courses with requisites" });
   }
 };
 
