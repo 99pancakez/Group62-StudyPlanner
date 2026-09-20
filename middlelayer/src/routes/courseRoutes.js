@@ -18,17 +18,11 @@ router.post("/", courseController.createCourse);
 // GET /courses/allCourseCodes - Fetch all course codes (for autocomplete)
 router.get("/allCourseCodes", courseController.getAllCourseCodes);
 
-// GET structured prerequisites for a course
-router.get(
-  "/:courseId/prerequisites/structured",
-  courseController.getStructuredPrerequisites,
-);
+// GET /courses/:courseId/requisites - get structured prerequisites + corequisites
+router.get("/:courseId/requisites", courseController.getRequisites);
 
-// PUT structured prerequisites for a course
-router.put(
-  "/:courseId/prerequisites/structured",
-  courseController.updateStructuredPrerequisites,
-);
+// PUT /courses/:courseId/requisites - replace all requisites
+router.put("/:courseId/requisites", courseController.updateRequisites);
 
 // PUT /courses/:courseId - Update a course
 router.put("/:courseId", courseController.updateCourse);
