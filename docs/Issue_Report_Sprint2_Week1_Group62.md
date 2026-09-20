@@ -52,6 +52,6 @@ Neither issue is visible on a machine that already has the packages, so the comb
 
 | ID | Raised with | Date | Status |
 | --- | --- | --- | --- |
-| ISS-1 |  |  | Open |
-| ISS-2 |  |  | Open |
-| ISS-3 |  |  | Open |
+| ISS-1 | Jonathan | 20 September 2026 | Closed |
+| ISS-2 | Jonathan | 20 September 2026 | Closed |
+| ISS-3 | Finn | 20 September 2026 | Closed |
