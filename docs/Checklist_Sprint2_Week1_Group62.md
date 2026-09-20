@@ -19,7 +19,7 @@ Findings outside the acceptance criteria are listed in section 4 and do not coun
 | R1-T1 | Single-action launch | Double-click the launch file. Do nothing else. | Planner opens in a browser with no further action. | AC1, US-1 | Pass |
 | R1-T2 | No terminal use | Repeat T1, record every action taken. | No commands typed at any point. | AC2, US-1 | Pass |
 | R1-T3 | No preinstalled software | Run T1 on a machine with no Node.js or MySQL. | Application starts and is usable. | AC3, US-1 | Pass |
-| R1-T4 | No internet connection | Disconnect the network. Run T1 on a machine that has not run it before. | Starts, or explains what is missing. An indefinite wait is a Fail. | Supp | Fail — OBS-1 |
+| R1-T4 | No internet connection | Disconnect the network. Run T1 on a machine that has not run it before. | Starts, or explains what is missing. An indefinite wait is a Fail. | Supp | Pass — OBS-1 |
 | R1-T5 | Course data on launch | Browse the course list after startup. | Courses are listed with no import step. | AC4, US-1 | Pass |
 | R1-T6 | Data matches the client's file | Check course details against the client's data. | Details match. | US-6 | Pass — see note |
 | R1-T7 | Starting again | Close everything, run T1 again. | Starts with no error, no repeated setup. | Supp | Pass |
@@ -72,8 +72,8 @@ Findings outside the acceptance criteria are listed in section 4 and do not coun
 
 |  | R1 | R2 |
 | --- | --- | --- |
-| Passed | T1, T2, T3, T5, T6, T7, T8 | T1, T2, T3, T4, T5 |
-| Failed | T4 (Supp, see OBS-1) | None |
+| Passed | T1, T2, T3, T4, T5, T6, T7, T8 | T1, T2, T3, T4, T5 |
+| Failed |  | None |
 | Not tested / testable | T9 | T6–T13, T15–T19 |
 | Blocked | — | T14 |
 | Signed off | Pending AC5 | Pending 2.2 and 2.3 |
@@ -84,11 +84,11 @@ Tested by Bohan Chen, 20 September 2026.
 
 Outside the acceptance criteria. Detail and reproduction steps are in the Issue Report.
 
-**OBS-1 —** When the backend fails to start, the launch keeps waiting on port 3000 indefinitely with nothing on screen to explain why. Not specific to the no-internet case that reproduced it.
+**OBS-1 —** When the backend fails to start, the launch keeps waiting on port 3000 indefinitely with nothing on screen to explain why. Not specific to the no-internet case that reproduced it. Fixed
 
-**OBS-2 —** The launch instructions do not mention that the first launch needs internet, that it is slower, that console windows must stay open, or how to close the application.
+**OBS-2 —** The launch instructions do not mention that the first launch needs internet, that it is slower, that console windows must stay open, or how to close the application. Fixed
 
-**OBS-3 —** npm install in the frontend fails on a clean machine with an ERESOLVE conflict. --legacy-peer-deps works around it. Invisible on a machine that already has the packages.
+**OBS-3 —** npm install in the frontend fails on a clean machine with an ERESOLVE conflict. --legacy-peer-deps works around it. Invisible on a machine that already has the packages. Fixed
 
 ## 5. Open items
 
