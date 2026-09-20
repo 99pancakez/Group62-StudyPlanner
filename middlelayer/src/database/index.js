@@ -21,15 +21,6 @@ db.Course = require("./models/course")(db.sequelize, DataTypes);
 db.Type = require("./models/type")(db.sequelize, DataTypes);
 db.SubType = require("./models/sub_type")(db.sequelize, DataTypes);
 db.CourseType = require("./models/course_type")(db.sequelize, DataTypes);
-db.Group = require("./models/group")(db.sequelize, DataTypes);
-db.PreRequisiteGroupAND = require("./models/pre_requisite_group_AND")(
-  db.sequelize,
-  DataTypes,
-);
-db.PreRequisiteGroupOR = require("./models/pre_requisite_group_OR")(
-  db.sequelize,
-  DataTypes,
-);
 db.Availability = require("./models/availability")(db.sequelize, DataTypes);
 db.CourseAvailability = require("./models/course_availability")(
   db.sequelize,
@@ -100,40 +91,6 @@ db.CourseType.belongsTo(db.Course, {
   foreignKey: { name: "course_id", allowNull: false },
 });
 
-// group to pre_requisite_group_AND (one-to-many)
-db.Group.hasMany(db.PreRequisiteGroupAND, {
-  foreignKey: { name: "group_id", allowNull: false },
-});
-db.PreRequisiteGroupAND.belongsTo(db.Group, {
-  foreignKey: { name: "group_id", allowNull: false },
-});
-
-// group to pre_requisite_group_OR (one-to-many)
-db.Group.hasMany(db.PreRequisiteGroupOR, {
-  foreignKey: { name: "group_id", allowNull: false },
-});
-db.PreRequisiteGroupOR.belongsTo(db.Group, {
-  foreignKey: { name: "group_id", allowNull: false },
-});
-
-// course to pre_requisite_group_AND (one-to-many)
-db.Course.hasMany(db.PreRequisiteGroupAND, {
-  foreignKey: { name: "course_id", allowNull: false },
-  as: "pre_requisite_group_ANDs",
-});
-db.PreRequisiteGroupAND.belongsTo(db.Course, {
-  foreignKey: { name: "course_id", allowNull: false },
-});
-
-// course to pre_requisite_group_OR (one-to-many)
-db.Course.hasMany(db.PreRequisiteGroupOR, {
-  foreignKey: { name: "course_id", allowNull: false },
-  as: "pre_requisite_group_ORs",
-});
-db.PreRequisiteGroupOR.belongsTo(db.Course, {
-  foreignKey: { name: "course_id", allowNull: false },
-});
-
 // availability to course_availability (one-to-many)
 db.Availability.hasMany(db.CourseAvailability, {
   foreignKey: { name: "semester_id", allowNull: false },
@@ -185,17 +142,6 @@ db.Course.hasMany(db.History, {
 db.History.belongsTo(db.Course, {
   foreignKey: { name: "course_id", allowNull: true },
   as: "course",
-});
-
-// course (as target) to pre_requisite_group_OR (foreign key: course_id)
-db.PreRequisiteGroupOR.belongsTo(db.Course, {
-  foreignKey: { name: "course_id", allowNull: false },
-  as: "prereq_course",
-});
-
-db.Course.hasMany(db.PreRequisiteGroupOR, {
-  foreignKey: { name: "course_id", allowNull: false },
-  as: "preReqOrCourses",
 });
 
 // ProgramPlan → Combination (1:M)
