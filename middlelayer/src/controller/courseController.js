@@ -10,7 +10,6 @@ const {
   credit_points,
   RequisiteRule,
 } = require("../database");
-const { History, Admin } = require("../database");
 const fieldNameMap = require("../utils/fieldNameMap");
 const Sequelize = require("sequelize");
 const { sequelize } = require("../database");
@@ -547,9 +546,12 @@ exports.deleteCourse = async (req, res) => {
     await CourseAvailability.destroy({ where: { course_id: courseId } });
     await RequisiteRule.destroy({ where: { target_course_id: courseId } });
 
-    // Finally, delete the course
+    if (!stillUsed) {
+      // No one else uses this group — delete its OR courses + the group
+      await PreRequisiteGroupOR.destroy({ where: { group_id: groupId } });
+      await sequelize.models.group.destroy({ where: { group_id: groupId } });
+    }
     await course.destroy();
-
     res.json({ success: true, message: "Course deleted successfully" });
   } catch (error) {
     console.error("Error deleting course:", error);
@@ -859,8 +861,3 @@ exports.createCourse = async (req, res) => {
       .json({ success: false, message: "Server error during course creation" });
   }
 };
-
-/*exports.deleteCourse = (req, res) => {
-  console.warn("❌ deleteCourse is temporarily disabled.");
-  res.status(501).json({ success: false, message: "Course deletion is temporarily disabled." });
-};*/

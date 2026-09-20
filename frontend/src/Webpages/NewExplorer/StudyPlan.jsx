@@ -4,11 +4,21 @@ import autoTable from "jspdf-autotable";
 import CombinationComponent from "../../Components/Combination/CombinationComponent";
 import SemesterComponent from "../../Components/SemesterUI/SemesterComponent";
 import "./StudyPlan.css";
+import {
+  API_BASE_URL,
+  COMBINATIONS,
+  CREDITS,
+  EXCLUDED_SUB_TYPES,
+  LOCALS,
+  PROGRAM_CODE,
+  SUB_TYPE,
+} from "../../constants";
+import ProgressComponent from "../../Components/common/ProgressComponent";
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
     try {
-      const storedData = localStorage.getItem("studyPlanState");
+      const storedData = localStorage.getItem(LOCALS.studyPlanState);
       return storedData ? JSON.parse(storedData).semesterCount : 1;
     } catch (e) {
       return 1;
@@ -16,12 +26,12 @@ function StudyPlan() {
   });
 
   const [selectedCourses, setSelectedCourses] = useState(() => {
-    const storedSelections = localStorage.getItem("semesterSelections");
+    const storedSelections = localStorage.getItem(LOCALS.semesterSelections);
     return storedSelections ? JSON.parse(storedSelections) : {};
   });
 
   const [completedCourses, setCompletedCourses] = useState(() => {
-    const storedCompleted = localStorage.getItem("completedCourses");
+    const storedCompleted = localStorage.getItem(LOCALS.completedCourses);
     return storedCompleted ? JSON.parse(storedCompleted) : [];
   });
 
@@ -30,7 +40,7 @@ function StudyPlan() {
   const [creditProgress, setCreditProgress] = useState({});
   const [combinations, setCombinations] = useState([]);
   const [combinationSelections, setCombinationSelections] = useState(() => {
-    const stored = localStorage.getItem("combinationSelections");
+    const stored = localStorage.getItem(LOCALS.combinationSelections);
     return stored ? JSON.parse(stored) : {};
   });
 
@@ -39,14 +49,16 @@ function StudyPlan() {
   const handleClearCombinationAndMap = () => {
     setCombinationSelections({});
     setSubTypeGroupMap({});
-    localStorage.removeItem("combinationSelections");
-    localStorage.removeItem("subTypeGroupMap");
+    localStorage.removeItem(LOCALS.combinationSelections);
+    localStorage.removeItem(LOCALS.subTypeGroupMap);
   };
 
   const calculateProgramCourseCredits = (selectedCourses) => {
     return Object.values(selectedCourses)
       .flat()
-      .filter((course) => course.selected_sub_type_id === 17)
+      .filter(
+        (course) => course.selected_sub_type_id === SUB_TYPE.PROGRAM_COURSE,
+      )
       .reduce((sum, course) => sum + (course.credit || 0), 0);
   };
 
@@ -65,14 +77,14 @@ function StudyPlan() {
       [subTypeId]: groupLabel,
     };
     setSubTypeGroupMap(updatedMap);
-    localStorage.setItem("subTypeGroupMap", JSON.stringify(updatedMap));
+    localStorage.setItem(LOCALS.subTypeGroupMap, JSON.stringify(updatedMap));
   };
 
   // Fetch combinations on mount
   useEffect(() => {
     const fetchCombinations = async () => {
       try {
-        const response = await fetch("http://localhost:3000/combinations");
+        const response = await fetch(`${API_BASE_URL}/combinations`);
         const data = await response.json();
         setCombinations(data);
       } catch (error) {
@@ -83,7 +95,7 @@ function StudyPlan() {
   }, []);
 
   useEffect(() => {
-    const savedMap = localStorage.getItem("subTypeGroupMap");
+    const savedMap = localStorage.getItem(LOCALS.subTypeGroupMap);
     if (savedMap) {
       setSubTypeGroupMap(JSON.parse(savedMap));
     }
@@ -94,7 +106,7 @@ function StudyPlan() {
       .flatMap((courses) => courses.map((course) => course.id))
       .filter((id) => id !== null && id !== undefined);
 
-    const qnaData = localStorage.getItem("qnaResponses");
+    const qnaData = localStorage.getItem(LOCALS.qnaResponses);
     if (qnaData) {
       const parsedQna = JSON.parse(qnaData);
       if (parsedQna.creditCourses) {
@@ -109,7 +121,7 @@ function StudyPlan() {
 
     const coreCourses = Object.values(selectedCourses)
       .flat()
-      .filter((course) => course.selected_sub_type_id === 1);
+      .filter((course) => course.selected_sub_type_id === SUB_TYPE.CORE);
     const newCoreCredits = coreCourses.reduce(
       (sum, course) => sum + (course.credit || 0),
       0,
@@ -137,18 +149,18 @@ function StudyPlan() {
 
           // Default required
           let required = group.credit;
-          const isCombo4 = comboId === "4";
+          const isCombo4 = comboId === COMBINATIONS.SELECT_ALL;
 
           let min = null;
           let max = null;
 
           if (isCombo4) {
             if (lowerLabel.includes("cs option")) {
-              min = 48;
-              max = 96;
+              min = CREDITS.COMBO4_CS_OPTION_MIN;
+              max = CREDITS.COMBO4_CS_OPTION_MAX;
             } else if (lowerLabel.includes("elective")) {
-              min = 0;
-              max = 48;
+              min = CREDITS.COMBO4_ELECTIVE_MIN;
+              max = CREDITS.COMBO4_ELECTIVE_MAX;
             }
           }
 
@@ -169,7 +181,7 @@ function StudyPlan() {
 
         const seenCourseIds = new Set();
 
-        if (comboId === "3") {
+        if (comboId === COMBINATIONS.SELECT_MINOR) {
           const csMinorGroup = Object.keys(progressMap).find((label) =>
             label.toLowerCase().includes("cs minor"),
           );
@@ -190,7 +202,10 @@ function StudyPlan() {
           if (selectedMinorSubTypeId && !updatedMap[selectedMinorSubTypeId]) {
             updatedMap[selectedMinorSubTypeId] = csMinorGroup;
             setSubTypeGroupMap(updatedMap);
-            localStorage.setItem("subTypeGroupMap", JSON.stringify(updatedMap));
+            localStorage.setItem(
+              LOCALS.subTypeGroupMap,
+              JSON.stringify(updatedMap),
+            );
           }
 
           Object.values(selectedCourses)
@@ -201,7 +216,7 @@ function StudyPlan() {
 
               if (selectedId === selectedMinorSubTypeId) {
                 progressMap[csMinorGroup].earned += course.credit || 0;
-              } else if (selectedId !== 1 && selectedId !== 17) {
+              } else if (!EXCLUDED_SUB_TYPES.includes(selectedId)) {
                 progressMap[csOptionGroup].earned += course.credit || 0;
               }
 
@@ -214,7 +229,7 @@ function StudyPlan() {
               const selectedId = course.selected_sub_type_id;
               if (!selectedId || seenCourseIds.has(course.id)) return;
 
-              if (comboId === "4") {
+              if (comboId === COMBINATIONS.SELECT_ALL) {
                 const electiveGroup = Object.keys(progressMap).find((label) =>
                   label.toLowerCase().includes("elective"),
                 );
@@ -222,11 +237,14 @@ function StudyPlan() {
                   label.toLowerCase().includes("cs option"),
                 );
 
-                if (selectedId === 16 && electiveGroup) {
+                if (
+                  selectedId === SUB_TYPE.UNIVERSITY_ELECTIVE &&
+                  electiveGroup
+                ) {
                   progressMap[electiveGroup].earned += course.credit || 0;
                 } else if (
-                  selectedId !== 1 &&
-                  selectedId !== 17 &&
+                  selectedId !== SUB_TYPE.CORE &&
+                  selectedId !== SUB_TYPE.PROGRAM_COURSE &&
                   csOptionGroup
                 ) {
                   progressMap[csOptionGroup].earned += course.credit || 0;
@@ -287,7 +305,7 @@ function StudyPlan() {
     const newCount = semesterCount + 1;
     setSemesterCount(newCount);
     localStorage.setItem(
-      "studyPlanState",
+      LOCALS.studyPlanState,
       JSON.stringify({
         semesterCount: newCount,
       }),
@@ -308,20 +326,15 @@ function StudyPlan() {
           }
           selectedCourses={selectedCourses}
           setSelectedCourses={setSelectedCourses}
-          completedCourses={completedCourses}
         />
       );
     });
   };
 
-  const totalCredits =
-    Object.values(creditProgress).reduce((sum, p) => sum + p.earned, 0) +
-    coreCredits;
-
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     const selections = JSON.parse(
-      localStorage.getItem("semesterSelections") || "{}",
+      localStorage.getItem(LOCALS.semesterSelections) || "{}",
     );
 
     let overallTotal = 0;
@@ -379,7 +392,7 @@ function StudyPlan() {
           className="download-link"
           onClick={() => {
             window.open(
-              "http://localhost:3000/courses/download-courses/BP094P23",
+              `${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`,
               "_blank",
             );
           }}
@@ -402,34 +415,22 @@ function StudyPlan() {
             <h4>Credit Breakdown</h4>
 
             {/* Core */}
-            <div className="progress-item">
-              <div className="progress-label">
-                <span>Core : </span>
-                <span>{coreCredits}/180</span>
-              </div>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${(coreCredits / 180) * 100}%` }}
-                />
-              </div>
-            </div>
+            <ProgressComponent
+              label="Core"
+              valueText={`${coreCredits}/${CREDITS.CORE_TOTAL}`}
+              percentage={(coreCredits / CREDITS.CORE_TOTAL) * 100}
+            />
 
             {/* Program Course */}
-            <div className="progress-item">
-              <div className="progress-label">
-                <span>Program Course : </span>
-                <span>{calculateProgramCourseCredits(selectedCourses)}/12</span>
-              </div>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{
-                    width: `${(calculateProgramCourseCredits(selectedCourses) / 12) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
+            <ProgressComponent
+              label="Program Course"
+              valueText={`${calculateProgramCourseCredits(selectedCourses)}/${CREDITS.PROGRAM_COURSE_TOTAL}`}
+              percentage={
+                (calculateProgramCourseCredits(selectedCourses) /
+                  CREDITS.PROGRAM_COURSE_TOTAL) *
+                100
+              }
+            />
 
             {/* Combo breakdowns */}
             {majorMinorBreakdown.map((item, index) => {
@@ -438,39 +439,27 @@ function StudyPlan() {
                 required: item.target,
               };
               return (
-                <div key={index} className="progress-item">
-                  <div className="progress-label">
-                    <span>{item.label} : </span>
-                    <span>
-                      {progress.earned}/
-                      {progress.min != null && progress.max != null
-                        ? `${progress.min}-${progress.max}`
-                        : (progress.required ?? "N/A")}
-                    </span>
-
-                    {progress.over && (
-                      <div className="credit-warning">
-                        ⚠️ Exceeds maximum allowed credits
-                      </div>
-                    )}
-                  </div>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{
-                        width: `${progress.percentage}%`,
-                        backgroundColor: progress.over ? "red" : undefined,
-                      }}
-                    />
-                  </div>
-                </div>
+                <ProgressComponent
+                  key={index}
+                  label={item.label}
+                  valueText={`${progress.earned}/${
+                    progress.min != null && progress.max != null
+                      ? `${progress.min}-${progress.max}`
+                      : (progress.required ?? "N/A")
+                  }`}
+                  percentage={progress.percentage}
+                  over={progress.over}
+                  warning="Exceeds maximum allowed credits"
+                />
               );
             })}
 
             {/* Total */}
             <div className="total-credits">
               <span>Total Credits : </span>
-              <span>{calculateTotalCredits()}/288</span>
+              <span>
+                {calculateTotalCredits()}/{CREDITS.TOTAL_DEGREE}
+              </span>
             </div>
           </div>
         </div>

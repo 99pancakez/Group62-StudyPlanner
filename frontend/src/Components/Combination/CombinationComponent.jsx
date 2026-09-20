@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./CombinationComponent.css";
+import {
+  LOCALS,
+  COMBINATIONS,
+  CS_MINOR_IDS,
+  CS_OPTION_IDS,
+  EXCLUDED_SUB_TYPES,
+  SUB_TYPE,
+} from "../../constants";
 
 export default function CombinationComponent({
   setCombinationSelections,
@@ -12,13 +20,8 @@ export default function CombinationComponent({
   const [selected, setSelected] = useState({});
   const menuRef = useRef(null);
 
-  const EXCLUDED_SUB_TYPES = [1, 17];
-  const CS_MINOR_IDS = [5, 6, 7, 8, 9, 10, 11, 12];
-  const CS_OPTION_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16];
-  const NONCS_MINOR_IDS = [13, 14, 15];
-
   useEffect(() => {
-    const stored = localStorage.getItem("combinationSelections");
+    const stored = localStorage.getItem(LOCALS.combinationSelections);
     if (stored) {
       const parsed = JSON.parse(stored);
       const firstComboId = Object.keys(parsed)[0];
@@ -107,7 +110,7 @@ export default function CombinationComponent({
     };
 
     // Combination 3: CS Minor → select one manually, others auto-select
-    if (comboId === "3") {
+    if (comboId === COMBINATIONS.SELECT_MINOR) {
       const manuallyChosen = subTypeId || -1;
 
       const autoSelectedIds = CS_OPTION_IDS.filter(
@@ -137,7 +140,7 @@ export default function CombinationComponent({
 
       const updatedStorage = { [comboId]: storedCombo };
       localStorage.setItem(
-        "combinationSelections",
+        LOCALS.combinationSelections,
         JSON.stringify(updatedStorage),
       );
       window.dispatchEvent(new Event("combinationUpdated"));
@@ -148,7 +151,7 @@ export default function CombinationComponent({
     }
 
     // Combination 4: Auto-select all sub-types except Core/Program
-    if (comboId === "4") {
+    if (comboId === COMBINATIONS.SELECT_ALL) {
       const autoSelectedIds = [
         ...new Set(
           combinations
@@ -182,7 +185,7 @@ export default function CombinationComponent({
 
       const updatedStorage = { [comboId]: storedCombo };
       localStorage.setItem(
-        "combinationSelections",
+        LOCALS.combinationSelections,
         JSON.stringify(updatedStorage),
       );
       window.dispatchEvent(new Event("combinationUpdated"));
@@ -200,7 +203,7 @@ export default function CombinationComponent({
     setSelected(newState);
 
     const storedSelections = JSON.parse(
-      localStorage.getItem("combinationSelections") || "{}",
+      localStorage.getItem(LOCALS.combinationSelections) || "{}",
     );
     const storedCombo = storedSelections[comboId] || {};
     const updatedStoredCombo = {
@@ -218,7 +221,7 @@ export default function CombinationComponent({
     };
 
     localStorage.setItem(
-      "combinationSelections",
+      LOCALS.combinationSelections,
       JSON.stringify(updatedStorage),
     );
     window.dispatchEvent(new Event("combinationUpdated"));
@@ -244,25 +247,28 @@ export default function CombinationComponent({
   const clearSelection = (e) => {
     e.stopPropagation();
     setSelected({});
-    localStorage.removeItem("combinationSelections");
-    localStorage.removeItem("subTypeGroupMap");
+    localStorage.removeItem(LOCALS.combinationSelections);
+    localStorage.removeItem(LOCALS.subTypeGroupMap);
     setCombinationSelections({});
     setOpenCombo(null);
     setOpenSub(null);
 
     // Clear all semester selections except core courses
     const currentSelections = JSON.parse(
-      localStorage.getItem("semesterSelections") || "{}",
+      localStorage.getItem(LOCALS.semesterSelections) || "{}",
     );
     const newSelections = {};
 
     Object.keys(currentSelections).forEach((semester) => {
       newSelections[semester] = currentSelections[semester].filter((course) =>
-        course.sub_type_ids?.includes(1),
+        course.sub_type_ids?.includes(SUB_TYPE.CORE),
       );
     });
 
-    localStorage.setItem("semesterSelections", JSON.stringify(newSelections));
+    localStorage.setItem(
+      LOCALS.semesterSelections,
+      JSON.stringify(newSelections),
+    );
     window.dispatchEvent(
       new CustomEvent("clearNonCoreCourses", { detail: { newSelections } }),
     );
@@ -311,7 +317,7 @@ export default function CombinationComponent({
                 className={`menu-item ${selected[combo.id.toString()] ? "active-combo" : ""}`}
                 onMouseEnter={() => handleComboHover(combo.id.toString())}
                 onClick={() => {
-                  if (combo.id.toString() === "4") {
+                  if (combo.id.toString() === COMBINATIONS.SELECT_ALL) {
                     handleSelect("4", "", "", null);
                   }
                 }}

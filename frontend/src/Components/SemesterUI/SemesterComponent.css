@@ -63,16 +63,8 @@
   overflow-wrap: break-word;
   text-overflow: ellipsis;
   line-height: 1.5;
-}
-
-.course-select {
-  white-space: normal;
   word-break: break-word;
-  overflow-wrap: break-word;
-  line-height: 1.5;
   display: block;
-  width: 100%;
-  max-width: 100%;
 }
 
 .course-select option {
