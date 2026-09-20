@@ -20,9 +20,22 @@ startfrontlayer.bat
 startmiddlelayer.bat
 ```
 
-`start.bat` combines these terminal scripts to launch the program.<br><br>
+`start.bat` combines these terminal scripts to launch the program.<br>
 
-**first time launch of `start.bat` will install dependent node modules, future launches will not**
+### First time Launch:
+**An internet connection is needed for the initial launch**<br>
+The first time launch of `start.bat` will install dependent node modules, please wait a few minutes for the installation. Future launches will not have this delay and will launch quickly.
+
+### Program Behaviour:
+
+Upon launch, 4 terminal windows open;
+- launch sequencer `start.bat`
+- mysql server `sql/startsqlserver.bat`
+- middle layer handling `startmiddlelayer.bat`
+- frontend user interface `startfrontlayer.bat`
+
+ **do not** close any of these while the program is running. To close the program, it is safe to just end all the terminal windows, the order is not neccesary.
+
 
 
 ## Step 3: Access the Application

@@ -7,12 +7,13 @@ set "APP_DIR=%~dp0frontend"
 
 cd /d "%APP_DIR%"
 
+
 if not exist "node_modules" (
     echo node_modules not found, running npm install...
     call npm install
     if errorlevel 1 (
         echo npm install failed, aborting.
-        pause
+        echo node failed > "%~dp0frontend_failed.flag"
         exit /b 1
     )
 )
@@ -21,7 +22,7 @@ set "PORT=3001"
 call npm start
 if errorlevel 1 (
     echo npm start failed, aborting.
-    pause
+    echo node failed > "%~dp0frontend_failed.flag"
     exit /b 1
 )
 
