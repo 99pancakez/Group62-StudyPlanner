@@ -20,7 +20,10 @@ async function importSQL() {
     await connection.changeUser({ database: config.DB });
 
     // Read and execute SQL dump
-    const sql = fs.readFileSync(path.join(__dirname, "cs.sql"), "utf8");
+    const sql = fs.readFileSync(
+      path.join(__dirname, "cs_coreq_dump.sql"),
+      "utf8",
+    );
     await connection.query(sql);
 
     console.log("✅ Database imported successfully!");
