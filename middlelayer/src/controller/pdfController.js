@@ -7,9 +7,8 @@ const {
   SubType,
   CourseAvailability,
   Availability,
-  PreRequisiteGroupAND,
-  PreRequisiteGroupOR,
 } = require("../database");
+const { getCourseRequisites } = require("./requisiteService");
 
 // PDF Generator
 const PDFDocument = require("pdfkit");
@@ -51,14 +50,6 @@ exports.downloadCoursesPDF = async (req, res) => {
                       as: "courseAvailabilities",
                       include: [{ model: Availability, as: "availability" }],
                     },
-                    {
-                      model: PreRequisiteGroupAND,
-                      as: "pre_requisite_group_ANDs",
-                    },
-                    {
-                      model: PreRequisiteGroupOR,
-                      as: "pre_requisite_group_ORs",
-                    },
                   ],
                 },
               ],
@@ -89,47 +80,10 @@ exports.downloadCoursesPDF = async (req, res) => {
           const isSemester2 = semesters.includes("Semester 2");
           const isFlexTerm = semesters.includes("Flex Term");
 
-          const andGroupIds =
-            course.pre_requisite_group_ANDs?.map((g) => g.group_id) || [];
-          const orGroupIds =
-            course.pre_requisite_group_ORs?.map((g) => g.group_id) || [];
-
-          let structuredPrereqs = []; // For PDF in-page navigations linking : Array
-
-          if (course.prerequisite) {
-            structuredPrereqs = [];
-
-            // AND groups
-            if (andGroupIds.length > 0) {
-              for (const groupId of andGroupIds) {
-                const orCourses = await PreRequisiteGroupOR.findAll({
-                  where: { group_id: groupId },
-                  include: [{ model: Course, attributes: ["course_code"] }],
-                });
-
-                const courseCodes = orCourses.map(
-                  (oc) => oc.course.course_code,
-                );
-                if (courseCodes.length > 0) {
-                  structuredPrereqs.push(courseCodes); // OR group
-                }
-              }
-              prerequisites = structuredPrereqs
-                .map((g) => `(${g.join(" OR ")})`)
-                .join(" AND ");
-            }
-            // OR groups only
-            else if (orGroupIds.length > 0) {
-              const orCourses = await PreRequisiteGroupOR.findAll({
-                where: { group_id: orGroupIds },
-                include: [{ model: Course, attributes: ["course_code"] }],
-              });
-
-              const courseCodes = orCourses.map((oc) => oc.course.course_code);
-              structuredPrereqs = [courseCodes]; // One OR group
-              prerequisites = courseCodes.join(" OR ");
-            }
-          }
+          const requisites = await getCourseRequisites(course.course_id);
+          const structuredPrereqs = requisites
+            .filter((g) => g.relation === "prerequisite")
+            .map((g) => g.courses.slice());
 
           formattedCourses.push({
             course_code: course.course_code,
