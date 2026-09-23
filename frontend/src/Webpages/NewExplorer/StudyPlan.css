@@ -144,3 +144,69 @@
   color: #c0392b;
   margin-top: 2px;
 }
+.coreq-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.coreq-modal {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px 24px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.coreq-modal-lead {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.coreq-modal-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+
+.coreq-modal-list li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px;
+  margin-bottom: 8px;
+  background: #fff3cd;
+  border: 1px solid #e0b64d;
+  border-radius: 4px;
+  color: #4d3800;
+}
+
+.coreq-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.coreq-modal-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.coreq-modal-btn.primary {
+  background: #1a0dab;
+  color: #fff;
+  border-color: #1a0dab;
+}
+
+.coreq-modal-btn.secondary {
+  background: #fff;
+  color: #333;
+}
