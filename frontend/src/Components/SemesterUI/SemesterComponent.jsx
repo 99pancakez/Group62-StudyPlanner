@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./SemesterComponent.css";
 import {
   EXPLORER_API_BASE_URL,
@@ -10,6 +10,8 @@ import {
 import { isPrereqMet } from "../../utils/courseCategoriser";
 import logger from "../../log";
 import CourseDropdown from "../common/CourseDropdown";
+import { getCoreqIssues, requisiteLabelString } from "../../utils/requisites";
+import CorequisiteWarning from "./CorequisiteWarning";
 
 function SemesterComponent({
   semesterYear,
@@ -30,6 +32,7 @@ function SemesterComponent({
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
+  const [coreqMap, setCoreqMap] = useState({});
 
   // Function to categorize courses based on selected courses
   const updateCategorizedCourses = (
@@ -266,6 +269,7 @@ function SemesterComponent({
           logger.log("Fetched prereqData:", prereqData);
           const newCourses = courseData.map((c) => ({
             id: c.course_id,
+            code: c.course_code,
             name: c.course_title,
             credit: c.course_credit,
             year: c.year,
@@ -278,7 +282,14 @@ function SemesterComponent({
             acc[curr.course_id] = curr.prerequisites;
             return acc;
           }, {});
+
+          const coreMap = prereqData.reduce((acc, curr) => {
+            acc[curr.course_id] = curr.corequisites || null;
+            return acc;
+          }, {});
+
           setPrerequisites(prereqMap);
+          setCoreqMap(coreMap);
 
           updateCategorizedCourses(
             newCourses,
@@ -413,6 +424,24 @@ function SemesterComponent({
       0,
     ) || 0;
 
+  const courseNameById = useMemo(
+    () => Object.fromEntries(courses.map((c) => [c.id, c.name])),
+    [courses],
+  );
+  const codeById = useMemo(
+    () => Object.fromEntries(courses.map((c) => [c.id, c.code])),
+    [courses],
+  );
+  const issues = useMemo(
+    () => getCoreqIssues(selectedCourses, coreqMap),
+    [selectedCourses, coreqMap],
+  );
+  const termIssueByCourseId = Object.fromEntries(
+    issues
+      .filter((i) => i.semesterNumber === semesterNumber)
+      .map((i) => [i.courseId, i]),
+  );
+
   if (isLoading) return <div className="loading-msg">Loading courses...</div>;
   if (fetchError) return <div className="error-msg">Error: {fetchError}</div>;
 
@@ -479,8 +508,26 @@ function SemesterComponent({
               />
             </div>
             <div className="prerequisites">
-              Prerequisites: {prerequisites[course.id] || "None"}
+              {requisiteLabelString(prerequisites[course.id], codeById) && (
+                <div className="prerequisites">
+                  Prerequisites:{" "}
+                  {requisiteLabelString(prerequisites[course.id], codeById)}
+                </div>
+              )}
+              {requisiteLabelString(coreqMap[course.id], codeById) && (
+                <div className="corequisites">
+                  Corequisites:{" "}
+                  {requisiteLabelString(coreqMap[course.id], codeById)}
+                </div>
+              )}
             </div>
+            {termIssueByCourseId[course.id] ? (
+              <CorequisiteWarning
+                issue={termIssueByCourseId[course.id]}
+                courseNameById={courseNameById}
+                codeById={codeById}
+              />
+            ) : null}
             <span
               className="remove-btn"
               onClick={() => handleRemoveCourse(course.id)}

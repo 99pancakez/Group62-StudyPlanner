@@ -255,6 +255,18 @@
   text-align: right;
 }
 
+.corequisites {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+  font-style: italic;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  text-align: right;
+}
+
 .add-course-section {
   flex-direction: column;
   align-items: stretch;
@@ -321,4 +333,26 @@
 .clickable-warning {
   text-decoration: underline dotted;
   cursor: pointer;
+}
+
+.coreq-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: #fff3cd;
+  border: 1px solid #e0b64d;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #4d3800;
+}
+
+.coreq-warning-icon {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.coreq-warning-text {
+  line-height: 1.35;
 }

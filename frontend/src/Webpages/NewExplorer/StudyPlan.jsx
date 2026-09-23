@@ -6,6 +6,7 @@ import SemesterComponent from "../../Components/SemesterUI/SemesterComponent";
 import "./StudyPlan.css";
 import {
   API_BASE_URL,
+  EXPLORER_API_BASE_URL,
   COMBINATIONS,
   CREDITS,
   EXCLUDED_SUB_TYPES,
@@ -14,6 +15,8 @@ import {
   SUB_TYPE,
 } from "../../constants";
 import ProgressComponent from "../../Components/common/ProgressComponent";
+import { getCoreqIssues } from "../../utils/requisites";
+import CorequisiteWarningModal from "../../Components/SemesterUI/CorequisiteWarningModal";
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -45,6 +48,13 @@ function StudyPlan() {
   });
 
   const [subTypeGroupMap, setSubTypeGroupMap] = useState({});
+
+  const [warningIssues, setWarningIssues] = useState(null);
+  const [requisites, setRequisites] = useState({
+    coreqMap: {},
+    courseNameById: {},
+    codeById: {},
+  });
 
   const handleClearCombinationAndMap = () => {
     setCombinationSelections({});
@@ -92,6 +102,34 @@ function StudyPlan() {
       }
     };
     fetchCombinations();
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      fetch(`${EXPLORER_API_BASE_URL}/available-courses`).then((r) => r.json()),
+      fetch(`${EXPLORER_API_BASE_URL}/all-courses-with-prerequisites`).then(
+        (r) => r.json(),
+      ),
+    ])
+      .then(([available, prereqData]) => {
+        if (cancelled) return;
+        const codeById = {};
+        const courseNameById = {};
+        available.forEach((c) => {
+          codeById[c.course_id] = c.course_code;
+          courseNameById[c.course_id] = c.course_title;
+        });
+        const coreqMap = {};
+        prereqData.forEach((p) => {
+          coreqMap[p.course_id] = p.corequisites || null;
+        });
+        setRequisites({ coreqMap, courseNameById, codeById });
+      })
+      .catch((err) => console.error("Failed to load requisites:", err));
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -332,6 +370,15 @@ function StudyPlan() {
   };
 
   const handleDownloadPDF = () => {
+    const issues = getCoreqIssues(selectedCourses, requisites.coreqMap);
+    if (issues.length > 0) {
+      setWarningIssues(issues);
+      return;
+    }
+    genPdf();
+  };
+
+  const genPdf = () => {
     const doc = new jsPDF();
     const selections = JSON.parse(
       localStorage.getItem(LOCALS.semesterSelections) || "{}",
@@ -473,6 +520,18 @@ function StudyPlan() {
           </button>
         </div>
       </div>
+      {warningIssues && (
+        <CorequisiteWarningModal
+          issues={warningIssues}
+          courseNameById={requisites.courseNameById}
+          codeById={requisites.codeById}
+          onClose={() => setWarningIssues(null)}
+          onContinue={() => {
+            setWarningIssues(null);
+            genPdf();
+          }}
+        />
+      )}
     </div>
   );
 }
