@@ -2,9 +2,10 @@ const {
   Course,
   Availability,
   CourseType,
+  RequisiteRule,
   CourseAvailability,
 } = require("../database");
-const { getAllCourseRequisites } = require("./requisiteService");
+const { formatRequisites, getCourseRequisites } = require("./requisiteService");
 
 const getAvailableCourses = async (req, res) => {
   try {
@@ -33,6 +34,7 @@ const getAvailableCourses = async (req, res) => {
       .filter((course) => course.course_types && course.course_types.length > 0)
       .map((course) => ({
         course_id: course.course_id,
+        course_code: course.course_code,
         course_title: course.course_title,
         course_credit: course.course_credit,
         sub_type_ids: course.course_types.map((ct) => ct.sub_type_id),
@@ -54,8 +56,11 @@ const getAvailableCourses = async (req, res) => {
 
 const getAllCoursesWithPrerequisites = async (req, res) => {
   try {
-    const rulesMap = await getAllCourseRequisites({ field: "course_id" });
-    const courseIds = Object.keys(rulesMap);
+    const rules = await RequisiteRule.findAll({
+      where: { enabled: true },
+      attributes: ["target_course_id"],
+    });
+    const courseIds = rules.map((r) => r.target_course_id);
 
     const courses = courseIds.length
       ? await Course.findAll({
@@ -67,13 +72,16 @@ const getAllCoursesWithPrerequisites = async (req, res) => {
       courses.map((c) => [c.course_id, c.course_title]),
     );
 
-    const response = courseIds.map((courseId) => ({
-      course_id: courseId,
-      course_title: titleById.get(courseId),
-      prerequisites: rulesMap[courseId].prerequisites,
-      corequisites: rulesMap[courseId].corequisites,
-    }));
-
+    const response = [];
+    for (const courseId of courseIds) {
+      response.push({
+        course_id: courseId,
+        course_title: titleById.get(courseId),
+        ...formatRequisites(
+          await getCourseRequisites(courseId, { field: "course_id" }),
+        ),
+      });
+    }
     res.json(response);
   } catch (error) {
     console.error("Error fetching all courses with requisites:", error);
