@@ -26,6 +26,28 @@ async function importSQL() {
     await connection.query(sql);
 
     console.log('✅ Database imported successfully!');
+
+    // import summer semester from sim file, so not hard coded. in future if database is publically hosted, 
+    // this will jujst be in another table that the admin/uni can cycle it in
+
+    const rows = fs.readFileSync(path.join(__dirname, 'simulatedSummerCourses.txt'), 'utf8')
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean)
+      .map(courseId => [courseId, 3]);
+
+    if (rows.length > 0) {
+      const placeholders = rows.map(() => '(?, ?)').join(', ');
+      const flatValues = rows.flat();
+
+      await connection.query(
+        `INSERT INTO course_availability VALUES ${placeholders}`,
+        flatValues
+      );
+    
+    }
+
+
     await connection.end();
   } catch (error) {
     console.error('❌ Failed to import database:', error.message);

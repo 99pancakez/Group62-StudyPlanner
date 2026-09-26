@@ -63,7 +63,7 @@ CREATE TABLE `availability` (
 
 LOCK TABLES `availability` WRITE;
 /*!40000 ALTER TABLE `availability` DISABLE KEYS */;
-INSERT INTO `availability` VALUES (1,'Semester 1'),(2,'Semester 2');
+INSERT INTO `availability` VALUES (1,'Semester 1'),(2,'Semester 2'),(3, 'Summer Term');
 /*!40000 ALTER TABLE `availability` ENABLE KEYS */;
 UNLOCK TABLES;
 

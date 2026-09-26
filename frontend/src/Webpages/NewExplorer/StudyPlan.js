@@ -273,7 +273,9 @@ function StudyPlan() {
   const renderSemesters = () => {
     return Array.from({ length: semesterCount }, (_, index) => {
       const semesterNumber = index + 1;
-      const semesterYear = Math.ceil(semesterNumber / 2);
+      // const semesterYear = Math.ceil(semesterNumber / 2);
+
+      const semesterYear = Math.ceil(semesterNumber / 3);
       return (
         <SemesterComponent
           key={semesterNumber}

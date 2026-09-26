@@ -247,9 +247,14 @@ function SemesterComponent({
       const studyPlan = JSON.parse(storedData);
       startingSemesterId = parseInt(studyPlan.semester_id, 10) || 1;
     }
-    const offset = (semesterNumber - 1) % 2;
-    const calculatedSemesterId =
-      startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
+    // const offset = (semesterNumber - 1) % 2;
+    // const calculatedSemesterId =
+    //   startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
+    // setSemesterId(calculatedSemesterId);
+
+    const offset = (semesterNumber - 1) % 3;
+    const calculatedSemesterId =  offset + 1;
+    console.log(calculatedSemesterId)
     setSemesterId(calculatedSemesterId);
 
     let selectedSubTypeIds = [1, 17];
@@ -477,9 +482,16 @@ function SemesterComponent({
   return (
     <div className="semester-container" ref={menuRef}>
       <div className="semester-header">
-        <h4>
+        {/* <h4>
           Semester {semesterNumber} (Year {semesterYear})
+        </h4> */}
+
+        <h4>
+          {semesterNumber === 3
+            ? `Summer Semester (Year ${semesterYear})`
+            : `Semester ${semesterNumber} (Year ${semesterYear})`}
         </h4>
+
         <span className="credit-total">
           Total Credits: {totalCredits}{" "}
           {totalCredits === 48 && (
