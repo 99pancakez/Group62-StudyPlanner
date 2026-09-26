@@ -458,7 +458,7 @@ function SemesterComponent({
   const handleNextSemester = () => {
     if (
       onNextSemester &&
-      selectedCourses[`Semester ${semesterNumber}`]?.length > 0
+      (selectedCourses[`Semester ${semesterNumber}`]?.length > 0 || semesterNumber === 3)
     ) {
       onNextSemester();
     }
@@ -487,9 +487,9 @@ function SemesterComponent({
         </h4> */}
 
         <h4>
-          {semesterNumber === 3
+          {semesterNumber % 3 === 0
             ? `Summer Semester (Year ${semesterYear})`
-            : `Semester ${semesterNumber} (Year ${semesterYear})`}
+            : `Semester ${semesterNumber + 1 - semesterYear} (Year ${semesterYear})`}
         </h4>
 
         <span className="credit-total">
@@ -738,17 +738,17 @@ function SemesterComponent({
       </div>
       <button
         className={`next-semester-btn ${
-          !selectedCourses[`Semester ${semesterNumber}`]?.length
+          !selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3
             ? "disabled"
             : ""
         }`}
         onClick={handleNextSemester}
         title={
-          !selectedCourses[`Semester ${semesterNumber}`]?.length
+          !selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3
             ? "Add at least one course to proceed"
             : ""
         }
-        disabled={!selectedCourses[`Semester ${semesterNumber}`]?.length}
+        disabled={!selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3}
       >
         Move to Next Semester →
       </button>
