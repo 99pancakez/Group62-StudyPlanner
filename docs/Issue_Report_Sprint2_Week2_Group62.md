@@ -56,6 +56,6 @@ Issue numbers continue from Week 1. No issues were found in R2 this week. Priori
 
 | ID | Raised with | Date | Status |
 | --- | --- | --- | --- |
-| ISS-4 |  |  | Open |
-| ISS-5 |  |  | Open |
-| ISS-6 |  |  | Open |
+| ISS-4 | Jonathan | 26 September 2026 | Closed — retested 26 September |
+| ISS-5 | Jonathan | 26 September 2026 | Closed — retested 26 September |
+| ISS-6 |  | 26 September 2026 | Open |
