@@ -11,6 +11,7 @@ Issue numbers continue from Week 1. No issues were found in R2 this week. Priori
 | ISS-4 | Summer not labelled after Year 1 | Jonathan | Medium |
 | ISS-5 | An empty summer term blocks the next year | Jonathan | High |
 | ISS-6 | Course availability differs between branches | PM, with both developers | High — resolve before merge |
+| ISS-7 | One-click launch works on Windows only | Jonathan | Scheduled for Sprint 3 |
 
 ## 1. Issues
 
@@ -34,6 +35,8 @@ Issue numbers continue from Week 1. No issues were found in R2 this week. Priori
 
 **Why it matters**: Summer is optional. A student who does not take summer cannot plan the rest of the degree. Also noted in the developer's completion comment.
 
+**Retest, 27 September**: Partly fixed in commit 60dfc86. An empty Year 1 summer no longer blocks the plan, but an empty summer from Year 2 onwards still does — the Move to Next Semester button stays disabled. Reopened; Jonathan to fix next week.
+
 ### ISS-6 — Course availability differs between branches
 
 **For**: PM, with both developers · **Found in**: R3-T5, comparing against the Week 1 admin portal
@@ -43,6 +46,14 @@ Issue numbers continue from Week 1. No issues were found in R2 this week. Priori
 **Why it matters**: The two branches cannot both match the client's file. One set has to be chosen at the merge; the wrong one would show students incorrect semester availability.
 
 **Next step**: Check these courses against StudyPlanner-Student_9Nov2025.zip before merging.
+
+### ISS-7 — One-click launch works on Windows only
+
+**For**: Jonathan · **Raised**: team review, 27 September · **Requirement**: R1
+
+**Observed**: The one-click launch is built from Windows batch files and bundled Windows programs, so it runs only on Windows.
+
+**Why it matters**: Students on macOS cannot use the one-click launch. Windows was the agreed target for Sprint 2; macOS support is scheduled for Sprint 3, and R1 stays open until then.
 
 ## 2. Week 1 issues
 
@@ -56,6 +67,7 @@ Issue numbers continue from Week 1. No issues were found in R2 this week. Priori
 
 | ID | Raised with | Date | Status |
 | --- | --- | --- | --- |
-| ISS-4 | Jonathan | 26 September 2026 | Closed — retested 26 September |
-| ISS-5 | Jonathan | 26 September 2026 | Closed — retested 26 September |
+| ISS-4 | Jonathan | 26 September 2026 | Closed — fixed in commit 60dfc86, retested 26 September |
+| ISS-5 | Jonathan | 26 September 2026 | Open — partly fixed in commit 60dfc86; Year 2 onwards still blocked (retested 27 September) |
 | ISS-6 |  | 26 September 2026 | Open |
+| ISS-7 | Jonathan | 27 September 2026 | Open — scheduled for Sprint 3 |
