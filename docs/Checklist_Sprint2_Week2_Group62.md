@@ -4,7 +4,7 @@
 
 **Source**: StudyPlanner Requirements (Group 62), 20 August 2026; User Stories, 10 September 2026 (US-3 revised 25 September 2026); Summer Semester Business Rules, 4 September 2026
 
-**Branches**: R2 on feature/corequisite-ux, started manually, tested 25 September · R3 on feature/packaged-programs-ocl, started with the one-click launch, tested 26 September; T6 and T15 retested after commit 60dfc86
+**Branches**: R2 on feature/corequisite-ux, started manually, tested 25 September · R3 on feature/packaged-programs-ocl, started with the one-click launch, tested 26 September; T6 and T15 retested after commit 60dfc86, T15 again on 27 September
 
 **Source column**: AC = requirements document, US = user story, BR = summer semester business rules, Supp = added by the BA
 
@@ -65,18 +65,18 @@ Tested on feature/packaged-programs-ocl, which includes a first version of the s
 | R3-T12 | Summer comes after Semester 2 | C++ Programming Studio in Year 1 Summer. Add Database Systems in Year 1 Sem 2, then in Year 2 Sem 2. | Not met in Year 1; met in Year 2. | AC4, BR6, US-5 | Pass |
 | R3-T13 | Co-requisite in summer | Plan a studio in Summer with its bootcamp in an earlier term. | No warning. | AC4, BR7, US-5 | Blocked — needs merge |
 | R3-T14 | PP1 warning and summer credits | Reach 192 credit points only through summer courses, then add Programming Project 1. | No credit point warning. | BR8, US-8 | Blocked — R5 not in Sprint 2 |
-| R3-T15 | Skipping summer | Leave a summer term empty and choose Move to Next Semester. | The student moves on to the next year. | Supp, design | Pass — retested after ISS-5 fix |
+| R3-T15 | Skipping summer | Leave a summer term empty and choose Move to Next Semester. | The student moves on to the next year. | Supp, design | Fail — ISS-5, fixed for Year 1 only |
 
 ## 3. Results
 
 **R2 —** All six acceptance criteria verified: AC1 and the data side of AC6 in Week 1, the rest this week. Not yet signed off: T11 and T12 need summer and co-requisites in one build, and T14 needs a team decision.
 
-**R3 —** AC1, AC2, AC5 and the prerequisite side of AC4 verified. The two failures found this week (ISS-4, ISS-5) were fixed and retested the same day. AC3 partly verified, limited by the summer data. Co-requisite checking in summer waits for the merge.
+**R3 —** AC1, AC2, AC5 and the prerequisite side of AC4 verified. ISS-4 was fixed and retested. ISS-5 is only partly fixed: an empty Year 1 summer no longer blocks the plan, but an empty summer from Year 2 onwards still does; Jonathan fixes it next week. AC3 partly verified, limited by the summer data. Co-requisite checking in summer waits for the merge.
 
 | | R2 | R3 |
 | --- | --- | --- |
-| Passed | T6–T10, T13, T15–T19 | T5–T8, T10–T12, T15 |
-| Failed | None | None |
+| Passed | T6–T10, T13, T15–T19 | T5–T8, T10–T12 |
+| Failed | None | T15 (ISS-5) |
 | Partial / N/A | — | T9 partial; T2 N/A |
 | Deferred | — | T1, T3, T4 (admin portal, R4-2) |
 | Blocked | T11, T12 (merge); T14 (undefined) | T13 (merge); T14 (R5) |
@@ -96,7 +96,7 @@ Tested by Bohan Chen, 25–26 September 2026.
 
 **OBS-5 —** The admin portal has no Summer column, so summer availability cannot be seen or changed there. Admin portal work (R4-2) is outside Sprint 2, so T1, T3 and T4 are deferred. BR4 depends on it.
 
-**Week 1 issues —** All three closed. ISS-1: a backend failure is now reported and the launch closes (commit 6e130bf). ISS-2: the launch instructions now cover all four missing points; R1-T9 is still run to verify AC5. ISS-3: the frontend installed on a fresh copy of feature/corequisite-ux with no workaround.
+**Week 1 issues —** ISS-1, ISS-2 and ISS-3 are closed, but R1 itself stays open. ISS-1: a backend failure is now reported and the launch closes (commit 6e130bf). ISS-2: the Windows launch instructions now cover all four missing points; R1-T9 is still to run. ISS-3: the frontend installed on a fresh copy of feature/corequisite-ux with no workaround. The one-click launch works on Windows only; macOS support is scheduled for Sprint 3 (ISS-7).
 
 ## 5. Open items
 
@@ -106,6 +106,6 @@ Tested by Bohan Chen, 25–26 September 2026.
 
 3. Course data differs between branches (ISS-6) — confirm which branch matches the client's file before merging. R1-T6 relied on the development team's confirmation, so this check confirms it as well.
 
-4. After the merge — run R2-T11, R2-T12 and R3-T13.
+4. After the merge — run R2-T11, R2-T12 and R3-T13. Retest R3-T15 once ISS-5 is fixed.
 
-5. R1-T9 — run with Calvier or Asra to close out R1.
+5. R1 stays open — the one-click launch works on Windows only, and macOS support is scheduled for Sprint 3 (ISS-7). R1-T9 is also still to run.
