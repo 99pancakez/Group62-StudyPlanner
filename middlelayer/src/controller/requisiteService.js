@@ -8,6 +8,11 @@ const {
 } = require("../database");
 
 const RELATIONS = ["prerequisite", "corequisite"];
+const FORMATTED_KEYS = ["prerequisites", "corequisites"];
+const RELATION_BY_KEY = {
+  prerequisites: "prerequisite",
+  corequisites: "corequisite",
+};
 
 function normalizeRequisites(requisites) {
   return (Array.isArray(requisites) ? requisites : [])
@@ -67,46 +72,18 @@ async function getCourseRequisites(courseId, { field = "course_code" } = {}) {
   return toRelationGroups(orGroups, field);
 }
 
-// Returns { [target_course_id]: { prerequisites, corequisites } } for every enabled rule.
 async function getAllCourseRequisites({ field = "course_code" } = {}) {
   const rules = await RequisiteRule.findAll({
     where: { enabled: true },
-    include: [
-      {
-        model: RequisiteGroup,
-        as: "groups",
-        required: false,
-        include: [
-          {
-            model: RequisiteGroup,
-            as: "children",
-            required: false,
-            include: [
-              {
-                model: Requisite,
-                as: "requisites",
-                order: [["sort_order", "ASC"]],
-                include: [
-                  {
-                    model: Course,
-                    as: "required_course",
-                    attributes: ["course_code", "course_id"],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    attributes: ["target_course_id"],
   });
 
   const map = {};
   for (const rule of rules) {
-    const root = (rule.groups || []).find((g) => g.operator === "AND");
-    if (!root) continue;
-    const groups = toRelationGroups(root.children || [], field);
-    map[rule.target_course_id] = formatRequisites(groups);
+    const requisites = await getCourseRequisites(rule.target_course_id, {
+      field,
+    });
+    map[rule.target_course_id] = formatRequisites(requisites);
   }
   return map;
 }
@@ -118,8 +95,10 @@ function groupsToString(groups) {
 
 function formatRequisites(requisites) {
   const out = {};
-  for (const rel of RELATIONS) {
-    out[rel] = groupsToString(requisites.filter((g) => g.relation === rel));
+  for (const key of FORMATTED_KEYS) {
+    out[key] = groupsToString(
+      requisites.filter((g) => g.relation === RELATION_BY_KEY[key]),
+    );
   }
   return out;
 }
@@ -211,19 +190,19 @@ async function replaceCourseRequisites(courseId, requisites, { adminId } = {}) {
 
   if (adminId) {
     const newFormatted = formatRequisites(clean);
-    for (const rel of RELATIONS) {
-      if (oldFormatted[rel] !== newFormatted[rel]) {
+    for (const key of FORMATTED_KEYS) {
+      if (oldFormatted[key] !== newFormatted[key]) {
         await History.create({
           admin_id: adminId,
           course_id: courseId,
           program_code: null,
           time_stamp: new Date(),
           field_name:
-            rel === "prerequisite"
+            key === "prerequisites"
               ? "structured_prerequisites"
               : "structured_corequisites",
-          old_value: oldFormatted[rel] || "",
-          new_value: newFormatted[rel] || "",
+          old_value: oldFormatted[key] || "",
+          new_value: newFormatted[key] || "",
         });
       }
     }
