@@ -479,8 +479,10 @@ function SemesterComponent({
     categorizedRecommendedCourses
   ).flat();
 
+  const isSummer = semesterNumber % 3 === 0;
+
   return (
-    <div className="semester-container" ref={menuRef}>
+    <div className={`semester-container ${isSummer ? 'full-row' : ''}`} ref={menuRef}>
       <div className="semester-header">
         {/* <h4>
           Semester {semesterNumber} (Year {semesterYear})

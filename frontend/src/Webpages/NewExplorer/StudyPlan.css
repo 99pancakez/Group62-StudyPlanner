@@ -67,6 +67,10 @@
   box-sizing: border-box;
 }
 
+.full-row {
+  grid-column: 1 / -1;
+}
+
 .download-btn.enhanced {
   display: inline-flex;
   align-items: center;
