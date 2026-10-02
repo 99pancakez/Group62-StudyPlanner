@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./SemesterComponent.css";
 import {
   EXPLORER_API_BASE_URL,
@@ -12,6 +12,11 @@ import logger from "../../log";
 import CourseDropdown from "../common/CourseDropdown";
 import { getCoreqIssues, requisiteLabelString } from "../../utils/requisites";
 import CorequisiteWarning from "./CorequisiteWarning";
+import {
+  availabilityIdForSemester,
+  termLabel,
+  isSummerTerm,
+} from "../../utils/term";
 
 function SemesterComponent({
   semesterYear,
@@ -19,7 +24,7 @@ function SemesterComponent({
   onNextSemester,
   selectedCourses,
   setSelectedCourses,
-  completedCourses,
+  onRemoveSemester,
 }) {
   const [courses, setCourses] = useState([]);
   const [prerequisites, setPrerequisites] = useState({});
@@ -32,9 +37,7 @@ function SemesterComponent({
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
-  const [semseterId, setSemesterId] = useState(1);
   const [coreqMap, setCoreqMap] = useState({});
-  const menuRef = useRef(null)
 
   // Function to categorize courses based on selected courses
   const updateCategorizedCourses = (
@@ -228,15 +231,11 @@ function SemesterComponent({
       const studyPlan = JSON.parse(storedData);
       startingSemesterId = parseInt(studyPlan.semester_id, 10) || 1;
     }
-    // const offset = (semesterNumber - 1) % 2;
-    // const calculatedSemesterId =
-    //   startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
-    // setSemesterId(calculatedSemesterId);
 
-    const offset = (semesterNumber - 1) % 3;
-    const calculatedSemesterId =  offset + 1;
-    console.log(calculatedSemesterId)
-    setSemesterId(calculatedSemesterId);
+    const calculatedSemesterId = availabilityIdForSemester(
+      semesterNumber,
+      startingSemesterId,
+    );
 
     let selectedSubTypeIds = [1, SUB_TYPE.PROGRAM_COURSE];
     const combinationData = localStorage.getItem(LOCALS.combinationSelections);
@@ -357,14 +356,6 @@ function SemesterComponent({
       ];
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
       localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(updated)); // Persist immediately
-      const completed = JSON.parse(
-        localStorage.getItem(LOCALS.completedCourses) || "[]",
-      );
-      completed.push(course.id);
-      localStorage.setItem(
-        LOCALS.completedCourses,
-        JSON.stringify([...new Set(completed)]),
-      );
       return updated;
     });
     setShowAddCourse(false);
@@ -378,17 +369,10 @@ function SemesterComponent({
         (course) => course.id !== courseId,
       );
       const updated = { ...prev, [semesterIdKey]: updatedCourses };
-      // Step 1: Recalculate completed courses
-      const updatedCompleted = Object.values(updated).flatMap((courses) =>
-        courses.map((c) => c.id),
+      const updatedCompleted = Object.values(updated).flatMap((cs) =>
+        cs.map((c) => c.id),
       );
-      localStorage.setItem(
-        LOCALS.completedCourses,
-        JSON.stringify([...new Set(updatedCompleted)]),
-      );
-      // Step 2: Remove invalid future selections
       const newState = { ...updated };
-      const allCourses = courses; // already fetched
       const prereqMap = prerequisites; // already fetched
       Object.keys(updated).forEach((key) => {
         const semNum = parseInt(key.split(" ")[1]);
@@ -417,13 +401,10 @@ function SemesterComponent({
     });
   };
 
+  const isEmpty = !selectedCourses[`Semester ${semesterNumber}`]?.length;
+  const isSummer = isSummerTerm(semesterNumber);
   const handleNextSemester = () => {
-    if (
-      onNextSemester &&
-      (selectedCourses[`Semester ${semesterNumber}`]?.length > 0 || semesterNumber === 3)
-    ) {
-      onNextSemester();
-    }
+    if (onNextSemester && (!isEmpty || isSummer)) onNextSemester();
   };
 
   const totalCredits =
@@ -453,25 +434,19 @@ function SemesterComponent({
   if (isLoading) return <div className="loading-msg">Loading courses...</div>;
   if (fetchError) return <div className="error-msg">Error: {fetchError}</div>;
 
-  const allAvailableCourses = Object.values(categorizedAvailableCourses).flat();
-  const allRecommendedCourses = Object.values(
-    categorizedRecommendedCourses,
-  ).flat();
-
-  const isSummer = semesterNumber % 3 === 0;
-
   return (
-    <div className={`semester-container ${isSummer ? 'full-row' : ''}`} ref={menuRef}>
+    <div className={`semester-container${isSummer ? " full-row" : ""}`}>
       <div className="semester-header">
-        {/* <h4>
-          Semester {semesterNumber} (Year {semesterYear})
-        </h4> */}
-
-        <h4>
-          {semesterNumber % 3 === 0
-            ? `Summer Semester (Year ${semesterYear})`
-            : `Semester ${semesterNumber + 1 - semesterYear} (Year ${semesterYear})`}
-        </h4>
+        <h4>{termLabel(semesterNumber, semesterYear)}</h4>
+        {onRemoveSemester && isEmpty && (
+          <button
+            className="remove-semester-btn"
+            onClick={onRemoveSemester}
+            aria-label="Remove summer semester"
+          >
+            ×
+          </button>
+        )}
 
         <span className="credit-total">
           Total Credits: {totalCredits}{" "}
@@ -579,22 +554,18 @@ function SemesterComponent({
             </button>
           )}
       </div>
-      <button
-        className={`next-semester-btn ${
-          !selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3
-            ? "disabled"
-            : ""
-        }`}
-        onClick={handleNextSemester}
-        title={
-          !selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3
-            ? "Add at least one course to proceed"
-            : ""
-        }
-        disabled={!selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3}
-      >
-        Move to Next Semester →
-      </button>
+      {onNextSemester && (
+        <button
+          className={`next-semester-btn ${isEmpty && !isSummer ? "disabled" : ""}`}
+          onClick={handleNextSemester}
+          title={
+            isEmpty && !isSummer ? "Add at least one course to proceed" : ""
+          }
+          disabled={isEmpty && !isSummer}
+        >
+          {isEmpty && isSummer ? "Skip Summer →" : "Move to Next Semester →"}
+        </button>
+      )}
     </div>
   );
 }

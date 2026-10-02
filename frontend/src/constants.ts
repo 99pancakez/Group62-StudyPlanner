@@ -74,7 +74,6 @@ export const INTAKE_TO_SEMESTER_ID: Record<string, number> = {
 export const LOCALS = {
   studyPlanState: "studyPlanState",
   semesterSelections: "semesterSelections",
-  completedCourses: "completedCourses",
   combinationSelections: "combinationSelections",
   subTypeGroupMap: "subTypeGroupMap",
   qnaResponses: "qnaResponses",
