@@ -1,0 +1,21 @@
+:root {
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --fs-page-title: 32px;
+  --lh-page-title: 40px;
+  --fs-section: 24px;
+  --lh-section: 32px;
+  --fs-semester: 20px;
+  --lh-semester: 28px;
+  --fs-course: 16px;
+  --lh-course: 24px;
+  --fs-body: 16px;
+  --lh-body: 24px;
+  --fs-supporting: 14px;
+  --lh-supporting: 20px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+}
