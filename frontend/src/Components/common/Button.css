@@ -1,0 +1,88 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-supporting);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--rmit-red);
+  outline-offset: 2px;
+}
+.btn:disabled {
+  cursor: not-allowed;
+}
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+}
+.btn--sm {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+.btn--md {
+  font-size: 16px;
+  padding: 10px 16px;
+}
+.btn--full {
+  width: 100%;
+}
+
+.btn--primary {
+  background-color: var(--btn-primary-bg);
+  color: #fff;
+}
+.btn--primary:hover:not(:disabled) {
+  background-color: var(--btn-primary-bg-hover);
+}
+.btn--primary:disabled {
+  background-color: var(--btn-primary-bg-disabled);
+  color: var(--btn-primary-text-disabled);
+}
+
+.btn--secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--grey-dark);
+}
+.btn--secondary:hover:not(:disabled) {
+  background-color: var(--btn-secondary-bg-hover);
+}
+.btn--secondary:disabled {
+  background-color: var(--btn-secondary-bg-disabled);
+  color: var(--btn-secondary-text-disabled);
+}
+
+.btn--outline {
+  background-color: #fff;
+  color: var(--grey-dark);
+  border-color: var(--btn-outline-outline);
+}
+.btn--outline:hover:not(:disabled) {
+  background-color: var(--grey-light);
+}
+.btn--outline:disabled {
+  background-color: var(--btn-outline-bg-disabled);
+  color: var(--btn-outline-text-disabled);
+  border-color: var(--btn-outline-outline-disabled);
+}
+
+.btn--destructive {
+  background-color: var(--btn-destructive-bg);
+  color: #fff;
+}
+.btn--destructive:hover:not(:disabled) {
+  background-color: var(--btn-destructive-bg-hover);
+}
+.btn--destructive:disabled {
+  background-color: var(--btn-destructive-bg-disabled);
+  color: var(--btn-destructive-text-disabled);
+}
