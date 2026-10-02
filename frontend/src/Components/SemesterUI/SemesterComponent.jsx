@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import "./SemesterComponent.css";
 import {
   EXPLORER_API_BASE_URL,
@@ -32,7 +32,9 @@ function SemesterComponent({
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
+  const [semseterId, setSemesterId] = useState(1);
   const [coreqMap, setCoreqMap] = useState({});
+  const menuRef = useRef(null)
 
   // Function to categorize courses based on selected courses
   const updateCategorizedCourses = (
@@ -226,9 +228,15 @@ function SemesterComponent({
       const studyPlan = JSON.parse(storedData);
       startingSemesterId = parseInt(studyPlan.semester_id, 10) || 1;
     }
-    const offset = (semesterNumber - 1) % 2;
-    const calculatedSemesterId =
-      startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
+    // const offset = (semesterNumber - 1) % 2;
+    // const calculatedSemesterId =
+    //   startingSemesterId === 1 ? (offset === 0 ? 1 : 2) : offset === 0 ? 2 : 1;
+    // setSemesterId(calculatedSemesterId);
+
+    const offset = (semesterNumber - 1) % 3;
+    const calculatedSemesterId =  offset + 1;
+    console.log(calculatedSemesterId)
+    setSemesterId(calculatedSemesterId);
 
     let selectedSubTypeIds = [1, SUB_TYPE.PROGRAM_COURSE];
     const combinationData = localStorage.getItem(LOCALS.combinationSelections);
@@ -412,7 +420,7 @@ function SemesterComponent({
   const handleNextSemester = () => {
     if (
       onNextSemester &&
-      selectedCourses[`Semester ${semesterNumber}`]?.length > 0
+      (selectedCourses[`Semester ${semesterNumber}`]?.length > 0 || semesterNumber === 3)
     ) {
       onNextSemester();
     }
@@ -450,12 +458,21 @@ function SemesterComponent({
     categorizedRecommendedCourses,
   ).flat();
 
+  const isSummer = semesterNumber % 3 === 0;
+
   return (
-    <div className="semester-container">
+    <div className={`semester-container ${isSummer ? 'full-row' : ''}`} ref={menuRef}>
       <div className="semester-header">
-        <h4>
+        {/* <h4>
           Semester {semesterNumber} (Year {semesterYear})
+        </h4> */}
+
+        <h4>
+          {semesterNumber % 3 === 0
+            ? `Summer Semester (Year ${semesterYear})`
+            : `Semester ${semesterNumber + 1 - semesterYear} (Year ${semesterYear})`}
         </h4>
+
         <span className="credit-total">
           Total Credits: {totalCredits}{" "}
           {totalCredits === CREDITS.SEMESTER_LOAD && (
@@ -564,17 +581,17 @@ function SemesterComponent({
       </div>
       <button
         className={`next-semester-btn ${
-          !selectedCourses[`Semester ${semesterNumber}`]?.length
+          !selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3
             ? "disabled"
             : ""
         }`}
         onClick={handleNextSemester}
         title={
-          !selectedCourses[`Semester ${semesterNumber}`]?.length
+          !selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3
             ? "Add at least one course to proceed"
             : ""
         }
-        disabled={!selectedCourses[`Semester ${semesterNumber}`]?.length}
+        disabled={!selectedCourses[`Semester ${semesterNumber}`]?.length && semesterNumber !== 3}
       >
         Move to Next Semester →
       </button>
