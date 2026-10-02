@@ -19,3 +19,53 @@
   --fw-semibold: 600;
   --fw-bold: 700;
 }
+
+.t-page-title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-page-title);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-page-title);
+}
+
+.t-section-heading {
+  font-family: var(--font-sans);
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-section);
+}
+
+.t-semester-heading {
+  font-family: var(--font-sans);
+  font-size: var(--fs-semester);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-semester);
+}
+
+.t-course-title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-course);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-course);
+}
+
+.t-body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+}
+
+.t-supporting {
+  font-family: var(--font-sans);
+  font-size: var(--fs-supporting);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-supporting);
+  color: var(--grey-medium);
+}
+
+.t-button {
+  font-family: var(--font-sans);
+  font-size: var(--fs-course); /* 16px default; Button sm = 14px */
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-supporting);
+}
