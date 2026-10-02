@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./brand/tokens.css";
+import "./brand/typography.css";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
