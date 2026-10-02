@@ -7,7 +7,7 @@ async function importSQL() {
   let connection;
 
   try {
-    const connection = await mysql.createConnection({
+    connection = await mysql.createConnection({
       host: config.HOST,
       user: config.USER,
       password: config.PASSWORD,
@@ -34,6 +34,7 @@ async function importSQL() {
     // import summer semester from sim file, so not hard coded. in future if database is publically hosted,
     // this will jujst be in another table that the admin/uni can cycle it in
 
+    console.log("attempting to load summer semester classes")
     const rows = fs
       .readFileSync(path.join(__dirname, "simulatedSummerCourses.txt"), "utf8")
       .split("\n")
@@ -47,10 +48,12 @@ async function importSQL() {
 
       // INSERT IGNORE: the dump now seeds semester 3, so re-imports must not
       // raise ER_DUP_ENTRY against the (course_id, semester_id) primary key.
+      console.log("awaiting query")
       await connection.query(
-        `INSERT IGNORE INTO course_availability VALUES ${placeholders}`,
+        `INSERT IGNORE INTO course_availability (course_id, semester_id) VALUES ${placeholders}`,
         flatValues,
       );
+      console.log("summer semester inserted")
     }
   } catch (error) {
     console.error("❌ Failed to import database:", error.message);
