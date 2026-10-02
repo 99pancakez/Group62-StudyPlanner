@@ -101,7 +101,8 @@ INSERT INTO
   `availability`
 VALUES
   (1, 'Semester 1'),
-  (2, 'Semester 2');
+  (2, 'Semester 2'),
+  (3, 'Summer Term');
 
 /*!40000 ALTER TABLE `availability` ENABLE KEYS */;
 
@@ -1136,7 +1137,9 @@ VALUES
   ('054996', 2),
   ('056544', 2),
   ('056547', 2),
-  ('056549', 2);
+  ('056549', 2),
+  ('054986', 3),
+  ('054082', 3);
 
 /*!40000 ALTER TABLE `course_availability` ENABLE KEYS */;
 
