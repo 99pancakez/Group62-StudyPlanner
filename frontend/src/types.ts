@@ -5,6 +5,7 @@ export interface Semester {
 export interface Course {
   id: string;
   name: string;
+  code?: string;
   credit: number;
   sub_type_ids?: number[];
   selected_sub_type_ids?: number;
