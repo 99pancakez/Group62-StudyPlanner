@@ -61,7 +61,7 @@ export const PROGRAM_CODE: string = "BP094P23";
 export const INTAKE_OPTIONS: string[] = [
   "February (Semester 1)",
   "July (Semester 2)",
-] as const;
+];
 
 export const INTAKE_TO_SEMESTER_ID: Record<string, number> = {
   "February (Semester 1)": 1,
@@ -74,7 +74,6 @@ export const INTAKE_TO_SEMESTER_ID: Record<string, number> = {
 export const LOCALS = {
   studyPlanState: "studyPlanState",
   semesterSelections: "semesterSelections",
-  completedCourses: "completedCourses",
   combinationSelections: "combinationSelections",
   subTypeGroupMap: "subTypeGroupMap",
   qnaResponses: "qnaResponses",

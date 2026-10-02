@@ -7,7 +7,6 @@ import HistoryPage from "./Webpages/History/HistoryPage";
 import StudyPlan from "./Webpages/NewExplorer/StudyPlan";
 
 function App() {
-  const [selections, setSelections] = useState({});
   return (
     <Router>
       <div className="App">

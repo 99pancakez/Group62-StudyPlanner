@@ -17,6 +17,7 @@ import {
 import ProgressComponent from "../../Components/common/ProgressComponent";
 import { getCoreqIssues } from "../../utils/requisites";
 import CorequisiteWarningModal from "../../Components/SemesterUI/CorequisiteWarningModal";
+import { termLabel, isSummerTerm, yearForSemester } from "../../utils/term";
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -31,11 +32,6 @@ function StudyPlan() {
   const [selectedCourses, setSelectedCourses] = useState(() => {
     const storedSelections = localStorage.getItem(LOCALS.semesterSelections);
     return storedSelections ? JSON.parse(storedSelections) : {};
-  });
-
-  const [completedCourses, setCompletedCourses] = useState(() => {
-    const storedCompleted = localStorage.getItem(LOCALS.completedCourses);
-    return storedCompleted ? JSON.parse(storedCompleted) : [];
   });
 
   const [coreCredits, setCoreCredits] = useState(0);
@@ -140,23 +136,6 @@ function StudyPlan() {
   }, []);
 
   useEffect(() => {
-    const allSelectedCourseIds = Object.values(selectedCourses)
-      .flatMap((courses) => courses.map((course) => course.id))
-      .filter((id) => id !== null && id !== undefined);
-
-    const qnaData = localStorage.getItem(LOCALS.qnaResponses);
-    if (qnaData) {
-      const parsedQna = JSON.parse(qnaData);
-      if (parsedQna.creditCourses) {
-        const creditCourseIds = parsedQna.creditCourses
-          .split(", ")
-          .filter((id) => id.trim() !== "");
-        allSelectedCourseIds.push(...creditCourseIds);
-      }
-    }
-
-    setCompletedCourses([...new Set(allSelectedCourseIds)]);
-
     const coreCourses = Object.values(selectedCourses)
       .flat()
       .filter((course) => course.selected_sub_type_id === SUB_TYPE.CORE);
@@ -350,10 +329,27 @@ function StudyPlan() {
     );
   };
 
+  const handleRemoveSemester = (semesterNumber) => {
+    setSelectedCourses((prev) => {
+      const next = { ...prev };
+      delete next[`Semester ${semesterNumber}`];
+      localStorage.setItem(LOCALS.semesterSelections, JSON.stringify(next));
+      return next;
+    });
+    setSemesterCount((prev) => {
+      const newCount = prev - 1;
+      localStorage.setItem(
+        LOCALS.studyPlanState,
+        JSON.stringify({ semesterCount: newCount }),
+      );
+      return newCount;
+    });
+  };
+
   const renderSemesters = () => {
     return Array.from({ length: semesterCount }, (_, index) => {
       const semesterNumber = index + 1;
-      const semesterYear = Math.ceil(semesterNumber / 2);
+      const semesterYear = yearForSemester(semesterNumber);
       return (
         <SemesterComponent
           key={semesterNumber}
@@ -364,6 +360,11 @@ function StudyPlan() {
           }
           selectedCourses={selectedCourses}
           setSelectedCourses={setSelectedCourses}
+          onRemoveSemester={
+            semesterNumber === semesterCount && isSummerTerm(semesterNumber)
+              ? () => handleRemoveSemester(semesterNumber)
+              : undefined
+          }
         />
       );
     });
@@ -424,7 +425,8 @@ function StudyPlan() {
         yOffset += 20; // fallback
       }
 
-      doc.text(`Total: ${semesterTotal} credits`, 14, yOffset);
+      const n = parseInt(semesterKey.split(" ")[1], 10);
+      doc.text(termLabel(n, yearForSemester(n)), 14, yOffset);
       yOffset += 10;
     });
 
