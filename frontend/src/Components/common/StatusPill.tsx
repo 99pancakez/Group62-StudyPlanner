@@ -85,11 +85,17 @@ interface StatusPillProps {
   variant: PillVariant;
   heading: string;
   description: string;
+  live?: boolean;
 }
 
-function StatusPill({ variant, heading, description }: StatusPillProps) {
+function StatusPill({
+  variant,
+  heading,
+  description,
+  live = true,
+}: StatusPillProps) {
   return (
-    <div className={`pill pill--${variant}`} role="status">
+    <div className={`pill pill--${variant}`} role={live ? "status" : undefined}>
       <span className="pill__icon" aria-hidden="true">
         {renderIcon(variant)}
       </span>

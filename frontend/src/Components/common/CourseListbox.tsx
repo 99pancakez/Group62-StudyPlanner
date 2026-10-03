@@ -9,7 +9,8 @@ interface CourseListboxProps {
   categorizedAvailableCourses: Record<string, Course[]>;
   recommendedCourses?: Course[];
   onSelect: (course: Course, subTypeId?: number) => void;
-  onCancel?: () => void;
+  onCancel: () => void;
+  lockedCourses?: Record<string, string>;
 }
 
 const sortGroups = (a: string, b: string) =>
@@ -30,10 +31,12 @@ function CourseListbox({
   recommendedCourses = [],
   onSelect,
   onCancel,
+  lockedCourses,
 }: CourseListboxProps) {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const locked = lockedCourses ?? {};
   const recIds = new Set(recommendedCourses.map((c) => c.id));
 
   const recommendedGroups = Object.entries(categorizedRecommendedCourses)
@@ -54,20 +57,24 @@ function CourseListbox({
 
   const flat = [
     ...recommendedGroups.flatMap((g) =>
-      g.courses.map((c) => ({
-        id: c.id,
-        course: c,
-        subTypeId: SUB_TYPE_NAME_TO_ID[g.subTypeName],
-        group: g.subTypeName,
-      })),
+      g.courses
+        .filter((c) => !locked[c.id])
+        .map((c) => ({
+          id: c.id,
+          course: c,
+          subTypeId: SUB_TYPE_NAME_TO_ID[g.subTypeName],
+          group: g.subTypeName,
+        })),
     ),
     ...availableGroups.flatMap((g) =>
-      g.courses.map((c) => ({
-        id: c.id,
-        course: c,
-        subTypeId: SUB_TYPE_NAME_TO_ID[g.subTypeName],
-        group: g.subTypeName,
-      })),
+      g.courses
+        .filter((c) => !locked[c.id])
+        .map((c) => ({
+          id: c.id,
+          course: c,
+          subTypeId: SUB_TYPE_NAME_TO_ID[g.subTypeName],
+          group: g.subTypeName,
+        })),
     ),
   ];
 
@@ -76,7 +83,9 @@ function CourseListbox({
     : undefined;
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "ArrowDown") {
+    if (e.key === "Escape") {
+      onCancel();
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       setActiveIndex((i) => Math.min(i + 1, flat.length - 1));
     } else if (e.key === "ArrowUp") {
@@ -92,8 +101,6 @@ function CourseListbox({
       e.preventDefault();
       const o = flat[activeIndex];
       if (o) onSelect(o.course, o.subTypeId);
-    } else if (e.key === "Escape") {
-      onCancel?.();
     }
   };
 
@@ -108,21 +115,33 @@ function CourseListbox({
         </div>
         {g.courses.map((c) => {
           const idx = flat.findIndex((o) => o.id === c.id);
+          const isLocked = Boolean(locked[c.id]);
+
           return (
             <div
               key={c.id}
               id={`course-option-${c.id}`}
               role="option"
               aria-selected={idx === activeIndex}
-              className={`course-listbox__option${idx === activeIndex ? " course-listbox__option--active" : ""}`}
-              onMouseEnter={() => setActiveIndex(idx)}
-              onClick={() => onSelect(c, SUB_TYPE_NAME_TO_ID[g.subTypeName])}
+              aria-disabled={isLocked || undefined}
+              className={`course-listbox__option${idx === activeIndex ? " course-listbox__option--active" : ""}${isLocked ? " course-listbox__option--locked" : ""}`}
+              onMouseEnter={isLocked ? undefined : () => setActiveIndex(idx)}
+              onClick={
+                isLocked
+                  ? undefined
+                  : () => onSelect(c, SUB_TYPE_NAME_TO_ID[g.subTypeName])
+              }
             >
               <span className="course-listbox__code">{c.code}</span>
               <span className="course-listbox__title">{c.name}</span>
               <span className="course-listbox__credits">
                 {c.credit} credits
               </span>
+              {isLocked && locked[c.id] && (
+                <span className="course-listbox__lock">
+                  Requires {locked[c.id]}
+                </span>
+              )}
             </div>
           );
         })}
@@ -131,6 +150,17 @@ function CourseListbox({
 
   return (
     <div className="course-listbox">
+      <div className="course-listbox__header">
+        <span className="course-listbox__heading">Add a course</span>
+        <button
+          type="button"
+          className="course-listbox__close"
+          onClick={onCancel}
+          aria-label="Close course picker"
+        >
+          ×
+        </button>
+      </div>
       <input
         className="course-listbox__search"
         placeholder="Search courses…"
