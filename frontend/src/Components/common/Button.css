@@ -86,3 +86,14 @@
   background-color: var(--btn-destructive-bg-disabled);
   color: var(--btn-destructive-text-disabled);
 }
+.btn--dark {
+  background-color: var(--btn-dark-bg);
+  color: var(--white);
+}
+.btn--dark:hover:not(:disabled) {
+  background-color: var(--btn-dark-bg-hover);
+}
+.btn--dark:disabled {
+  background-color: var(--btn-dark-bg-disabled);
+  color: var(--btn-dark-text-disabled);
+}

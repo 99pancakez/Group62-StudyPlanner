@@ -39,4 +39,28 @@
   --pill-elig-bg: #fef2f2;
   --pill-elig-border: #fee2e2;
   --pill-elig-icon: #dc2626;
+
+  /* structure */
+  --page-bg: #fafafa;
+  --border: #e5e7eb;
+  --overlay: rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+  /* destructive / warning surfaces */
+  --success: #2e7d32;
+  --success-hover: #256428;
+  --danger-bg: #fef2f2;
+  --danger-text: #d32f2f;
+  --danger-text-hover: #b91c1c;
+  --amber-bg: #fffbeb;
+  --amber-border: #fde68a;
+  --amber-text: #f9a825;
+  --amber-panel-bg: #fff3cd;
+  --amber-panel-border: #e0b64d;
+  --amber-panel-text: #4d3800;
+  --btn-dark-bg: #1a1a1a;
+  --btn-dark-bg-hover: #000000;
+  --btn-dark-bg-disabled: #e5e7eb;
+  --btn-dark-text-disabled: #b5b8bf;
 }
