@@ -102,6 +102,7 @@ export interface SemesterStatusInput {
   completedIds: readonly string[];
   coreqIssues?: readonly CorequisiteIssue[];
   totalCredits: number;
+  isSummer?: boolean;
 }
 
 export interface SemesterStatusResult {
@@ -117,11 +118,15 @@ export function semesterStatus({
   completedIds,
   coreqIssues = [],
   totalCredits,
+  isSummer = false,
 }: SemesterStatusInput): SemesterStatusResult {
   const unmet = unmetPrerequisitesFor(courses, prerequisites, completedIds);
-  const creditState = creditEligibility(totalCredits);
+  const measured = creditEligibility(totalCredits);
+  const creditState =
+    isSummer && measured === "underload" ? "normal" : measured;
   const hasCourses = courses.length > 0;
-
+  const reportedState =
+    isSummer && creditState === "underload" ? "normal" : creditState;
   return {
     variant: mostSevere([
       ...(coreqIssues.length > 0 ? [STATUS.COREQUISITE] : []),
@@ -130,7 +135,7 @@ export function semesterStatus({
     ]),
     unmet,
     coreqIssues: [...coreqIssues],
-    creditState,
+    creditState: reportedState,
   };
 }
 

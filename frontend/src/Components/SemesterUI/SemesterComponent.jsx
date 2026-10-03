@@ -464,6 +464,7 @@ function SemesterComponent({
     completedIds: completedCourses,
     coreqIssues: Object.values(termIssueByCourseId),
     totalCredits,
+    isSummer: isSummerTerm(semesterNumber),
   });
 
   const prereqSummary =
