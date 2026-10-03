@@ -594,6 +594,7 @@ function StudyPlan() {
                 label="Core"
                 valueText={`${coreCredits}/${CREDITS.CORE_TOTAL}`}
                 percentage={(coreCredits / CREDITS.CORE_TOTAL) * 100}
+                hideBar={true}
               />
 
               {/* Program Course */}
@@ -605,6 +606,7 @@ function StudyPlan() {
                     CREDITS.PROGRAM_COURSE_TOTAL) *
                   100
                 }
+                hideBar={true}
               />
 
               {/* Combo breakdowns */}
@@ -629,6 +631,7 @@ function StudyPlan() {
                     percentage={progress.percentage}
                     over={progress.over}
                     warning="Exceeds maximum allowed credits"
+                    hideBar={true}
                   />
                 );
               })}
