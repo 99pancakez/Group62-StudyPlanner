@@ -65,3 +65,57 @@
   color: var(--grey-medium);
   font-size: var(--fs-supporting);
 }
+
+.course-listbox__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.course-listbox__heading {
+  font-family: var(--font-sans);
+  font-size: var(--fs-supporting);
+  line-height: var(--lh-supporting);
+  font-weight: var(--fw-semibold);
+  color: var(--grey-dark);
+}
+
+.course-listbox__close {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--grey-medium);
+}
+
+.course-listbox__close:hover {
+  color: var(--grey-dark);
+  background: var(--grey-light);
+}
+
+.course-listbox__close:focus-visible {
+  outline: 2px solid var(--rmit-red);
+  outline-offset: 1px;
+}
+.course-listbox__close:focus-visible {
+  outline: 2px solid var(--rmit-red);
+  outline-offset: 1px;
+}
+
+.course-listbox__option--locked,
+.course-listbox__option--locked:hover {
+  background-color: transparent;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.course-listbox__lock {
+  flex: 0 0 auto;
+  font-size: var(--fs-supporting);
+  color: var(--grey-medium);
+  white-space: nowrap;
+}

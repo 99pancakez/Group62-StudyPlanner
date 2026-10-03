@@ -26,11 +26,11 @@
   align-items: center;
 }
 .btn--sm {
-  font-size: 14px;
+  font-size: var(--fs-supporting);
   padding: 8px 12px;
 }
 .btn--md {
-  font-size: 16px;
+  font-size: var(--fs-course);
   padding: 10px 16px;
 }
 .btn--full {
@@ -39,7 +39,7 @@
 
 .btn--primary {
   background-color: var(--btn-primary-bg);
-  color: #fff;
+  color: var(--white);
 }
 .btn--primary:hover:not(:disabled) {
   background-color: var(--btn-primary-bg-hover);
@@ -62,7 +62,7 @@
 }
 
 .btn--outline {
-  background-color: #fff;
+  background-color: var(--white);
   color: var(--grey-dark);
   border-color: var(--btn-outline-outline);
 }
@@ -77,7 +77,7 @@
 
 .btn--destructive {
   background-color: var(--btn-destructive-bg);
-  color: #fff;
+  color: var(--white);
 }
 .btn--destructive:hover:not(:disabled) {
   background-color: var(--btn-destructive-bg-hover);
