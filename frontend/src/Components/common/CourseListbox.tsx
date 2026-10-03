@@ -1,3 +1,4 @@
+import "./CourseListbox.css";
 import { useState } from "react";
 import type { KeyboardEvent } from "react";
 import { SUB_TYPE_NAME_TO_ID } from "../../constants";

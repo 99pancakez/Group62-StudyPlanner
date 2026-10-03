@@ -1,3 +1,5 @@
+import "./ProgressComponent.css";
+
 type ProgressItemProps = {
   label: string;
   valueText: string;

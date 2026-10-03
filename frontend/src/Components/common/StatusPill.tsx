@@ -1,3 +1,4 @@
+import "./StatusPill.css";
 type PillVariant = "valid" | "prerequisite" | "corequisite" | "eligibility";
 
 function renderIcon(variant: PillVariant) {

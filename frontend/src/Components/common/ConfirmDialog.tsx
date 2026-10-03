@@ -1,3 +1,4 @@
+import "./ConfirmDialog.css";
 import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import Button from "./Button";
