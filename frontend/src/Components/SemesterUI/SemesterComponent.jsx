@@ -497,6 +497,8 @@ function SemesterComponent({
                 categorizedAvailableCourses={categorizedAvailableCourses}
                 recommendedCourses={recommendedCourses}
                 currentCourse={course}
+                prerequisites={prerequisites}
+                codeById={codeById}
                 onSelect={handleSelectCourse}
               />
             </div>
@@ -537,6 +539,7 @@ function SemesterComponent({
                 categorizedAvailableCourses={categorizedAvailableCourses}
                 recommendedCourses={recommendedCourses}
                 prerequisites={prerequisites}
+                codeById={codeById}
                 placeholder="Select a course"
                 showPrereqs
                 onSelect={handleSelectCourse}

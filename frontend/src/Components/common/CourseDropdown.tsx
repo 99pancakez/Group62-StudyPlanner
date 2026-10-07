@@ -1,11 +1,15 @@
+import { Fragment, useEffect, useRef, useState } from "react";
 import { SUB_TYPE_NAME_TO_ID } from "../../constants";
-import type { Course } from "../../types";
+import { requisiteLabelString } from "../../utils/requisites";
+import type { Course, RequisiteMap } from "../../types";
+import "./CourseDropdown.css";
 
 interface CourseDropdownProps {
   categorizedRecommendedCourses: Record<string, Course[]>;
   categorizedAvailableCourses: Record<string, Course[]>;
   recommendedCourses?: Course[];
-  prerequisites?: Record<string, string>;
+  prerequisites?: RequisiteMap;
+  codeById?: Record<string, string>;
   currentCourse?: Course;
   placeholder?: string;
   showPrereqs?: boolean;
@@ -17,107 +21,123 @@ function CourseDropdown({
   categorizedAvailableCourses,
   recommendedCourses = [],
   prerequisites = {},
+  codeById = {},
   currentCourse,
   placeholder,
-  showPrereqs = false,
   onSelect,
 }: CourseDropdownProps) {
-  const allAvailableCourses = Object.values(categorizedAvailableCourses).flat();
-  const allRecommendedCourses = Object.values(
-    categorizedRecommendedCourses,
-  ).flat();
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node))
+        setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+
+  const choose = (course: Course, subTypeId?: number) => {
+    onSelect(course, subTypeId);
+    setOpen(false);
+  };
+
+  const renderGroup = (
+    map: Record<string, Course[]>,
+    kind: "Recommended" | "More Available",
+    excludeRecommended: boolean,
+  ) =>
+    Object.entries(map)
+      .sort(([a], [b]) =>
+        a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b),
+      )
+      .map(([subTypeName, courses]) => {
+        const rows = courses.filter(
+          (c) =>
+            c.id !== currentCourse?.id &&
+            !(
+              excludeRecommended &&
+              recommendedCourses.some((r) => r.id === c.id)
+            ),
+        );
+        if (rows.length === 0) return null;
+        return (
+          <Fragment key={`${kind}-${subTypeName}`}>
+            <div className="course-dropdown__group-label">
+              {kind} Courses - {subTypeName}
+            </div>
+            {rows.map((course) => {
+              const reqLabel = requisiteLabelString(
+                prerequisites[course.id],
+                codeById,
+              );
+              return (
+                <div
+                  key={course.id}
+                  role="option"
+                  aria-selected
+                  className="course-dropdown__option"
+                  onClick={() =>
+                    choose(course, SUB_TYPE_NAME_TO_ID[subTypeName])
+                  }
+                >
+                  <span className="course-dropdown__code">{course.id}</span>
+                  <span className="course-dropdown__title">{course.name}</span>
+                  <span className="course-dropdown__credits">
+                    {course.credit} credits
+                  </span>
+                  {reqLabel && (
+                    <span className="course-dropdown__requisite">
+                      {reqLabel}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </Fragment>
+        );
+      });
 
   return (
-    <select
-      value=""
-      onChange={(e) => {
-        const { id, subTypeId } = JSON.parse(e.target.value);
-        const selectedCourse =
-          allAvailableCourses.find((c) => c.id === id) ||
-          allRecommendedCourses.find((c) => c.id === id);
-        if (selectedCourse) {
-          onSelect(selectedCourse, subTypeId);
-        }
-      }}
-      className="course-select"
+    <div
+      className="course-dropdown"
+      ref={rootRef}
+      onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
     >
-      {currentCourse ? (
-        <option value="" disabled>
-          {currentCourse.id} - {currentCourse.name} ({currentCourse.credit}{" "}
-          credits)
-        </option>
-      ) : placeholder ? (
-        <option value="" disabled>
-          {placeholder}
-        </option>
-      ) : null}
-      {Object.entries(categorizedRecommendedCourses).length > 0 &&
-        Object.entries(categorizedRecommendedCourses)
-          .sort(([a], [b]) =>
-            a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b),
-          )
-          .map(
-            ([subTypeName, courses]) =>
-              courses.length > 0 && (
-                <optgroup
-                  key={`recommended-${subTypeName}`}
-                  label={`Recommended Courses - ${subTypeName}`}
-                >
-                  {courses
-                    .filter((c) => c.id !== currentCourse?.id)
-                    .map((c) => (
-                      <option
-                        key={c.id}
-                        value={JSON.stringify({
-                          id: c.id,
-                          subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                        })}
-                        className={`sub-type-option sub-type-${subTypeName
-                          .toLowerCase()
-                          .replace(/[^a-z0-9]/g, "-")}`}
-                      >
-                        {c.id} - {c.name} ({c.credit} credits)
-                      </option>
-                    ))}
-                </optgroup>
-              ),
-          )}
-      {Object.entries(categorizedAvailableCourses).length > 0 &&
-        Object.entries(categorizedAvailableCourses)
-          .sort(([a], [b]) =>
-            a === "Core" ? -1 : b === "Core" ? 1 : a.localeCompare(b),
-          )
-          .map(
-            ([subTypeName, courses]) =>
-              courses.length > 0 && (
-                <optgroup
-                  key={`available-${subTypeName}`}
-                  label={`More Available Courses - ${subTypeName}`}
-                >
-                  {courses
-                    .filter(
-                      (c) =>
-                        c.id !== currentCourse?.id &&
-                        !recommendedCourses.some((r) => r.id === c.id),
-                    )
-                    .map((c) => (
-                      <option
-                        key={c.id}
-                        value={JSON.stringify({
-                          id: c.id,
-                          subTypeId: SUB_TYPE_NAME_TO_ID[subTypeName],
-                        })}
-                        className={`sub-type-option sub-type-${subTypeName
-                          .toLowerCase()
-                          .replace(/[^a-z0-9]/g, "-")}`}
-                      >
-                        {c.id} - {c.name} ({c.credit} credits)
-                      </option>
-                    ))}
-                </optgroup>
-              ),
-          )}
-    </select>
+      <button
+        type="button"
+        className="course-dropdown__trigger"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+      >
+        {currentCourse ? (
+          <>
+            <span className="course-dropdown__code">{currentCourse.id}</span>
+            <span className="course-dropdown__title">{currentCourse.name}</span>
+            <span className="course-dropdown__credits">
+              {currentCourse.credit} credits
+            </span>
+          </>
+        ) : (
+          <span className="course-dropdown__placeholder">
+            {placeholder ?? "Select a course"}
+          </span>
+        )}
+        <span className="course-dropdown__caret" aria-hidden="true">
+          ▾
+        </span>
+      </button>
+
+      {open && (
+        <div className="course-dropdown__panel" role="listbox">
+          {renderGroup(categorizedRecommendedCourses, "Recommended", false)}
+          {renderGroup(categorizedAvailableCourses, "More Available", true)}
+        </div>
+      )}
+    </div>
   );
 }
 
