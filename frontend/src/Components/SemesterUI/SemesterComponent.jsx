@@ -279,6 +279,7 @@ function SemesterComponent({
             code: c.course_code,
             name: c.course_title,
             credit: c.course_credit,
+            creditThreshold: c.credit_threshold ?? null,
             year: c.year,
             semesters: c.semesters,
             sub_type_ids: c.sub_type_ids || [],
