@@ -1,0 +1,66 @@
+:root {
+  --rmit-red: #e60028;
+  --white: #ffffff;
+  --grey-light: #f5f5f5;
+  --grey-dark: #1a1a1a;
+  --grey-medium: #6b7280;
+  --green: #16a34a;
+  --amber: #f59e0b;
+  --red: #dc2626;
+
+  /* button states */
+  --btn-primary-bg: #e60028;
+  --btn-primary-bg-hover: #dc2626;
+  --btn-primary-bg-disabled: #fad6d9;
+  --btn-primary-text-disabled: #c09397;
+  --btn-secondary-bg: #f5f5f5;
+  --btn-secondary-bg-hover: #eaeaea;
+  --btn-secondary-bg-disabled: #fafafa;
+  --btn-secondary-text-disabled: #b5b8bf;
+  --btn-outline-outline: #1a1a1a;
+  --btn-outline-bg-disabled: #fafafa;
+  --btn-outline-outline-disabled: #e5e7eb;
+  --btn-outline-text-disabled: #b5b8bf;
+  --btn-destructive-bg: #dc2626;
+  --btn-destructive-bg-hover: #b91c1c;
+  --btn-destructive-bg-disabled: #fee2e2;
+  --btn-destructive-text-disabled: #ed8484;
+
+  /* status pills */
+  --pill-valid-bg: #f0fdf4;
+  --pill-valid-border: #dcfce7;
+  --pill-valid-icon: #16a34a;
+  --pill-prereq-bg: #fef3c7;
+  --pill-prereq-border: #fde68a;
+  --pill-prereq-icon: #f59e0b;
+  --pill-coreq-bg: #fef2f2;
+  --pill-coreq-border: #fee2e2;
+  --pill-coreq-icon: #ff383c;
+  --pill-elig-bg: #fef2f2;
+  --pill-elig-border: #fee2e2;
+  --pill-elig-icon: #dc2626;
+
+  /* structure */
+  --page-bg: #fafafa;
+  --border: #e5e7eb;
+  --overlay: rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+  /* destructive / warning surfaces */
+  --success: #2e7d32;
+  --success-hover: #256428;
+  --danger-bg: #fef2f2;
+  --danger-text: #d32f2f;
+  --danger-text-hover: #b91c1c;
+  --amber-bg: #fffbeb;
+  --amber-border: #fde68a;
+  --amber-text: #f9a825;
+  --amber-panel-bg: #fff3cd;
+  --amber-panel-border: #e0b64d;
+  --amber-panel-text: #4d3800;
+  --btn-dark-bg: #1a1a1a;
+  --btn-dark-bg-hover: #000000;
+  --btn-dark-bg-disabled: #e5e7eb;
+  --btn-dark-text-disabled: #b5b8bf;
+}

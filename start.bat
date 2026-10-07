@@ -1,6 +1,13 @@
 @echo off
 echo Starting mysql local sever...
 
+echo Resetting MySQL data directory...
+if exist "%~dp0sql\data" rmdir /s /q "%~dp0sql\data"
+pushd "%~dp0sql"
+bin\mysqld.exe --initialize-insecure --datadir=".\data" --console
+popd
+
+
 del "%~dp0middlelayer_failed.flag" >nul 2>&1
 del "%~dp0frontend_failed.flag" >nul 2>&1
 
@@ -13,6 +20,12 @@ if errorlevel 1 (
     goto waitloop1
 )
 
+echo Starting mysql local sever...
+del "%~dp0middlelayer_failed.flag" >nul 2>&1
+del "%~dp0frontend_failed.flag" >nul 2>&1
+
+echo Waiting for port 3306...
+start "Server" "%~dp0sql\startsqlserver.bat"
 
 echo Starting backend...
 start "Backend" "%~dp0startmiddlelayer.bat"

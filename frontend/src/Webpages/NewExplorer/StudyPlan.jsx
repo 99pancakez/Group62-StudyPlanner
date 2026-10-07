@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import StatusPill from "../../Components/common/StatusPill";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import CombinationComponent from "../../Components/Combination/CombinationComponent";
@@ -18,6 +19,38 @@ import ProgressComponent from "../../Components/common/ProgressComponent";
 import { getCoreqIssues } from "../../utils/requisites";
 import CorequisiteWarningModal from "../../Components/SemesterUI/CorequisiteWarningModal";
 import { termLabel, isSummerTerm, yearForSemester } from "../../utils/term";
+import Button from "../../Components/common/Button";
+import {
+  combinationEligibility,
+  completedCourseIdsThrough,
+  coreqIssuesBySemester,
+  parseCreditTransferIds,
+  planStatus,
+  planStatusSummary,
+  semesterStatus,
+} from "../../utils/planStatus";
+import ConfirmDialog from "../../Components/common/ConfirmDialog";
+
+function CertificateIcon() {
+  return (
+    <svg
+      width="20px"
+      height="20px"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      fill="none"
+      stroke="#000000"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.5"
+    >
+      <polyline points="11.25 1.75,2.75 1.75,2.75 13.25,5.25 13.25" />
+      <polyline points="8.75 9.75,8.25 14.25,10.50 13.25,12.75 14.25,12.25 9.75" />
+      <circle cx="10.5" cy="7.5" r="2.75" />
+    </svg>
+  );
+}
 
 function StudyPlan() {
   const [semesterCount, setSemesterCount] = useState(() => {
@@ -44,13 +77,48 @@ function StudyPlan() {
   });
 
   const [subTypeGroupMap, setSubTypeGroupMap] = useState({});
-
+  const [comboResetSignal, setComboResetSignal] = useState(0);
+  const [confirmClearAllOpen, setConfirmClearAllOpen] = useState(false);
   const [warningIssues, setWarningIssues] = useState(null);
   const [requisites, setRequisites] = useState({
     coreqMap: {},
     courseNameById: {},
     codeById: {},
   });
+  const creditTransferIds = parseCreditTransferIds(
+    JSON.parse(localStorage.getItem(LOCALS.qnaResponses) || "{}").creditCourses,
+  );
+
+  const semesterStatuses = Array.from({ length: semesterCount }, (_, i) => {
+    const n = i + 1;
+    const courses = selectedCourses[`Semester ${n}`] ?? [];
+    return semesterStatus({
+      courses,
+      prerequisites: requisites.prereqMap,
+      completedIds: completedCourseIdsThrough(
+        selectedCourses,
+        n,
+        creditTransferIds,
+      ),
+      coreqIssues:
+        coreqIssuesBySemester(selectedCourses, requisites.coreqMap)[n] ?? [],
+      totalCredits: courses.reduce((sum, c) => sum + c.credit, 0),
+    });
+  });
+
+  const comboResult = combinationEligibility({
+    creditProgress,
+    selectedCourses,
+    subTypeGroupMap,
+    breakdown: majorMinorBreakdown,
+  });
+
+  const planVariant = planStatus([comboResult, ...semesterStatuses]);
+  const planSummary = planStatusSummary(
+    planVariant,
+    semesterStatuses,
+    comboResult,
+  );
 
   const handleClearCombinationAndMap = () => {
     setCombinationSelections({});
@@ -59,6 +127,18 @@ function StudyPlan() {
     localStorage.removeItem(LOCALS.subTypeGroupMap);
   };
 
+  const handleClearAll = () => {
+    setSemesterCount(1);
+    setSelectedCourses({});
+    handleClearCombinationAndMap();
+    setMajorMinorBreakdown([]);
+    setCreditProgress({});
+    setCoreCredits(0);
+    setComboResetSignal((n) => n + 1);
+
+    localStorage.removeItem(LOCALS.studyPlanState);
+    localStorage.removeItem(LOCALS.semesterSelections);
+  };
   const calculateProgramCourseCredits = (selectedCourses) => {
     return Object.values(selectedCourses)
       .flat()
@@ -117,10 +197,12 @@ function StudyPlan() {
           courseNameById[c.course_id] = c.course_title;
         });
         const coreqMap = {};
+        const prereqMap = {};
         prereqData.forEach((p) => {
           coreqMap[p.course_id] = p.corequisites || null;
+          prereqMap[p.course_id] = p.prerequisites || null;
         });
-        setRequisites({ coreqMap, courseNameById, codeById });
+        setRequisites({ coreqMap, prereqMap, courseNameById, codeById });
       })
       .catch((err) => console.error("Failed to load requisites:", err));
     return () => {
@@ -434,106 +516,182 @@ function StudyPlan() {
     doc.save("study-plan.pdf");
   };
 
+  const handleOpenOfficialProgramPdf = () => {
+    window.open(
+      `${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
+
+  const totalCredits = calculateTotalCredits();
+  const totalPercentage = Math.min(
+    100,
+    (totalCredits / CREDITS.TOTAL_DEGREE) * 100,
+  );
+
   return (
-    <div className="study-plan-layout">
-      <div className="top-banner">
-        <button
-          className="download-link"
-          onClick={() => {
-            window.open(
-              `${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`,
-              "_blank",
-            );
-          }}
-        >
-          📄 Download Official Program Course List (PDF)
-        </button>
-      </div>
-
-      <div className="top-row">
-        <div className="combination-box">
-          <CombinationComponent
-            setCombinationSelections={setCombinationSelections}
-            combinations={combinations}
-            onSubTypeSelectionChange={handleSubTypeSelectionChange}
-            onClearCombination={handleClearCombinationAndMap}
-          />
+    <div className="study-plan">
+      <header className="study-plan__header">
+        <div className="study-plan__header-inner">
+          <h1 className="study-plan__title">
+            <span className="study-plan__title-pill">RMIT</span>
+            <span className="study-plan__title-text">UNIVERSITY</span>
+          </h1>
+          <div className="study-plan__toolbar">
+            <span className="study-plan__brand-tag">RMIT Course Planner</span>
+          </div>
         </div>
-        <div className="scorecard-box">
-          <div className="credit-breakdown">
-            <h4>Credit Breakdown</h4>
+      </header>
+      <div className="study-plan-layout">
+        <a
+          className="study-plan__program-link"
+          href={`${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <CertificateIcon />
+          Download Official Program Course List (PDF)
+        </a>
 
-            {/* Core */}
-            <ProgressComponent
-              label="Core"
-              valueText={`${coreCredits}/${CREDITS.CORE_TOTAL}`}
-              percentage={(coreCredits / CREDITS.CORE_TOTAL) * 100}
+        <div className="top-row">
+          <div className="combination-box">
+            <CombinationComponent
+              setCombinationSelections={setCombinationSelections}
+              combinations={combinations}
+              onSubTypeSelectionChange={handleSubTypeSelectionChange}
+              onClearCombination={handleClearCombinationAndMap}
             />
+          </div>
 
-            {/* Program Course */}
-            <ProgressComponent
-              label="Program Course"
-              valueText={`${calculateProgramCourseCredits(selectedCourses)}/${CREDITS.PROGRAM_COURSE_TOTAL}`}
-              percentage={
-                (calculateProgramCourseCredits(selectedCourses) /
-                  CREDITS.PROGRAM_COURSE_TOTAL) *
-                100
-              }
-            />
+          <div className="scorecard-box">
+            <div className="scorecard-box__grid">
+              <div className="scorecard-box__total">
+                <span className="scorecard-box__eyebrow">
+                  Credit Breakdown Progress
+                </span>
+                <span className="scorecard-box__cp">
+                  {totalCredits} / {CREDITS.TOTAL_DEGREE} CP
+                </span>
+                <div
+                  className="progress-bar"
+                  role="progressbar"
+                  aria-label="Total credit progress"
+                  aria-valuenow={Math.round(totalPercentage)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <div
+                    className="progress-fill"
+                    style={{ width: `${totalPercentage}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="scorecard-box__breakdown">
+              {/* Core */}
+              <ProgressComponent
+                label="Core"
+                valueText={`${coreCredits}/${CREDITS.CORE_TOTAL}`}
+                percentage={(coreCredits / CREDITS.CORE_TOTAL) * 100}
+                hideBar={true}
+              />
 
-            {/* Combo breakdowns */}
-            {majorMinorBreakdown.map((item, index) => {
-              const progress = creditProgress[item.label] || {
-                earned: 0,
-                required: item.target,
-              };
-              return (
-                <ProgressComponent
-                  key={index}
-                  label={item.label}
-                  valueText={`${progress.earned}/${
-                    progress.min != null && progress.max != null
-                      ? `${progress.min}-${progress.max}`
-                      : (progress.required ?? "N/A")
-                  }`}
-                  percentage={progress.percentage}
-                  over={progress.over}
-                  warning="Exceeds maximum allowed credits"
-                />
-              );
-            })}
+              {/* Program Course */}
+              <ProgressComponent
+                label="Program Course"
+                valueText={`${calculateProgramCourseCredits(selectedCourses)}/${CREDITS.PROGRAM_COURSE_TOTAL}`}
+                percentage={
+                  (calculateProgramCourseCredits(selectedCourses) /
+                    CREDITS.PROGRAM_COURSE_TOTAL) *
+                  100
+                }
+                hideBar={true}
+              />
 
-            {/* Total */}
-            <div className="total-credits">
-              <span>Total Credits : </span>
-              <span>
-                {calculateTotalCredits()}/{CREDITS.TOTAL_DEGREE}
-              </span>
+              {/* Combo breakdowns */}
+              {majorMinorBreakdown.map((item, index) => {
+                const progress = creditProgress[item.label] || {
+                  earned: 0,
+                  required: item.target,
+                  percentage: 0,
+                  min: null,
+                  max: null,
+                  over: false,
+                };
+                return (
+                  <ProgressComponent
+                    key={index}
+                    label={item.label}
+                    valueText={`${progress.earned}/${
+                      progress.min != null && progress.max != null
+                        ? `${progress.min}-${progress.max}`
+                        : (progress.required ?? "N/A")
+                    }`}
+                    percentage={progress.percentage}
+                    over={progress.over}
+                    warning="Exceeds maximum allowed credits"
+                    hideBar={true}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
-      </div>
-      <div className="semester-box">
-        <div className="study-plan-container">{renderSemesters()}</div>
 
-        <div className="bottom-right-download">
-          <button className="download-btn enhanced" onClick={handleDownloadPDF}>
-            <span className="text">Download (PDF)</span>
-          </button>
+        <div className="semester-box">
+          <div className="study-plan-container">{renderSemesters()}</div>
         </div>
-      </div>
-      {warningIssues && (
-        <CorequisiteWarningModal
-          issues={warningIssues}
-          courseNameById={requisites.courseNameById}
-          codeById={requisites.codeById}
-          onClose={() => setWarningIssues(null)}
-          onContinue={() => {
-            setWarningIssues(null);
-            genPdf();
+
+        {warningIssues && (
+          <CorequisiteWarningModal
+            issues={warningIssues}
+            courseNameById={requisites.courseNameById}
+            codeById={requisites.codeById}
+            onClose={() => setWarningIssues(null)}
+            onContinue={() => {
+              setWarningIssues(null);
+              genPdf();
+            }}
+          />
+        )}
+        <ConfirmDialog
+          open={confirmClearAllOpen}
+          title="Clear study plan"
+          body="This removes every semester, course, and your selected combination from this browser. Your questionnaire answers are kept."
+          confirmLabel="Clear all"
+          tone="destructive"
+          onConfirm={() => {
+            handleClearAll();
+            setConfirmClearAllOpen(false);
           }}
+          onCancel={() => setConfirmClearAllOpen(false)}
         />
-      )}
+      </div>
+      <footer className="study-plan__footer">
+        <div className="study-plan__footer-actions">
+          <div className="study-plan__footer-inner">
+            <Button
+              variant="outline"
+              onClick={() => setConfirmClearAllOpen(true)}
+            >
+              Clear all
+            </Button>
+            <Button variant="dark" onClick={handleDownloadPDF}>
+              Download study plan
+            </Button>
+          </div>
+        </div>
+        <div className="study-plan__footer-legal">
+          <div className="study-plan__footer-inner">
+            <span>
+              © 2026 RMIT StudyPlanner Project Group. Prepared for client review
+              &amp; Sprint 1 validation
+            </span>
+            <span className="study-plan__footer-brand">RMIT UNIVERSITY</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

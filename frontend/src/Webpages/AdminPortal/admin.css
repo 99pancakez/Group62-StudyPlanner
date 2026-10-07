@@ -1,11 +1,3 @@
-:root {
-  --rmit-red: #e41c2c;
-  --leagues-blue: #171764;
-  --after-dark: #3d3736;
-  --white: #ffffff;
-  --black: #000000;
-}
-
 .admin-portal {
   font-family: sans-serif;
   padding: 16px;
