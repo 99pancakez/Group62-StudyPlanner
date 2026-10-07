@@ -11,4 +11,15 @@ export interface Course {
   year?: number;
   semesters?: Semester[];
   prereqString?: string;
+  creditThreshold?: number | null;
 }
+
+export interface PlannedCourse {
+  id: string;
+  name?: string;
+  credit: number;
+}
+
+export type PlanSelections = Record<string, PlannedCourse[]>;
+
+export type RequisiteMap = Record<string, string | null>;
