@@ -1,0 +1,83 @@
+.course-dropdown {
+  position: relative;
+  width: 100%;
+  font-size: 16px;
+}
+
+.course-dropdown__trigger {
+  display: grid;
+  grid-template-columns: 9ch 1fr auto; /* code | title | credits */
+  column-gap: 12px;
+  align-items: baseline;
+  width: 100%;
+  max-width: 360px;
+  padding: 4px 6px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.course-dropdown__trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
+  border-radius: 4px;
+}
+.course-dropdown__placeholder {
+  grid-column: 1 / -1;
+  color: #666;
+}
+.course-dropdown__caret {
+  margin-left: auto;
+  color: #888;
+}
+
+.course-dropdown__panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  width: min(560px, 100%);
+  min-width: 320px;
+  max-height: 320px;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.course-dropdown__group-label {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #444;
+  background: #fafafa;
+}
+.course-dropdown__option {
+  display: grid;
+  grid-template-columns: 9ch 1fr auto; /* same columns as trigger */
+  column-gap: 12px;
+  align-items: baseline;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.course-dropdown__option:hover {
+  background: #f0f6ff;
+}
+.course-dropdown__code {
+  white-space: nowrap;
+}
+.course-dropdown__title {
+  overflow-wrap: anywhere;
+}
+.course-dropdown__credits {
+  text-align: right;
+  white-space: nowrap;
+  color: #555;
+}
+.course-dropdown__requisite {
+  grid-column: 1 / -1; /* second row spanning all columns */
+  text-align: right; /* right-aligned below main text */
+  font-size: 12px;
+  color: #666;
+}
