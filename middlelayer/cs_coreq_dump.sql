@@ -1023,6 +1023,13 @@ VALUES
 
 UNLOCK TABLES;
 
+-- set threshold for programming project
+UPDATE `course`
+SET
+  `credit_threshold` = 192
+WHERE
+  `course_id` = '039985';
+
 --
 -- Table structure for table `course_availability`
 --
