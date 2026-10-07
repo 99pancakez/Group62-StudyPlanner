@@ -131,20 +131,6 @@ select:focus,
   min-height: 2rem;
 }
 
-.course-tag {
-  display: inline-flex;
-  align-items: center;
-  color: white;
-  padding: 0.5rem 0.75rem;
-  border-radius: 15px;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-}
-
-.course-tag:hover {
-  filter: brightness(90%);
-}
-
 .remove-course {
   margin-right: 0.5rem;
   cursor: pointer;

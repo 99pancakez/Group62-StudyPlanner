@@ -1,35 +1,38 @@
 .course-dropdown {
   position: relative;
-  width: 100%;
-  font-size: 16px;
+  width: 80%;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--grey-dark);
 }
 
 .course-dropdown__trigger {
   display: grid;
-  grid-template-columns: 9ch 1fr auto; /* code | title | credits */
+  grid-template-columns: 9ch 1fr auto;
   column-gap: 12px;
   align-items: baseline;
   width: 100%;
-  max-width: 360px;
   padding: 4px 6px;
   border: none;
   background: transparent;
   font: inherit;
+  color: inherit;
   text-align: left;
   cursor: pointer;
 }
 .course-dropdown__trigger:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px #007bff;
+  box-shadow: 0 0 0 2px var(--rmit-red);
   border-radius: 4px;
 }
 .course-dropdown__placeholder {
   grid-column: 1 / -1;
-  color: #666;
+  color: var(--grey-medium);
 }
 .course-dropdown__caret {
   margin-left: auto;
-  color: #888;
+  color: var(--grey-medium);
 }
 
 .course-dropdown__panel {
@@ -37,47 +40,52 @@
   z-index: 20;
   top: calc(100% + 4px);
   left: 0;
-  width: min(560px, 100%);
-  min-width: 320px;
+  width: 100%;
+  min-width: 0;
   max-height: 320px;
   overflow: auto;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
 }
 .course-dropdown__group-label {
   padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #444;
-  background: #fafafa;
+  font-size: var(--fs-supporting);
+  line-height: var(--lh-supporting);
+  font-weight: var(--fw-semibold);
+  color: var(--grey-dark);
+  background: var(--page-bg);
 }
 .course-dropdown__option {
   display: grid;
-  grid-template-columns: 9ch 1fr auto; /* same columns as trigger */
+  grid-template-columns: 9ch 1fr auto;
   column-gap: 12px;
   align-items: baseline;
   padding: 8px 12px;
   cursor: pointer;
 }
 .course-dropdown__option:hover {
-  background: #f0f6ff;
+  background: var(--grey-light);
 }
 .course-dropdown__code {
   white-space: nowrap;
+  font-weight: var(--fw-semibold);
+  color: var(--grey-dark);
 }
 .course-dropdown__title {
   overflow-wrap: anywhere;
+  color: var(--grey-dark);
 }
 .course-dropdown__credits {
   text-align: right;
   white-space: nowrap;
-  color: #555;
+  color: var(--grey-medium);
 }
 .course-dropdown__requisite {
-  grid-column: 1 / -1; /* second row spanning all columns */
-  text-align: right; /* right-aligned below main text */
-  font-size: 12px;
-  color: #666;
+  grid-column: 1 / -1;
+  text-align: right;
+  font-size: var(--fs-supporting);
+  line-height: var(--lh-supporting);
+  color: var(--grey-medium);
 }
