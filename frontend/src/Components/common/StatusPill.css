@@ -1,0 +1,64 @@
+.pill {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid;
+  border-radius: 8px;
+}
+.pill__icon {
+  display: inline-flex;
+  flex: 0 0 20px;
+  margin-top: 1px;
+}
+.pill__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pill__heading {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--grey-dark);
+}
+.pill__description {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-supporting);
+  line-height: var(--lh-supporting);
+  color: var(--grey-medium);
+}
+
+.pill--valid {
+  background-color: var(--pill-valid-bg);
+  border-color: var(--pill-valid-border);
+}
+.pill--valid .pill__icon {
+  color: var(--pill-valid-icon);
+}
+
+.pill--prerequisite {
+  background-color: var(--pill-prereq-bg);
+  border-color: var(--pill-prereq-border);
+}
+.pill--prerequisite .pill__icon {
+  color: var(--pill-prereq-icon);
+}
+
+.pill--corequisite {
+  background-color: var(--pill-coreq-bg);
+  border-color: var(--pill-coreq-border);
+}
+.pill--corequisite .pill__icon {
+  color: var(--pill-coreq-icon);
+}
+
+.pill--eligibility {
+  background-color: var(--pill-elig-bg);
+  border-color: var(--pill-elig-border);
+}
+.pill--eligibility .pill__icon {
+  color: var(--pill-elig-icon);
+}

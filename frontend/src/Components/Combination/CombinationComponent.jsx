@@ -14,11 +14,23 @@ export default function CombinationComponent({
   combinations,
   onSubTypeSelectionChange,
   onClearCombination,
+  resetSignal,
 }) {
   const [openCombo, setOpenCombo] = useState(null);
   const [openSub, setOpenSub] = useState(null);
   const [selected, setSelected] = useState({});
   const menuRef = useRef(null);
+
+  const isFirstReset = useRef(true);
+  useEffect(() => {
+    if (isFirstReset.current) {
+      isFirstReset.current = false;
+      return;
+    }
+    setSelected({});
+    setOpenCombo(null);
+    setOpenSub(null);
+  }, [resetSignal]);
 
   useEffect(() => {
     const stored = localStorage.getItem(LOCALS.combinationSelections);
@@ -253,15 +265,14 @@ export default function CombinationComponent({
     setOpenCombo(null);
     setOpenSub(null);
 
-    // Clear all semester selections except core courses
     const currentSelections = JSON.parse(
       localStorage.getItem(LOCALS.semesterSelections) || "{}",
     );
     const newSelections = {};
 
     Object.keys(currentSelections).forEach((semester) => {
-      newSelections[semester] = currentSelections[semester].filter((course) =>
-        course.sub_type_ids?.includes(SUB_TYPE.CORE),
+      newSelections[semester] = currentSelections[semester].filter(
+        (course) => course.selected_sub_type_id === SUB_TYPE.CORE,
       );
     });
 
