@@ -315,7 +315,15 @@ LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
 
 INSERT INTO
-  `course`
+  `course` (
+    `course_id`,
+    `course_code`,
+    `course_title`,
+    `course_credit`,
+    `web_url`,
+    `prerequisite`,
+    `year`
+  )
 VALUES
   (
     '004108',
