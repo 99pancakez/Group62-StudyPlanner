@@ -37,6 +37,7 @@ const getAvailableCourses = async (req, res) => {
         course_code: course.course_code,
         course_title: course.course_title,
         course_credit: course.course_credit,
+        credit_threshold: course.credit_threshold,
         sub_type_ids: course.course_types.map((ct) => ct.sub_type_id),
         year: course.year,
         semesters: course.courseAvailabilities.map((ca) => ({
