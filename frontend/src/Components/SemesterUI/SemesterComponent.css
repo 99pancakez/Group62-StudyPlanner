@@ -278,3 +278,16 @@
   gap: 8px;
   width: 100%;
 }
+.selection-issues {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.selection-issues li {
+  font-family: var(--font-sans);
+  font-size: var(--fs-supporting);
+  line-height: var(--lh-supporting);
+  color: var(--grey-dark);
+}
