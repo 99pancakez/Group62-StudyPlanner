@@ -3,6 +3,7 @@ import "./admin.css";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import CreateCourseModal from "../../Components/CreateCourseModal/CreateCourseModal";
+import Button from "../../Components/common/Button";
 
 const programs = ["BP094P23"];
 const columns = [
@@ -13,6 +14,7 @@ const columns = [
   "Sub Type",
   "Year",
   "Credit Points",
+  "Credit Threshold",
   "Web Url",
   "Semester 1",
   "Semester 2",
@@ -281,6 +283,9 @@ const AdminPortal = () => {
     if (colKey === "Flex Term") payload.flex_term = newValue;
     if (colKey === "Year") payload.year = parseInt(newValue);
     if (colKey === "Credit Points") payload.credit_points = parseInt(newValue);
+    if (colKey === "Credit Threshold")
+      payload.credit_threshold =
+        newValue === "" || newValue == null ? null : parseInt(newValue);
 
     try {
       const response = await fetch(`${API_BASE_URL}/courses/${courseId}`, {
@@ -488,6 +493,7 @@ const AdminPortal = () => {
     "Sub Type",
     "Year",
     "Credit Points",
+    "Credit Threshold",
     "Web Url",
   ];
 
@@ -531,6 +537,8 @@ const AdminPortal = () => {
     <div className="admin-portal">
       <header className="header">
         <div className="header-left">
+          <h1 className="t-section-heading">Course Management</h1>
+
           <select
             className="program-dropdown"
             value={selectedProgram}
@@ -545,12 +553,13 @@ const AdminPortal = () => {
           </select>
         </div>
         <div className="header-right">
-          <button
-            className="history-button"
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => navigate("/history")}
           >
             View Admin History
-          </button>
+          </Button>
         </div>
       </header>
 
@@ -561,12 +570,9 @@ const AdminPortal = () => {
           padding: "10px 20px",
         }}
       >
-        <button
-          className="add-course-button"
-          onClick={() => setShowCreateModal(true)}
-        >
+        <Button variant="primary" onClick={() => setShowCreateModal(true)}>
           + Add Course
-        </button>
+        </Button>
       </div>
 
       <div className="toolbar">
@@ -1089,14 +1095,6 @@ const AdminPortal = () => {
                             e.stopPropagation(); // Prevent cell click from triggering edit mode
                             handleOpenPrereqModal(row["Course Id"], rowIdx);
                           }}
-                          style={{
-                            background: "transparent",
-                            border: "none",
-                            color: "#1a0dab",
-                            cursor: "pointer",
-                            textDecoration: "underline",
-                            padding: 0,
-                          }}
                         >
                           {row[col] && row[col] !== "-" ? row[col] : "Edit"}
                         </button>
@@ -1106,14 +1104,6 @@ const AdminPortal = () => {
                           onClick={(e) => {
                             e.stopPropagation();
                             handleOpenPrereqModal(row["Course Id"], rowIdx);
-                          }}
-                          style={{
-                            background: "transparent",
-                            border: "none",
-                            color: "#1a0dab",
-                            cursor: "pointer",
-                            textDecoration: "underline",
-                            padding: 0,
                           }}
                         >
                           {row[col] && row[col] !== "-" ? row[col] : "Edit"}

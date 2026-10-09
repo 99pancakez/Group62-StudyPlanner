@@ -134,72 +134,6 @@
   grid-column: 1 / -1;
 }
 
-.coreq-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--overlay);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.coreq-modal {
-  background: var(--white);
-  border-radius: 8px;
-  padding: 20px 24px;
-  max-width: 480px;
-  width: 90%;
-  box-shadow: var(--shadow-md);
-}
-
-.coreq-modal-lead {
-  font-size: 0.9rem;
-  color: var(--grey-dark);
-}
-
-.coreq-modal-list {
-  list-style: none;
-  padding: 0;
-  margin: 12px 0;
-}
-
-.coreq-modal-list li {
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  padding: 8px;
-  margin-bottom: 8px;
-  background: var(--amber-panel-bg);
-  border: 1px solid var(--amber-panel-border);
-  border-radius: 4px;
-  color: var(--amber-panel-text);
-}
-
-.coreq-modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.coreq-modal-btn {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  cursor: pointer;
-}
-
-.coreq-modal-btn.primary {
-  background: var(--rmit-red);
-  color: var(--white);
-  border-color: var(--rmit-red);
-}
-
-.coreq-modal-btn.secondary {
-  background: var(--white);
-  color: var(--grey-dark);
-}
 .study-plan__header {
   position: sticky;
   top: 0;
@@ -286,4 +220,7 @@
   color: var(--rmit-red);
   font-weight: var(--fw-bold);
   letter-spacing: 0.04em;
+}
+.study-plan__footer-status {
+  margin-bottom: 12px;
 }

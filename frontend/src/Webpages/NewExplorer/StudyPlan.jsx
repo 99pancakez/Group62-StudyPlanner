@@ -16,10 +16,8 @@ import {
   SUB_TYPE,
 } from "../../constants";
 import ProgressComponent from "../../Components/common/ProgressComponent";
-import { getCoreqIssues } from "../../utils/requisites";
-import CorequisiteWarningModal from "../../Components/SemesterUI/CorequisiteWarningModal";
+import { getCoreqIssues, requisiteLabelString } from "../../utils/requisites";
 import { termLabel, isSummerTerm, yearForSemester } from "../../utils/term";
-import Button from "../../Components/common/Button";
 import {
   combinationEligibility,
   completedCourseIdsThrough,
@@ -30,6 +28,11 @@ import {
   semesterStatus,
 } from "../../utils/planStatus";
 import ConfirmDialog from "../../Components/common/ConfirmDialog";
+import {
+  creditsByCourseId,
+  thresholdIssuesForPlan,
+} from "../../utils/creditThreshold";
+import Button from "../../Components/common/Button";
 
 function CertificateIcon() {
   return (
@@ -49,6 +52,41 @@ function CertificateIcon() {
       <polyline points="8.75 9.75,8.25 14.25,10.50 13.25,12.75 14.25,12.25 9.75" />
       <circle cx="10.5" cy="7.5" r="2.75" />
     </svg>
+  );
+}
+
+function DownloadWarningList({ warnings, prereqMap, coreqMap, codeById }) {
+  const rows = [];
+  warnings.prereq.forEach((u) =>
+    rows.push({
+      type: "Prerequisite",
+      text: `${codeById[u.courseId] ?? u.courseName} (Semester ${u.semesterNumber}) requires ${
+        requisiteLabelString(prereqMap[u.courseId], codeById) ?? u.courseId
+      }.`,
+    }),
+  );
+  warnings.coreq.forEach((i) =>
+    rows.push({
+      type: "Corequisite",
+      text: `${codeById[i.courseId] ?? i.courseName} (Semester ${i.semesterNumber}) must be taken with ${i.missingIds
+        .map((id) => codeById[id] ?? id)
+        .join(" or ")}.`,
+    }),
+  );
+  warnings.threshold.forEach((t) =>
+    rows.push({
+      type: "Credit threshold",
+      text: `${codeById[t.courseId] ?? t.courseName} (Semester ${t.semesterNumber}) needs ${t.shortfall} more credits (${t.accumulated} of ${t.threshold}).`,
+    }),
+  );
+  return (
+    <ul className="download-warnings">
+      {rows.map((r) => (
+        <li key={`${r.type}-${r.text}`}>
+          <strong>{r.type}:</strong> {r.text}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -77,17 +115,28 @@ function StudyPlan() {
   });
 
   const [subTypeGroupMap, setSubTypeGroupMap] = useState({});
-  const [comboResetSignal, setComboResetSignal] = useState(0);
   const [confirmClearAllOpen, setConfirmClearAllOpen] = useState(false);
-  const [warningIssues, setWarningIssues] = useState(null);
+  const [downloadWarnings, setDownloadWarnings] = useState(null);
   const [requisites, setRequisites] = useState({
     coreqMap: {},
     courseNameById: {},
     codeById: {},
+    courseById: {},
   });
   const creditTransferIds = parseCreditTransferIds(
     JSON.parse(localStorage.getItem(LOCALS.qnaResponses) || "{}").creditCourses,
   );
+  const creditById = creditsByCourseId(Object.values(requisites.courseById));
+  const thresholdPlanIssues = thresholdIssuesForPlan(
+    selectedCourses,
+    creditTransferIds,
+    creditById,
+    requisites.courseById,
+  );
+  const thresholdBySemester = {};
+  thresholdPlanIssues.forEach((t) => {
+    (thresholdBySemester[t.semesterNumber] ||= []).push(t);
+  });
 
   const semesterStatuses = Array.from({ length: semesterCount }, (_, i) => {
     const n = i + 1;
@@ -95,6 +144,7 @@ function StudyPlan() {
     return semesterStatus({
       courses,
       prerequisites: requisites.prereqMap,
+      thresholdIssues: thresholdBySemester[n] ?? [],
       completedIds: completedCourseIdsThrough(
         selectedCourses,
         n,
@@ -102,7 +152,6 @@ function StudyPlan() {
       ),
       coreqIssues:
         coreqIssuesBySemester(selectedCourses, requisites.coreqMap)[n] ?? [],
-      totalCredits: courses.reduce((sum, c) => sum + c.credit, 0),
     });
   });
 
@@ -134,7 +183,6 @@ function StudyPlan() {
     setMajorMinorBreakdown([]);
     setCreditProgress({});
     setCoreCredits(0);
-    setComboResetSignal((n) => n + 1);
 
     localStorage.removeItem(LOCALS.studyPlanState);
     localStorage.removeItem(LOCALS.semesterSelections);
@@ -202,7 +250,22 @@ function StudyPlan() {
           coreqMap[p.course_id] = p.corequisites || null;
           prereqMap[p.course_id] = p.prerequisites || null;
         });
-        setRequisites({ coreqMap, prereqMap, courseNameById, codeById });
+        const courseById = {};
+        available.forEach((c) => {
+          courseById[c.course_id] = {
+            id: c.course_id,
+            name: c.course_title,
+            credit: c.course_credit,
+            creditThreshold: c.credit_threshold ?? null,
+          };
+        });
+        setRequisites({
+          coreqMap,
+          prereqMap,
+          courseNameById,
+          codeById,
+          courseById,
+        });
       })
       .catch((err) => console.error("Failed to load requisites:", err));
     return () => {
@@ -453,9 +516,17 @@ function StudyPlan() {
   };
 
   const handleDownloadPDF = () => {
-    const issues = getCoreqIssues(selectedCourses, requisites.coreqMap);
-    if (issues.length > 0) {
-      setWarningIssues(issues);
+    const prereq = [];
+    semesterStatuses.forEach((s, i) =>
+      s.unmet.forEach((u) => prereq.push({ ...u, semesterNumber: i + 1 })),
+    );
+    const coreq = getCoreqIssues(selectedCourses, requisites.coreqMap);
+    if (
+      prereq.length > 0 ||
+      coreq.length > 0 ||
+      thresholdPlanIssues.length > 0
+    ) {
+      setDownloadWarnings({ prereq, coreq, threshold: thresholdPlanIssues });
       return;
     }
     genPdf();
@@ -514,14 +585,6 @@ function StudyPlan() {
 
     doc.text(`Overall Total Credits: ${overallTotal}`, 14, yOffset);
     doc.save("study-plan.pdf");
-  };
-
-  const handleOpenOfficialProgramPdf = () => {
-    window.open(
-      `${API_BASE_URL}/courses/download-courses/${PROGRAM_CODE}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
   };
 
   const totalCredits = calculateTotalCredits();
@@ -643,16 +706,26 @@ function StudyPlan() {
           <div className="study-plan-container">{renderSemesters()}</div>
         </div>
 
-        {warningIssues && (
-          <CorequisiteWarningModal
-            issues={warningIssues}
-            courseNameById={requisites.courseNameById}
-            codeById={requisites.codeById}
-            onClose={() => setWarningIssues(null)}
-            onContinue={() => {
-              setWarningIssues(null);
+        {downloadWarnings && (
+          <ConfirmDialog
+            open
+            title="Plan warnings"
+            body={
+              <DownloadWarningList
+                warnings={downloadWarnings}
+                prereqMap={requisites.prereqMap}
+                coreqMap={requisites.coreqMap}
+                codeById={requisites.codeById}
+              />
+            }
+            cancelLabel="Go Back"
+            confirmLabel="Continue Anyway"
+            tone="primary"
+            onConfirm={() => {
+              setDownloadWarnings(null);
               genPdf();
             }}
+            onCancel={() => setDownloadWarnings(null)}
           />
         )}
         <ConfirmDialog
@@ -670,6 +743,16 @@ function StudyPlan() {
       </div>
       <footer className="study-plan__footer">
         <div className="study-plan__footer-actions">
+          {planSummary && (
+            <div className="study-plan__footer-status">
+              <StatusPill
+                variant={planSummary.variant}
+                heading={planSummary.heading}
+                description={planSummary.description}
+                live={false}
+              />
+            </div>
+          )}
           <div className="study-plan__footer-inner">
             <Button
               variant="outline"

@@ -1,20 +1,30 @@
 .admin-portal {
-  font-family: sans-serif;
+  font-family: var(--font-sans);
   padding: 16px;
 }
 
 .header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: left;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 12px;
+  gap: 16px;
+  border-bottom: 2px solid var(--rmit-red);
+  padding: 16px 0 12px;
   margin-bottom: 20px;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .program-dropdown {
-  font-size: 16px;
+  font-size: var(--fs-supporting);
   padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-sans);
 }
 
 .toolbar {
@@ -30,7 +40,7 @@
 
 .search-box {
   padding: 8px 12px;
-  border: 1px solid var(--after-dark);
+  border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 14px;
   min-width: 200px;
@@ -38,8 +48,8 @@
 
 .dropdown-toggle {
   padding: 8px 12px;
-  background: #ffffff;
-  border: 1px solid var(--black);
+  background: var(--white);
+  border: 1px solid var(--grey-dark);
   border-radius: 4px;
   cursor: pointer;
   color: black;
@@ -49,12 +59,16 @@
   background-color: #3d373635;
 }
 
+.dropdown-toggle::after {
+  content: " ▾";
+  color: var(--grey-medium);
+}
 .dropdown-menu {
   position: absolute;
   top: 110%;
   left: 0;
-  background: #fff;
-  border: 3px solid #ccc;
+  background: var(--white);
+  border: 3px solid var(--border);
   padding: 8px;
   list-style: none;
   margin: 0;
@@ -81,7 +95,7 @@
   z-index: 1; /* Lower than the dropdown menu */
   max-width: 100%;
   scrollbar-width: thin;
-  scrollbar-color: #888 #f4f4f4;
+  scrollbar-color: var(--grey-medium) var(--grey-light);
 }
 
 .table-container::-webkit-scrollbar {
@@ -89,30 +103,30 @@
 }
 
 .table-container::-webkit-scrollbar-track {
-  background: #f4f4f4;
+  background: var(--grey-light);
 }
 
 .table-container::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--grey-medium);
   border-radius: 4px;
 }
 
 .table-container::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--grey-dark);
 }
 
 .course-table {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
   display: table;
   width: 1040px;
   table-layout: fixed;
-  background: #fff;
+  background: var(--white);
 }
 
 .course-code-cell {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-sans);
   text-decoration: underline;
   color: var(--rmit-red);
 }
@@ -126,20 +140,20 @@
 
 .header-cell {
   font-weight: bold;
-  background-color: var(--leagues-blue);
+  background-color: var(--rmit-red);
   position: relative;
   display: table-cell;
   vertical-align: middle;
   padding: 12px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid var(--border);
   color: var(--white);
 }
 
 .table-cell {
   display: table-cell;
   padding: 12px;
-  border-right: 1px solid #ddd;
-  border: 0.5px solid #ddd;
+  border-right: 1px solid var(--border);
+  border: 0.5px solid var(--border);
   font-size: 14px;
   position: relative; /* Ensure proper stacking context */
   overflow: visible !important; /* Allow dropdown to overflow */
@@ -160,10 +174,10 @@
 }
 
 .add-row .table-cell {
-  background: #f9f9f9;
+  background: var(--grey-light);
   text-align: center;
   font-weight: 500;
-  color: #717375;
+  color: var(--grey-medium);
   cursor: pointer;
   display: table-cell;
 }
@@ -182,8 +196,8 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #f4f4f4;
-  border-top: 1px solid #ccc;
+  background: var(--grey-light);
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: center;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
@@ -208,7 +222,7 @@
 }
 
 .sortable:hover {
-  background-color: #171764d1;
+  background-color: var(--grey-light);
 }
 
 .sort-indicator {
@@ -237,7 +251,7 @@
 
 .resize-handle:hover,
 .resize-handle:active {
-  background: #aaa;
+  background: var(--grey-medium);
 }
 
 .url-cell,
@@ -263,7 +277,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--after-dark);
+  color: var(--grey-medium);
   transition: color 0.2s ease;
 }
 
@@ -331,15 +345,15 @@
 .pagination-controls button {
   padding: 4px 10px;
   border-radius: 4px;
-  border: 1px solid #aaa;
-  background: #222;
-  color: white;
+  border: 1px solid var(--grey-medium);
+  background: var(--btn-dark-bg);
+  color: var(--white);
   cursor: pointer;
 }
 
 .pagination-controls button.active-page {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: var(--rmit-red);
+  border-color: var(--rmit-red);
   font-weight: bold;
 }
 
@@ -363,11 +377,11 @@
 }
 
 .modal-content {
-  width: 800px; /* Or try 700px or 80% */
+  width: 800px;
   max-width: 90vw;
   padding: 20px 30px;
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--white);
+  border-radius: 1px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -386,21 +400,21 @@
 }
 
 .modal-actions button:first-child {
-  background-color: #d4f4dd;
-  border: 1px solid #22c55e;
-  color: #166534;
+  background-color: var(--pill-valid-bg);
+  border: 1px solid var(--pill-valid-border);
+  color: var(--pill-valid-icon);
 }
 
 .modal-actions button:last-child {
-  background-color: #ffe4e6;
-  border: 1px solid #e11d48;
-  color: #881337;
+  background-color: var(--pill-coreq-bg);
+  border: 1px solid var(--pill-coreq-border);
+  color: var(--pill-coreq-icon);
 }
 
 .summary-box {
   padding: 8px;
-  background-color: #f9f9f9;
-  border: 1px dashed #bbb;
+  background-color: var(--grey-light);
+  border: 1px dashed var(--border);
   border-radius: 6px;
 }
 
@@ -411,8 +425,21 @@
   margin-bottom: 20px;
 }
 
+.prereq-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--rmit-red);
+  text-decoration: underline;
+  font-family: var(--font-sans);
+}
+.prereq-button:hover {
+  color: var(--btn-primary-bg-hover);
+}
+
 .or-group {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 10px;
   display: flex;
@@ -428,7 +455,7 @@
 
 .course-input input {
   padding: 6px 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
   width: 100%;
   font-size: 14px;
@@ -436,18 +463,18 @@
 
 .or-button,
 .and-button {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background-color: var(--grey-light);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
   font-size: 14px;
-  color: #333;
+  color: var(--grey-dark);
 }
 
 .or-button:hover,
 .and-button:hover {
-  background-color: #e0e0e0;
+  background-color: var(--btn-secondary-bg-hover);
 }
 
 .and-button-container {
@@ -469,7 +496,7 @@
 
 .course-input input {
   padding: 6px 0px 6px 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
   width: 100%;
   font-size: 14px;
@@ -479,9 +506,9 @@
   position: absolute;
   top: -8px;
   right: -8px;
-  background-color: #d9534f; /* Red color */
-  color: #ffffff; /* White "×" */
-  border: 2px solid #ffffff; /* White border */
+  background-color: var(--btn-destructive-bg);
+  color: var(--white);
+  border: 2px solid var(--white);
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -496,7 +523,7 @@
 }
 
 .close-course-button:hover {
-  background-color: #c9302c; /* Slightly darker red on hover */
+  background-color: var(--btn-destructive-bg-hover);
 }
 
 .course-select {
@@ -518,7 +545,7 @@
 
 /* Adjust the control (input area) to fit nicely */
 .course-select__control {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
   min-height: 32px;
   font-size: 14px;
@@ -539,22 +566,22 @@
 }
 
 .remove-group-button {
-  background-color: #ffffff;
-  border: 1px solid #d9534f; /* Red border to indicate removal */
+  background-color: var(--white);
+  border: 1px solid var(--red);
   border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
   font-size: 14px;
-  color: #d9534f; /* Red text */
-  margin-top: 8px; /* Space between +OR and Remove buttons */
+  color: var(--red);
+  margin-top: 8px;
 }
 
 .remove-group-button:hover {
-  background-color: #f8d7da; /* Light red background on hover */
+  background-color: var(--danger-bg);
 }
 
 .selected-row-option {
-  background-color: #e0e0e0;
+  background-color: var(--btn-secondary-bg-hover);
   position: relative;
   padding-right: 20px; /* Make space for the checkmark */
 }
