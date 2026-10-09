@@ -21,32 +21,38 @@ start.bat
 startfrontlayer.bat
 startmiddlelayer.bat
 ```
-
+<br>
 **WIN:** `start.bat` <br>
+
+```
+start.command
+startfrontlayer.sh
+startmiddlelayer.sh
+```
 **MAC:** `start.command` <br>
 
 combines these terminal scripts to launch the program.<br>
 
 ### First time Launch:
 **An internet connection is needed for the initial launch**<br>
-The first time launch of `start.bat` will install dependent node modules, please wait a few minutes for the installation. Future launches will not have this delay and will launch quickly.
+The first time launch of `start` will install dependent node modules, and on mac, extract the node executable, please wait a few minutes for the installation. Future launches will not have this delay and will launch quickly.
 
 ### Program Behaviour:
 
-The program launch sequence is the same across the two versions, just with different filenames
+The program launch sequence is the same across the two versions, just with different filenames;
 
 Upon launch, 4 terminal windows open;
 - launch sequencer `start.bat`, `start.command`
 - mysql server `sql/startsqlserver.bat`, `sql/startsqlserver.bat` 
-- middle layer handling `startmiddlelayer.bat`, ``startmiddlelayer.bat`
+- middle layer handling `startmiddlelayer.bat`, `startmiddlelayer.bat`
 - frontend user interface `startfrontlayer.bat`, `startfrontlayer.bat`
 
- **do not** close any of these while the program is running  **especially on first time setup**. To close the program, it is safe to just end all the terminal windows, the order is not neccesary.
+ **do not** close any of these while the program is running,  **especially on first time setup**. To close the program, it is safe to just end all the terminal windows, the order is not neccesary.
 
 
 
 ## Step 3: Access the Application
 
-* Upon a successful launch of `start.bat`, the website will automatically launch the localhost frontend.
+* Upon the successful use of appropriate `start` script, the website will automatically launch the localhost frontend.
 * **Student Portal:** [http://localhost:3001/](http://localhost:3001/)
 
