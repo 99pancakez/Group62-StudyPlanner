@@ -146,6 +146,7 @@ exports.getCoursesByProgram = async (req, res) => {
           "Course Id": course.course_id,
           Year: course.year || "-",
           "Credit Points": course.course_credit || "",
+          "Credit Threshold": course.credit_threshold ?? "",
           "Sub Type":
             course.course_types
               ?.map((ct) => ct.sub_type?.sub_type_name)
@@ -171,6 +172,7 @@ exports.updateCourse = async (req, res) => {
       course_type,
       sub_type,
       credit_points,
+      credit_threshold,
       year,
       semester_1,
       semester_2,
@@ -223,6 +225,20 @@ exports.updateCourse = async (req, res) => {
         newValue: web_url,
       });
       updates.web_url = web_url;
+    }
+
+    if (
+      credit_threshold !== undefined &&
+      course.credit_threshold !== credit_threshold
+    ) {
+      await createHistory({
+        adminId,
+        courseId,
+        fieldName: readable("credit_threshold"),
+        oldValue: course.credit_threshold,
+        newValue: credit_threshold,
+      });
+      updates.credit_threshold = credit_threshold;
     }
 
     if (credit_points !== undefined && course.course_credit !== credit_points) {
@@ -655,6 +671,7 @@ exports.createCourse = async (req, res) => {
       sub_type = [],
       year,
       credit_points,
+      credit_threshold,
       availability = {},
       prerequisites,
       program_code,
@@ -738,6 +755,7 @@ exports.createCourse = async (req, res) => {
       course_title,
       web_url,
       course_credit: credit_points,
+      credit_threshold: credit_threshold ?? null,
       year,
       prerequisite: effective.some((g) => g.relation === "prerequisite"),
     });
@@ -794,6 +812,13 @@ exports.createCourse = async (req, res) => {
       fieldName: "course_credit",
       oldValue: null,
       newValue: credit_points,
+    });
+    await createHistory({
+      adminId,
+      courseId: course_id,
+      fieldName: "credit_threshold",
+      oldValue: null,
+      newValue: credit_threshold,
     });
     await createHistory({
       adminId,

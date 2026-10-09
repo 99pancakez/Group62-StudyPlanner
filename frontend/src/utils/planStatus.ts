@@ -1,4 +1,4 @@
-import { CREDITS, EXCLUDED_SUB_TYPES } from "../constants";
+import { EXCLUDED_SUB_TYPES } from "../constants";
 import * as requisites from "./requisites";
 import type {
   CombinationGroupBreakdown,
@@ -9,6 +9,7 @@ import type {
   PrerequisiteIssue,
   RequisiteMap,
 } from "../types";
+import { CreditThresholdIssue } from "./creditThreshold";
 
 export const STATUS = {
   VALID: "valid",
@@ -18,7 +19,6 @@ export const STATUS = {
 } as const;
 
 export type StatusVariant = (typeof STATUS)[keyof typeof STATUS];
-export type CreditState = "normal" | "underload" | "overload";
 
 /** Most severe first. A card or the plan header shows one pill. */
 const SEVERITY: readonly StatusVariant[] = [
@@ -90,26 +90,19 @@ export function coreqIssuesBySemester(
   return grouped;
 }
 
-export const creditEligibility = (totalCredits: number): CreditState => {
-  if (totalCredits > CREDITS.SEMESTER_LOAD) return "overload";
-  if (totalCredits < CREDITS.SEMESTER_LOAD) return "underload";
-  return "normal";
-};
-
 export interface SemesterStatusInput {
   courses: readonly Course[];
   prerequisites: RequisiteMap;
   completedIds: readonly string[];
   coreqIssues?: readonly CorequisiteIssue[];
-  totalCredits: number;
-  isSummer?: boolean;
+  thresholdIssues?: readonly CreditThresholdIssue[];
 }
 
 export interface SemesterStatusResult {
   variant: StatusVariant;
   unmet: PrerequisiteIssue[];
   coreqIssues: CorequisiteIssue[];
-  creditState: CreditState;
+  thresholdIssues: CreditThresholdIssue[];
 }
 
 export function semesterStatus({
@@ -117,25 +110,19 @@ export function semesterStatus({
   prerequisites,
   completedIds,
   coreqIssues = [],
-  totalCredits,
-  isSummer = false,
+  thresholdIssues = [],
 }: SemesterStatusInput): SemesterStatusResult {
   const unmet = unmetPrerequisitesFor(courses, prerequisites, completedIds);
-  const measured = creditEligibility(totalCredits);
-  const creditState =
-    isSummer && measured === "underload" ? "normal" : measured;
   const hasCourses = courses.length > 0;
-  const reportedState =
-    isSummer && creditState === "underload" ? "normal" : creditState;
   return {
     variant: mostSevere([
       ...(coreqIssues.length > 0 ? [STATUS.COREQUISITE] : []),
       ...(unmet.length > 0 ? [STATUS.PREREQUISITE] : []),
-      ...(hasCourses && creditState !== "normal" ? [STATUS.ELIGIBILITY] : []),
+      ...(hasCourses && thresholdIssues.length > 0 ? [STATUS.ELIGIBILITY] : []),
     ]),
     unmet,
     coreqIssues: [...coreqIssues],
-    creditState: reportedState,
+    thresholdIssues: [...thresholdIssues],
   };
 }
 
@@ -255,14 +242,6 @@ export function planStatusSummary(
 
   const parts: string[] = [];
 
-  const creditSemesters = semestersWhere((s) => s.creditState !== "normal");
-  if (creditSemesters.length > 0) {
-    parts.push(
-      `${SEMESTER_LIST(creditSemesters)} ${
-        creditSemesters.length === 1 ? "is" : "are"
-      } not at ${CREDITS.SEMESTER_LOAD} credits.`,
-    );
-  }
   if (combo.overLabels.length > 0) {
     parts.push(
       `Combination credit limits exceeded for ${combo.overLabels.join(", ")}.`,
@@ -275,10 +254,20 @@ export function planStatusSummary(
       } not assigned to a combination.`,
     );
   }
+  const thresholdSemesters = semestersWhere(
+    (s) => s.thresholdIssues.length > 0,
+  );
+  if (thresholdSemesters.length > 0) {
+    parts.push(
+      `${SEMESTER_LIST(thresholdSemesters)} ${
+        thresholdSemesters.length === 1 ? "has" : "have"
+      } courses below their credit threshold.`,
+    );
+  }
 
   return {
     variant,
-    heading: "Combination or credit issues",
+    heading: "Combination or credit threshold issues",
     description: parts.join(" "),
   };
 }

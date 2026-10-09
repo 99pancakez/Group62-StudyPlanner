@@ -134,13 +134,13 @@
 
 .next-semester-btn {
   width: 100%;
-  padding: 10px; /* Increased from 8px */
+  padding: 10px;
   background: var(--success);
   color: var(--white);
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px; /* Moderate size */
+  font-size: 16px;
   transition:
     transform 0.2s ease,
     background 0.2s ease;
@@ -162,7 +162,7 @@
   text-align: center;
   color: var(--grey-medium);
   padding: 12px;
-  font-size: 16px; /* Moderate size */
+  font-size: 16px;
 }
 
 @keyframes fadeIn {
@@ -270,4 +270,24 @@
 }
 .semester-status:empty {
   display: none;
+}
+
+.dropdown-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+.selection-issues {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.selection-issues li {
+  font-family: var(--font-sans);
+  font-size: var(--fs-supporting);
+  line-height: var(--lh-supporting);
+  color: var(--grey-dark);
 }

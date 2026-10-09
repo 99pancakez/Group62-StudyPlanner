@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import "./CreateCourseModal.css"; // Optional styling if needed
 import PrereqEditorModal from "./PrereqEditorModal"; // Adjust path as needed
+import Button from "../common/Button";
 
 const CreateCourseModal = ({
   onClose,
@@ -17,6 +18,7 @@ const CreateCourseModal = ({
   const [webUrl, setWebUrl] = useState("");
   const [year, setYear] = useState(1);
   const [creditPoints, setCreditPoints] = useState(12);
+  const [creditThreshold, setCreditThreshold] = useState("");
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedSubTypes, setSelectedSubTypes] = useState([]);
 
@@ -100,18 +102,12 @@ const CreateCourseModal = ({
         <h2>Create Course</h2>
 
         {/* Tabs */}
-        <div style={{ display: "flex", marginBottom: "16px" }}>
+        <div className="modal-tabs">
           {[1, 2, 3].map((n) => (
             <button
               key={n}
+              className={`modal-tab ${tab === n ? "active" : ""}`}
               onClick={() => setTab(n)}
-              style={{
-                flex: 1,
-                padding: "10px",
-                background: tab === n ? "#333" : "#eee",
-                color: tab === n ? "#fff" : "#000",
-                border: "1px solid #ccc",
-              }}
             >
               {n === 1
                 ? "Course Info"
@@ -152,7 +148,7 @@ const CreateCourseModal = ({
                   }}
                 />
                 {(validationErrors.courseId || serverErrors.courseId) && (
-                  <div style={{ color: "red" }}>
+                  <div className="error">
                     {validationErrors.courseId || serverErrors.courseId}
                   </div>
                 )}
@@ -184,7 +180,7 @@ const CreateCourseModal = ({
                   }}
                 />
                 {(validationErrors.courseCode || serverErrors.courseCode) && (
-                  <div style={{ color: "red" }}>
+                  <div className="error">
                     {validationErrors.courseCode || serverErrors.courseCode}
                   </div>
                 )}
@@ -235,6 +231,22 @@ const CreateCourseModal = ({
                   type="number"
                   value={creditPoints}
                   onChange={(e) => setCreditPoints(parseInt(e.target.value))}
+                />
+              </label>
+              <label>
+                Credit Points *
+                <input
+                  type="number"
+                  value={creditPoints}
+                  onChange={(e) => setCreditPoints(parseInt(e.target.value))}
+                />
+              </label>
+              <label>
+                Credit Threshold
+                <input
+                  type="number"
+                  value={creditThreshold}
+                  onChange={(e) => setCreditThreshold(e.target.value)}
                 />
               </label>
               <label>
@@ -316,7 +328,7 @@ const CreateCourseModal = ({
                 Flex Term
               </label>
 
-              <div style={{ marginTop: "20px" }}>
+              <div className="requisites-block">
                 <strong>Requisites</strong>
                 <p>
                   <span style={{ fontWeight: 600 }}>Prerequisites:</span>{" "}
@@ -325,9 +337,13 @@ const CreateCourseModal = ({
                   <span style={{ fontWeight: 600 }}>Corequisites:</span>{" "}
                   {summaryOf("corequisite")}
                 </p>
-                <button onClick={() => setShowPrereqModal(true)}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowPrereqModal(true)}
+                >
                   Edit Requisites
-                </button>
+                </Button>
               </div>
             </div>
           )}
@@ -353,6 +369,9 @@ const CreateCourseModal = ({
                 </li>
                 <li>
                   <strong>Credit Points:</strong> {creditPoints}
+                </li>
+                <li>
+                  <strong>Credit Threshold:</strong> {creditThreshold || "N/A"}
                 </li>
                 <li>
                   <strong>Course Types:</strong>{" "}
@@ -390,18 +409,18 @@ const CreateCourseModal = ({
             justifyContent: "space-between",
           }}
         >
-          <button onClick={onClose}>❌ Cancel</button>
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
           <div>
             {tab > 1 && (
-              <button
-                onClick={() => setTab(tab - 1)}
-                style={{ marginRight: "10px" }}
-              >
-                ← Back
-              </button>
+              <Button variant="outline" onClick={() => setTab(tab - 1)}>
+                Back
+              </Button>
             )}
             {tab < 3 && (
-              <button
+              <Button
+                variant="primary"
                 onClick={() => {
                   if (tab === 1) {
                     const err = {};
@@ -422,12 +441,13 @@ const CreateCourseModal = ({
                   setTab(tab + 1);
                 }}
               >
-                Next →
-              </button>
+                Next
+              </Button>
             )}
 
             {tab === 3 && (
-              <button
+              <Button
+                variant="primary"
                 onClick={async () => {
                   const finalErrors = {};
                   if (!/^\d{6}$/.test(courseId))
@@ -457,6 +477,8 @@ const CreateCourseModal = ({
                     web_url: webUrl || null,
                     year,
                     credit_points: creditPoints,
+                    credit_threshold:
+                      creditThreshold === "" ? null : parseInt(creditThreshold),
                     course_type: selectedTypes,
                     sub_type: selectedSubTypes,
                     availability: {
@@ -510,8 +532,8 @@ const CreateCourseModal = ({
                   }
                 }}
               >
-                ✅ Submit
-              </button>
+                Submit
+              </Button>
             )}
           </div>
         </div>

@@ -301,7 +301,8 @@ CREATE TABLE
     `year` int DEFAULT NULL,
     PRIMARY KEY (`course_id`),
     UNIQUE KEY `course_id` (`course_id`),
-    UNIQUE KEY `course_code` (`course_code`)
+    UNIQUE KEY `course_code` (`course_code`),
+    `credit_threshold` int DEFAULT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -314,7 +315,15 @@ LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
 
 INSERT INTO
-  `course`
+  `course` (
+    `course_id`,
+    `course_code`,
+    `course_title`,
+    `course_credit`,
+    `web_url`,
+    `prerequisite`,
+    `year`
+  )
 VALUES
   (
     '004108',
@@ -1013,6 +1022,13 @@ VALUES
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 
 UNLOCK TABLES;
+
+-- set threshold for programming project
+UPDATE `course`
+SET
+  `credit_threshold` = 192
+WHERE
+  `course_id` = '039985';
 
 --
 -- Table structure for table `course_availability`

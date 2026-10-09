@@ -1,6 +1,7 @@
 module.exports = {
   course_code: "Course Code",
   course_title: "Course Title",
+  credit_threshold: "Credit Threshold",
   web_url: "Web URL",
   course_type: "Course Type",
   prerequisite: "Has Prerequisites",
