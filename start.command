@@ -1,5 +1,10 @@
 echo start command 
 
+if [ ! -x ./nodemac/bin/node ]; then
+    echo "Unpacking node..."
+    tar -xzf node.tar.gz
+fi
+
 #reset data, start server
 cd "$(dirname "$0")"
 # ./sqlmac/startsqlserver.sh > sqlmac/mysql.log 2>&1 & SQL_PID = $1
