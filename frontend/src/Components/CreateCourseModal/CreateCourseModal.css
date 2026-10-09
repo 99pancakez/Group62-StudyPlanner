@@ -18,6 +18,9 @@
   height: 36px;
   padding: 6px 8px;
   font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-sans);
 }
 
 .availability-section {
@@ -54,7 +57,33 @@
 }
 
 .error {
-  color: red;
+  color: var(--danger-text);
   font-size: 13px;
   margin-top: 4px;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.modal-tab {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--btn-secondary-bg);
+  color: var(--grey-dark);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+}
+.modal-tab.active,
+.modal-tab:hover {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--white);
+}
+.requisites-block {
+  margin-top: 20px;
 }
