@@ -485,8 +485,6 @@ function SemesterComponent({
     prerequisites,
     completedIds: completedCourses,
     coreqIssues: Object.values(termIssueByCourseId),
-    totalCredits,
-    isSummer: isSummerTerm(semesterNumber),
   });
 
   const thresholdIssues = useMemo(() => {
@@ -528,12 +526,6 @@ function SemesterComponent({
     })
     .join(" ");
 
-  const isUnder = semStatus.creditState === "underload";
-  const creditHeading = isUnder ? "Underloading" : "Overloading";
-  const creditDescription = `${totalCredits} of ${CREDITS.SEMESTER_LOAD} credits. Taking ${
-    isUnder ? "fewer" : "more"
-  } needs Program Manager approval.`;
-
   if (isLoading) return <div className="loading-msg">Loading courses...</div>;
   if (fetchError) return <div className="error-msg">Error: {fetchError}</div>;
 
@@ -571,14 +563,7 @@ function SemesterComponent({
             live={false}
           />
         )}
-        {semStatus.creditState !== "normal" && (
-          <StatusPill
-            variant="eligibility"
-            heading={creditHeading}
-            description={creditDescription}
-            live={false}
-          />
-        )}
+
         {thresholdIssues.length > 0 && (
           <StatusPill
             variant="eligibility"
@@ -646,7 +631,6 @@ function SemesterComponent({
                 prerequisites={prerequisites}
                 codeById={codeById}
                 placeholder="Select a course"
-                showPrereqs
                 onSelect={handleSelectCourse}
               />
             </div>

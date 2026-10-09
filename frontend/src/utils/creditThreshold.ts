@@ -8,6 +8,39 @@ export interface CreditThresholdIssue {
   shortfall: number;
 }
 
+export interface PlanThresholdIssue extends CreditThresholdIssue {
+  semesterNumber: number;
+}
+
+export function thresholdIssuesForPlan(
+  selectedCourses: PlanSelections | null | undefined,
+  transferIds: readonly string[] = [],
+  creditById: Record<string, number> = {},
+  coursesById: Record<
+    string,
+    Pick<Course, "id" | "name" | "creditThreshold">
+  > = {},
+): PlanThresholdIssue[] {
+  const issues: PlanThresholdIssue[] = [];
+  for (const [key, courses] of Object.entries(selectedCourses ?? {})) {
+    const semesterNumber = semesterOrdinal(key);
+    if (semesterNumber <= 0) continue;
+    const accumulated = accumulatedCreditsBefore(
+      selectedCourses,
+      semesterNumber,
+      transferIds,
+      creditById,
+    );
+    for (const course of courses ?? []) {
+      const full = coursesById[course.id];
+      if (!full) continue;
+      const issue = thresholdIssueFor(full, accumulated);
+      if (issue) issues.push({ ...issue, semesterNumber });
+    }
+  }
+  return issues;
+}
+
 const semesterOrdinal = (key: string): number =>
   parseInt(key.split(" ")[1], 10) || 0;
 

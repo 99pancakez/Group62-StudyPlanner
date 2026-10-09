@@ -12,7 +12,6 @@ interface CourseDropdownProps {
   codeById?: Record<string, string>;
   currentCourse?: Course;
   placeholder?: string;
-  showPrereqs?: boolean;
   onSelect: (course: Course, subTypeId?: number) => void;
 }
 
@@ -77,7 +76,7 @@ function CourseDropdown({
                 <div
                   key={course.id}
                   role="option"
-                  aria-selected
+                  aria-selected={course.id === currentCourse?.id}
                   className="course-dropdown__option"
                   onClick={() =>
                     choose(course, SUB_TYPE_NAME_TO_ID[subTypeName])
