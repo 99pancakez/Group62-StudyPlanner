@@ -1,9 +1,27 @@
 echo start command 
 
-if [ ! -x ./nodemac/bin/node ]; then
-    echo "Unpacking node..."
-    tar -xzf node.tar.gz
+cd "$(dirname "$0")" || exit 1
+
+ROOT_DIR="$(pwd)"
+
+echo "$ROOT_DIR"
+ls "$ROOT_DIR/nodemac/bin"
+
+if [ -f "$ROOT_DIR/nodemac/bin/node.tar.gz" ]; then
+	echo found
+else
+	echo not found
 fi
+
+if [ ! -x "$ROOT_DIR/nodemac/bin/node" ]; then
+    echo "Unpacking node..."
+
+    echo "$ROOT_DIR/nodemac/bin/node"
+
+    tar -xzf "$ROOT_DIR/nodemac/bin/node.tar.gz" -C "$ROOT_DIR/nodemac/bin"
+fi
+
+sleep 10
 
 #reset data, start server
 cd "$(dirname "$0")"

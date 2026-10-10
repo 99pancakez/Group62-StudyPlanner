@@ -1,3 +1,6 @@
+echo middlelayertest
+
+sleep 1
 
 cd "$(dirname "$0")"
 
@@ -6,6 +9,9 @@ ROOT_DIR="$(pwd)"
 NODE_DIR="$ROOT_DIR/nodemac"
 export PATH="$NODE_DIR/bin:$PATH"
 APP_DIR="$ROOT_DIR/middlelayer"
+
+echo "$NODE_DIR"
+ls "$NODE_DIR/bin/npm"
 
 cd "$APP_DIR" || exit 1
 
