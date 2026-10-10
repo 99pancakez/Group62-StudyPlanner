@@ -8,9 +8,15 @@
 
 ## Step 1: Download Files
 
-The repo must be downloaded to local system, a way is through either:
-* downloading as archive:  \<Code\> --> Download ZIP
-* cloning the github repo
+The repo must be downloaded to local system, a way is through either: <br>
+
+#### Windows
+* downloading as archive:  \<Code\> --> `Download ZIP` --> unzip folder
+* cloning the GitHub repository
+
+#### Mac
+* Download latest release (`tar.gz`, for mac file format)
+* cloning the GitHub repository (no need for firewall interaction)
 
 ## Step 2: Launch Program
 
@@ -31,6 +37,8 @@ startfrontlayer.sh
 startmiddlelayer.sh
 ```
 **MAC:** `start.command` <br>
+*if blocked by quarantine, Settings / Privacy & Security / `start.command` / Open Anyway*
+
 
 combines these terminal scripts to launch the program.<br>
 
