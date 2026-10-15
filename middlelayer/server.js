@@ -28,9 +28,9 @@ app.use("/combinations", combinationRoutes);
 const seedAdminData = async () => {
   try {
     const { Admin } = db;
-    const email = "sonhoang.dau@rmit.edu.au";
-    const password = "son_admin_cs_2025";
-    const adminName = "Son Hoang Dau";
+    const email = "root@db.com";
+    const password = "root";
+    const adminName = "root";
 
     // Check if admin already exists
     const existingAdmin = await Admin.findOne({

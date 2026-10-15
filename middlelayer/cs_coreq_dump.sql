@@ -62,9 +62,9 @@ INSERT INTO
 VALUES
   (
     1,
-    'Son Hoang Dau',
-    'sonhoang.dau@rmit.edu.au',
-    '$argon2id$v=19$m=65536,t=3,p=4$Ei2LEOkI6bzv7uIyHVyeOg$kIk/roRPl6+IPnRm2vKJrgJ13XG6gV0jIV2S2THEnr8'
+    'root',
+    'root@db.com',
+    'root'
   );
 
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
