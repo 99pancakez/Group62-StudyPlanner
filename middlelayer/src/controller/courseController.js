@@ -570,14 +570,17 @@ exports.deleteCourse = async (req, res) => {
     await ProgramCourse.destroy({ where: { course_id: courseId } });
     await CourseType.destroy({ where: { course_id: courseId } });
     await CourseAvailability.destroy({ where: { course_id: courseId } });
+
     await RequisiteRule.destroy({ where: { target_course_id: courseId } });
 
-    if (!stillUsed) {
-      // No one else uses this group — delete its OR courses + the group
-      await PreRequisiteGroupOR.destroy({ where: { group_id: groupId } });
-      await sequelize.models.group.destroy({ where: { group_id: groupId } });
-    }
+    // if (!stillUsed) {
+    //   // No one else uses this group — delete its OR courses + the group
+    //   await PreRequisiteGroupOR.destroy({ where: { group_id: groupId } });
+    //   await sequelize.models.group.destroy({ where: { group_id: groupId } });
+    // }
+
     await course.destroy();
+    
     res.json({ success: true, message: "Course deleted successfully" });
   } catch (error) {
     console.error("Error deleting course:", error);
@@ -671,6 +674,9 @@ exports.getAllCourseCodes = async (req, res) => {
 };
 
 exports.createCourse = async (req, res) => {
+
+  console.log("createCourse called", req.method, req.originalUrl);
+
   try {
     const {
       course_id,
@@ -752,12 +758,14 @@ exports.createCourse = async (req, res) => {
             }))
           : [];
 
-    const reqResult = await replaceCourseRequisites(course_id, effective, {
-      adminId,
-    });
-    if (!reqResult.success) {
-      return res.status(400).json(reqResult);
-    }
+    // const reqResult = await replaceCourseRequisites(course_id, effective, {
+    //   adminId,
+    // });
+    // if (!reqResult.success) {
+    //   return res.status(400).json(reqResult);
+    // }
+
+    console.log("Creating course")
 
     // Create course
     const newCourse = await Course.create({
