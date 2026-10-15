@@ -7,7 +7,7 @@ async function importSQL() {
   let connection;
 
   try {
-    const connection = await mysql.createConnection({
+    connection = await mysql.createConnection({
       host: config.HOST,
       user: config.USER,
       password: config.PASSWORD,
