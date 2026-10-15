@@ -10,6 +10,7 @@ const {
   credit_points,
   RequisiteRule,
 } = require("../database");
+const { History } = require("../database");
 const fieldNameMap = require("../utils/fieldNameMap");
 const Sequelize = require("sequelize");
 const { sequelize } = require("../database");
@@ -25,6 +26,7 @@ function readable(field) {
 }
 
 async function createHistory({
+
   adminId,
   courseId,
   fieldName,
@@ -127,7 +129,8 @@ exports.getCoursesByProgram = async (req, res) => {
           ) || [];
         const isSemester1 = semesters.includes("Semester 1");
         const isSemester2 = semesters.includes("Semester 2");
-        const isFlexTerm = semesters.includes("Flex Term");
+        // const isFlexTerm = semesters.includes("Flex Term");
+        const isSummerTerm = semesters.includes("Summer Term")
 
         const reqs = await getCourseRequisites(course.course_id);
         const prerequisites = formatRequisites(reqs).prerequisites || "-";
@@ -140,7 +143,8 @@ exports.getCoursesByProgram = async (req, res) => {
           "Web Url": course.web_url,
           "Semester 1": isSemester1,
           "Semester 2": isSemester2,
-          "Flex Term": isFlexTerm,
+          // "Flex Term": isFlexTerm,
+          "Summer Term" : isSummerTerm,
           "Pre-requisites": prerequisites,
           "Co-requisites": corequisites,
           "Course Id": course.course_id,
@@ -176,7 +180,8 @@ exports.updateCourse = async (req, res) => {
       year,
       semester_1,
       semester_2,
-      flex_term,
+      // flex_term,
+      summer_term,
     } = req.body;
 
     // Step 1: Find the course
@@ -416,7 +421,8 @@ exports.updateCourse = async (req, res) => {
     const semesters = [
       { name: "Semester 1", value: semester_1, semester_id: 1 },
       { name: "Semester 2", value: semester_2, semester_id: 2 },
-      { name: "Flex Term", value: flex_term, semester_id: 3 },
+      // { name: "Flex Term", value: flex_term, semester_id: 3 },
+      { name: "Summer Term", value: summer_term, semester_id: 3 },
     ];
 
     for (const semester of semesters) {
@@ -428,6 +434,10 @@ exports.updateCourse = async (req, res) => {
         const wasAvailable = !!exists;
         const willBeAvailable = !!semester.value;
 
+        console.log(wasAvailable)
+        console.log(willBeAvailable)
+
+        console.log("reached before histoerycheck")
         if (wasAvailable !== willBeAvailable) {
           await createHistory({
             adminId,
@@ -678,7 +688,8 @@ exports.createCourse = async (req, res) => {
       requisites = [],
     } = req.body;
 
-    const { semester1, semester2, flexTerm } = availability;
+    // const { semester1, semester2, flexTerm} = availability;
+    const { semester1, semester2, summerTerm } = availability;
 
     const adminId = 1; // Replace with session logic later
 
@@ -775,7 +786,8 @@ exports.createCourse = async (req, res) => {
     const semesterMapping = [
       [semester1, 1],
       [semester2, 2],
-      [flexTerm, 3],
+      // [flexTerm, 3],
+      [summerTerm, 3],
     ];
 
     for (const [value, id] of semesterMapping) {
@@ -869,11 +881,19 @@ exports.createCourse = async (req, res) => {
         oldValue: null,
         newValue: "Available",
       });
-    if (flexTerm)
+    // if (flexTerm)
+    //   await createHistory({
+    //     adminId,
+    //     courseId: course_id,
+    //     fieldName: "flex_term",
+    //     oldValue: null,
+    //     newValue: "Available",
+    //   });
+    if (summerTerm)
       await createHistory({
         adminId,
         courseId: course_id,
-        fieldName: "flex_term",
+        fieldName: "summer_term",
         oldValue: null,
         newValue: "Available",
       });

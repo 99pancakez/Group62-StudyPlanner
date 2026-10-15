@@ -18,7 +18,10 @@ const columns = [
   "Web Url",
   "Semester 1",
   "Semester 2",
-  "Flex Term",
+  // "Flex Term",
+
+  "Summer Term",
+
   "Pre-requisites",
   "Co-requisites",
 ];
@@ -272,6 +275,9 @@ const AdminPortal = () => {
       ),
     );
 
+    
+
+
     const payload = {};
     if (colKey === "Course Code") payload.course_code = newValue;
     if (colKey === "Course Title") payload.course_title = newValue;
@@ -280,7 +286,10 @@ const AdminPortal = () => {
     if (colKey === "Sub Type") payload.sub_type = [...new Set(newValue)];
     if (colKey === "Semester 1") payload.semester_1 = newValue;
     if (colKey === "Semester 2") payload.semester_2 = newValue;
-    if (colKey === "Flex Term") payload.flex_term = newValue;
+    // if (colKey === "Flex Term") payload.flex_term = newValue;
+
+    if (colKey === "Summer Term") payload.summer_term = newValue;
+
     if (colKey === "Year") payload.year = parseInt(newValue);
     if (colKey === "Credit Points") payload.credit_points = parseInt(newValue);
     if (colKey === "Credit Threshold")
@@ -293,6 +302,8 @@ const AdminPortal = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
+      console.log(response)
 
       const result = await response.json();
       if (!result.success) {
@@ -307,6 +318,7 @@ const AdminPortal = () => {
         );
       }
     } catch (err) {
+
       console.error("Error updating course:", err.message);
       setError("Failed to update course. Please try again.");
       setTableData((prev) =>
@@ -500,7 +512,8 @@ const AdminPortal = () => {
   const filteredData = tableData.filter((row) =>
     visibleColumns.some((col) =>
       col.includes("Semester") ||
-      col === "Flex Term" ||
+      // col === "Flex Term" ||
+      col === "Summer Term" ||
       col === "Pre-requisites" ||
       col === "Co-requisites"
         ? false
@@ -647,7 +660,8 @@ const AdminPortal = () => {
                 {visibleColumns.map((col) => (
                   <div
                     key={col}
-                    className={`table-cell header-cell ${sortableColumns.includes(col) ? "sortable" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
+                    // className={`table-cell header-cell ${sortableColumns.includes(col) ? "sortable" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
+                    className={`table-cell header-cell ${sortableColumns.includes(col) ? "sortable" : ""} ${["Semester 1", "Semester 2", "Summer Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
                     style={{ width: `${columnWidths[col]}px` }}
                     onClick={(e) => {
                       // Only sort if the click wasn't on the resize handle
@@ -691,7 +705,9 @@ const AdminPortal = () => {
                   {visibleColumns.map((col) => (
                     <div
                       key={col}
-                      className={`table-cell ${col === "Course Code" ? "course-code-cell" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
+                      // className={`table-cell ${col === "Course Code" ? "course-code-cell" : ""} ${["Semester 1", "Semester 2", "Flex Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
+                      className={`table-cell ${col === "Course Code" ? "course-code-cell" : ""} ${["Semester 1", "Semester 2", "Summer Term", "Pre-requisites", "Co-requisites", "Course Code"].includes(col) ? "center-align-cell" : ""}`}
+                      
                       style={{ width: `${columnWidths[col]}px` }}
                       onClick={(e) => {
                         const tag = e.target.tagName;
@@ -707,7 +723,7 @@ const AdminPortal = () => {
                         // ✅ Allow editing for other cells unless the click was on a button/icon
                         if (
                           !col.includes("Semester") &&
-                          col !== "Flex Term" &&
+                          col !== "Summer Term" &&
                           !["BUTTON", "SVG", "PATH"].includes(tag)
                         ) {
                           setEditingCell({ row: rowIdx, col });
@@ -715,7 +731,7 @@ const AdminPortal = () => {
                         }
                       }}
                     >
-                      {col.includes("Semester") || col === "Flex Term" ? (
+                      {col.includes("Semester") || col === "Summer Term" ? (
                         <input
                           type="checkbox"
                           checked={row[col]}

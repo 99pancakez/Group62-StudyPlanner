@@ -28,7 +28,8 @@ const CreateCourseModal = ({
 
   const [semester1, setSemester1] = useState(false);
   const [semester2, setSemester2] = useState(false);
-  const [flexTerm, setFlexTerm] = useState(false);
+  // const [flexTerm, setFlexTerm] = useState(false);
+  const [summerTerm, setSummerTerm] = useState(false);
 
   const [requisites, setRequisites] = useState([]); // Empty by default
   const [showPrereqModal, setShowPrereqModal] = useState(false);
@@ -322,10 +323,10 @@ const CreateCourseModal = ({
               <label>
                 <input
                   type="checkbox"
-                  checked={flexTerm}
-                  onChange={() => setFlexTerm(!flexTerm)}
+                  checked={summerTerm}
+                  onChange={() => setSummerTerm(!summerTerm)}
                 />
-                Flex Term
+                Summer Term
               </label>
 
               <div className="requisites-block">
@@ -386,7 +387,7 @@ const CreateCourseModal = ({
                   {[
                     semester1 ? "Semester 1" : null,
                     semester2 ? "Semester 2" : null,
-                    flexTerm ? "Flex Term" : null,
+                    summerTerm ? "Summer Term" : null,
                   ]
                     .filter(Boolean)
                     .join(", ") || "None"}
@@ -484,7 +485,7 @@ const CreateCourseModal = ({
                     availability: {
                       semester1,
                       semester2,
-                      flexTerm,
+                      summerTerm,
                     },
                     requisites: requisites,
                     program_code: programCode,
