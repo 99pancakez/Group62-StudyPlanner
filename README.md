@@ -11,12 +11,34 @@
 The repo must be downloaded to local system, a way is through either: <br>
 
 #### Windows
-* downloading as archive:  \<Code\> --> `Download ZIP` --> unzip folder
-* cloning the GitHub repository
+* Downloading as archive:  \<Code\> --> `Download ZIP` --> unzip folder
+* Cloning the GitHub repository
 
 #### Mac
 * Download latest release (`tar.gz`, for mac file format)
-* cloning the GitHub repository (no need for firewall interaction)
+* Cloning the GitHub repository (no need for firewall interaction)
+
+
+### Step 1.5: *Importing and Exporting the database*
+---
+
+The database of this program is able to be imported and exported by filesharing. <br> 
+
+The location of the data is found in the path: `/middlelayer/src/database/seed/data/`. The json files such as: <br>
+```
+- admin.json
+    ***
+    ***
+- course_availability.json
+```
+are where the information is stored.
+
+#### Exporting:
+To export the database to share to another user, either the **data** folder, or the **contents** of the folder can be shared, or archived and shared as a zip file or tar.gz file.
+
+#### Importing:
+Very similarly to the export process, just replace the contents of that file/directory with what is shared.
+
 
 ## Step 2: Launch Program
 
@@ -56,7 +78,10 @@ Upon launch, 4 terminal windows open;
 - middle layer handling `startmiddlelayer.bat`, `startmiddlelayer.bat`
 - frontend user interface `startfrontlayer.bat`, `startfrontlayer.bat`
 
- **do not** close any of these while the program is running,  **especially on first time setup**. To close the program, it is safe to just end all the terminal windows, the order is not neccesary.
+### Closing the program:
+
+ **do not** close any of these while the program is running,  **especially on first time setup**. <br>
+ To close the program, it is safe to just end all the terminal windows, with at least **middlelayer** as first to save any admin changes.
 
 
 
