@@ -1,8 +1,26 @@
 [
-    {"combo_group_id": 1, "combo_group_label": "CS Major"},
-    {"combo_group_id": 2, "combo_group_label": "CS Minor"},
-    {"combo_group_id": 3, "combo_group_label": "CS Option"},
-    {"combo_group_id": 4, "combo_group_label": "CS / non-CS Minor"},
-    {"combo_group_id": 5, "combo_group_label": "CS Option / University Elective"},
-    {"combo_group_id": 6, "combo_group_label": "University Electives"}
+  {
+    "combo_group_id": 1,
+    "combo_group_label": "CS Major"
+  },
+  {
+    "combo_group_id": 2,
+    "combo_group_label": "CS Minor"
+  },
+  {
+    "combo_group_id": 3,
+    "combo_group_label": "CS Option"
+  },
+  {
+    "combo_group_id": 4,
+    "combo_group_label": "CS / non-CS Minor"
+  },
+  {
+    "combo_group_id": 5,
+    "combo_group_label": "CS Option / University Elective"
+  },
+  {
+    "combo_group_id": 6,
+    "combo_group_label": "University Electives"
+  }
 ]

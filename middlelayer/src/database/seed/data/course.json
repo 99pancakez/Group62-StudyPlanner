@@ -6,7 +6,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004108",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004110",
@@ -15,7 +16,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004110",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004111",
@@ -24,7 +26,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004111",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004123",
@@ -33,7 +36,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004123",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "004175",
@@ -42,7 +46,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004175",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004178",
@@ -51,7 +56,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004178",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004186",
@@ -60,7 +66,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004186",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004199",
@@ -69,7 +76,8 @@
     "course_credit": 12,
     "web_url": "http://www1.rmit.edu.au/courses/004199",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "004218",
@@ -78,7 +86,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004218",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004302",
@@ -87,7 +96,8 @@
     "course_credit": 12,
     "web_url": "http://www1.rmit.edu.au/courses/004302",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "004309",
@@ -96,7 +106,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/004309",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "014049",
@@ -105,7 +116,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/014049",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "014052",
@@ -114,7 +126,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/014052",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "014749",
@@ -123,7 +136,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/014749",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "015442",
@@ -132,7 +146,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/015442",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "035217",
@@ -141,7 +156,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/035217",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "035218",
@@ -150,7 +166,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/035218",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "036671",
@@ -159,7 +176,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/036671",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "037016",
@@ -168,7 +186,8 @@
     "course_credit": 12,
     "web_url": "http://www1.rmit.edu.au/courses/037016",
     "prerequisite": 0,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "037889",
@@ -177,7 +196,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/037889",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "038096",
@@ -186,7 +206,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/038096",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "038407",
@@ -195,7 +216,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/038407",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "039985",
@@ -204,7 +226,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/039985",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "044231",
@@ -213,7 +236,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/044231",
     "prerequisite": 0,
-    "year": 1
+    "year": 1,
+    "credit_threshold": null
   },
   {
     "course_id": "044233",
@@ -222,7 +246,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/044233",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "044272",
@@ -231,7 +256,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/044272",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "044450",
@@ -240,7 +266,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/044450",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "044481",
@@ -249,7 +276,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/044481",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "045680",
@@ -258,7 +286,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/045680",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "045940",
@@ -267,7 +296,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/045940",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "048558",
@@ -276,7 +306,8 @@
     "course_credit": 12,
     "web_url": "http://www1.rmit.edu.au/courses/048558",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "049803",
@@ -285,7 +316,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/049803",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "050775",
@@ -294,7 +326,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/050775",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "051831",
@@ -303,7 +336,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/051831",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "051832",
@@ -312,7 +346,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/051832",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "052739",
@@ -321,7 +356,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/052739",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "053170",
@@ -330,7 +366,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/053170",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "053171",
@@ -339,7 +376,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/053171",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "053172",
@@ -348,7 +386,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/053172",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "053404",
@@ -357,7 +396,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/053404",
     "prerequisite": 0,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "053407",
@@ -366,7 +406,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/053407",
     "prerequisite": 0,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "054076",
@@ -375,7 +416,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054076",
     "prerequisite": 1,
-    "year": 1
+    "year": 1,
+    "credit_threshold": null
   },
   {
     "course_id": "054077",
@@ -384,7 +426,8 @@
     "course_credit": 12,
     "web_url": "http://www1.rmit.edu.au/courses/054077",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054079",
@@ -393,7 +436,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054079",
     "prerequisite": 0,
-    "year": 1
+    "year": 1,
+    "credit_threshold": null
   },
   {
     "course_id": "054080",
@@ -402,7 +446,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054080",
     "prerequisite": 1,
-    "year": 1
+    "year": 1,
+    "credit_threshold": null
   },
   {
     "course_id": "054081",
@@ -411,7 +456,8 @@
     "course_credit": 24,
     "web_url": "https://www1.rmit.edu.au/courses/054081",
     "prerequisite": 0,
-    "year": 1
+    "year": 1,
+    "credit_threshold": null
   },
   {
     "course_id": "054082",
@@ -420,7 +466,8 @@
     "course_credit": 24,
     "web_url": "https://www1.rmit.edu.au/courses/054082",
     "prerequisite": 0,
-    "year": 1
+    "year": 1,
+    "credit_threshold": null
   },
   {
     "course_id": "054114",
@@ -429,7 +476,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054114",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054117",
@@ -438,7 +486,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054117",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054118",
@@ -447,7 +496,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054118",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054120",
@@ -456,7 +506,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054120",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054140",
@@ -465,7 +516,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054140",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054141",
@@ -474,7 +526,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054141",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "054142",
@@ -483,7 +536,8 @@
     "course_credit": 12,
     "web_url": "http://www1.rmit.edu.au/courses/054142",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "054229",
@@ -492,7 +546,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054229",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054230",
@@ -501,7 +556,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054230",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054381",
@@ -510,7 +566,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054381",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054478",
@@ -519,7 +576,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054478",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054479",
@@ -528,7 +586,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054479",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "054910",
@@ -537,7 +596,8 @@
     "course_credit": 12,
     "web_url": null,
     "prerequisite": 0,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "054986",
@@ -546,7 +606,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054986",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054989",
@@ -555,7 +616,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054989",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054991",
@@ -564,7 +626,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054991",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "054992",
@@ -573,7 +636,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054992",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054993",
@@ -582,7 +646,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054993",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054995",
@@ -591,7 +656,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054995",
     "prerequisite": 1,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   },
   {
     "course_id": "054996",
@@ -600,7 +666,8 @@
     "course_credit": 12,
     "web_url": "http://www1.rmit.edu.au/courses/054996",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "054997",
@@ -609,7 +676,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/054997",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "055001",
@@ -618,7 +686,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/055001",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "055925",
@@ -627,7 +696,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/055925",
     "prerequisite": 0,
-    "year": 1
+    "year": 1,
+    "credit_threshold": null
   },
   {
     "course_id": "056543",
@@ -636,7 +706,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/056543",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "056544",
@@ -645,7 +716,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/056544",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "056545",
@@ -654,7 +726,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/056545",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "056546",
@@ -663,7 +736,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/056546",
     "prerequisite": 1,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "056547",
@@ -672,7 +746,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/056547",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "056548",
@@ -681,7 +756,8 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/056548",
     "prerequisite": 0,
-    "year": 2
+    "year": 2,
+    "credit_threshold": null
   },
   {
     "course_id": "056549",
@@ -690,6 +766,7 @@
     "course_credit": 12,
     "web_url": "https://www1.rmit.edu.au/courses/056549",
     "prerequisite": 0,
-    "year": 3
+    "year": 3,
+    "credit_threshold": null
   }
 ]

@@ -54,6 +54,7 @@ const sortByParent = (rows, idKey, parentKey) => {
     return out;
 };
 
+//fill database with files parsed from json files, using sequilise bulkcreate
 const seedData = async () => {
     await db.sequelize.transaction(async (t) => {
         for (const {model, file} of seed_order) {
@@ -87,4 +88,12 @@ const seedData = async () => {
     });
 };
 
-module.exports = { seedData, seed_order, getModel };
+const exportData = async () => {
+    for (const { model, file } of seed_order) {
+        const rows = await getModel(model).findAll({ raw: true });
+        fs.writeFileSync(path.join(__dirname, "data", file), JSON.stringify(rows, null, 2));
+    }
+    console.log("Export finished");
+};
+
+module.exports = { seedData, exportData, seed_order, getModel };

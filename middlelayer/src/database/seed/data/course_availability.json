@@ -372,11 +372,19 @@
     "semester_id": 2
   },
   {
-    "course_id": "054986",
+    "course_id": "004108",
+    "semester_id": 3
+  },
+  {
+    "course_id": "004175",
     "semester_id": 3
   },
   {
     "course_id": "054082",
+    "semester_id": 3
+  },
+  {
+    "course_id": "054986",
     "semester_id": 3
   }
 ]

@@ -1,6 +1,22 @@
-  [
-  {"combination_id": 1, "combination_name": "CS Major", "program_code": "BP094P23"},
-  {"combination_id": 2, "combination_name": "CS Minor + CS / non-CS Minor", "program_code": "BP094P23"},
-  {"combination_id": 3, "combination_name": "CS Minor + CS Option / University Elective", "program_code": "BP094P23"},
-  {"combination_id": 4, "combination_name": "CS Option + University Elective", "program_code": "BP094P23"}
+[
+  {
+    "combination_id": 1,
+    "combination_name": "CS Major",
+    "program_code": "BP094P23"
+  },
+  {
+    "combination_id": 2,
+    "combination_name": "CS Minor + CS / non-CS Minor",
+    "program_code": "BP094P23"
+  },
+  {
+    "combination_id": 3,
+    "combination_name": "CS Minor + CS Option / University Elective",
+    "program_code": "BP094P23"
+  },
+  {
+    "combination_id": 4,
+    "combination_name": "CS Option + University Elective",
+    "program_code": "BP094P23"
+  }
 ]

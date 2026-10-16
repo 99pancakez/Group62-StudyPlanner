@@ -1,5 +1,14 @@
 [
-  {"semester_id": 1, "semester_name": "Semester 1"},
-  {"semester_id": 2, "semester_name": "Semester 2"},
-  {"semester_id": 3, "semester_name": "Summer Term"}
+  {
+    "semester_id": 1,
+    "semester_name": "Semester 1"
+  },
+  {
+    "semester_id": 2,
+    "semester_name": "Semester 2"
+  },
+  {
+    "semester_id": 3,
+    "semester_name": "Summer Term"
+  }
 ]
