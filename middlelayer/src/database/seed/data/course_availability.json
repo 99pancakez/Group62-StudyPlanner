@@ -1,0 +1,382 @@
+[
+  {
+    "course_id": "004110",
+    "semester_id": 1
+  },
+  {
+    "course_id": "004218",
+    "semester_id": 1
+  },
+  {
+    "course_id": "004302",
+    "semester_id": 1
+  },
+  {
+    "course_id": "004309",
+    "semester_id": 1
+  },
+  {
+    "course_id": "014052",
+    "semester_id": 1
+  },
+  {
+    "course_id": "015442",
+    "semester_id": 1
+  },
+  {
+    "course_id": "037889",
+    "semester_id": 1
+  },
+  {
+    "course_id": "038096",
+    "semester_id": 1
+  },
+  {
+    "course_id": "038407",
+    "semester_id": 1
+  },
+  {
+    "course_id": "039985",
+    "semester_id": 1
+  },
+  {
+    "course_id": "044231",
+    "semester_id": 1
+  },
+  {
+    "course_id": "044233",
+    "semester_id": 1
+  },
+  {
+    "course_id": "044272",
+    "semester_id": 1
+  },
+  {
+    "course_id": "045680",
+    "semester_id": 1
+  },
+  {
+    "course_id": "048558",
+    "semester_id": 1
+  },
+  {
+    "course_id": "049803",
+    "semester_id": 1
+  },
+  {
+    "course_id": "051831",
+    "semester_id": 1
+  },
+  {
+    "course_id": "051832",
+    "semester_id": 1
+  },
+  {
+    "course_id": "052739",
+    "semester_id": 1
+  },
+  {
+    "course_id": "053171",
+    "semester_id": 1
+  },
+  {
+    "course_id": "053172",
+    "semester_id": 1
+  },
+  {
+    "course_id": "053404",
+    "semester_id": 1
+  },
+  {
+    "course_id": "053407",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054079",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054080",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054081",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054082",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054114",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054117",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054120",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054141",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054229",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054381",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054479",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054910",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054986",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054992",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054993",
+    "semester_id": 1
+  },
+  {
+    "course_id": "054997",
+    "semester_id": 1
+  },
+  {
+    "course_id": "055001",
+    "semester_id": 1
+  },
+  {
+    "course_id": "055925",
+    "semester_id": 1
+  },
+  {
+    "course_id": "056543",
+    "semester_id": 1
+  },
+  {
+    "course_id": "056546",
+    "semester_id": 1
+  },
+  {
+    "course_id": "056548",
+    "semester_id": 1
+  },
+  {
+    "course_id": "004108",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004110",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004111",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004123",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004175",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004178",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004186",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004199",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004302",
+    "semester_id": 2
+  },
+  {
+    "course_id": "004309",
+    "semester_id": 2
+  },
+  {
+    "course_id": "014049",
+    "semester_id": 2
+  },
+  {
+    "course_id": "014052",
+    "semester_id": 2
+  },
+  {
+    "course_id": "014749",
+    "semester_id": 2
+  },
+  {
+    "course_id": "035217",
+    "semester_id": 2
+  },
+  {
+    "course_id": "035218",
+    "semester_id": 2
+  },
+  {
+    "course_id": "036671",
+    "semester_id": 2
+  },
+  {
+    "course_id": "037016",
+    "semester_id": 2
+  },
+  {
+    "course_id": "039985",
+    "semester_id": 2
+  },
+  {
+    "course_id": "044231",
+    "semester_id": 2
+  },
+  {
+    "course_id": "044450",
+    "semester_id": 2
+  },
+  {
+    "course_id": "044481",
+    "semester_id": 2
+  },
+  {
+    "course_id": "045940",
+    "semester_id": 2
+  },
+  {
+    "course_id": "048558",
+    "semester_id": 2
+  },
+  {
+    "course_id": "050775",
+    "semester_id": 2
+  },
+  {
+    "course_id": "052739",
+    "semester_id": 2
+  },
+  {
+    "course_id": "053170",
+    "semester_id": 2
+  },
+  {
+    "course_id": "053407",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054076",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054077",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054079",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054080",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054081",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054082",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054117",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054118",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054140",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054142",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054229",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054230",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054478",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054910",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054986",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054989",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054991",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054995",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054996",
+    "semester_id": 2
+  },
+  {
+    "course_id": "056544",
+    "semester_id": 2
+  },
+  {
+    "course_id": "056547",
+    "semester_id": 2
+  },
+  {
+    "course_id": "056549",
+    "semester_id": 2
+  },
+  {
+    "course_id": "054986",
+    "semester_id": 3
+  },
+  {
+    "course_id": "054082",
+    "semester_id": 3
+  }
+]

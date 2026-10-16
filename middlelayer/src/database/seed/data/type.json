@@ -1,0 +1,26 @@
+[
+  {
+    "course_type_id": 1,
+    "course_type": "Core"
+  },
+  {
+    "course_type_id": 4,
+    "course_type": "Cross-disciplinary Minor"
+  },
+  {
+    "course_type_id": 2,
+    "course_type": "CS Major"
+  },
+  {
+    "course_type_id": 3,
+    "course_type": "CS Minor"
+  },
+  {
+    "course_type_id": 6,
+    "course_type": "Program Course"
+  },
+  {
+    "course_type_id": 5,
+    "course_type": "University Elective"
+  }
+]

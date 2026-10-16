@@ -6,9 +6,7 @@ const historyRoutes = require("./src/routes/historyRoutes");
 const qnaRoutes = require("./src/routes/qnaRoutes");
 const programPlanRoutes = require("./src/routes/programPlanRoutes");
 const combinationRoutes = require("./src/routes/combinationRoutes");
-
-const argon2 = require("argon2");
-
+const { seedData } = require("./src/database/seed");
 // Initialize Express app
 const app = express();
 
@@ -24,42 +22,13 @@ app.use("/qna", qnaRoutes);
 app.use("/explorer", programPlanRoutes);
 app.use("/combinations", combinationRoutes);
 
-// Seed admin data
-const seedAdminData = async () => {
-  try {
-    const { Admin } = db;
-    const email = "root@db.com";
-    const password = "root";
-    const adminName = "root";
 
-    // Check if admin already exists
-    const existingAdmin = await Admin.findOne({
-      where: { admin_email: email },
-    });
-    if (!existingAdmin) {
-      // Hash password
-      const hashedPassword = await argon2.hash(password);
-
-      // Create admin
-      await Admin.create({
-        admin_name: adminName,
-        admin_email: email,
-        password: hashedPassword,
-      });
-      console.log("Admin seed data created successfully");
-    } else {
-      console.log("Admin already exists, skipping seeding");
-    }
-  } catch (error) {
-    console.error("Error seeding admin data:", error);
-  }
-};
 
 // Sync database and seed data
 db.sync()
   .then(async () => {
     console.log("Database synced successfully");
-    await seedAdminData();
+    await seedData();
   })
   .catch((error) => {
     console.error("Failed to sync database:", error);

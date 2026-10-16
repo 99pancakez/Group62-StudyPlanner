@@ -1,0 +1,267 @@
+[
+  {
+    "rule_id": 1,
+    "target_course_id": "004108",
+    "enabled": 1
+  },
+  {
+    "rule_id": 2,
+    "target_course_id": "004111",
+    "enabled": 1
+  },
+  {
+    "rule_id": 3,
+    "target_course_id": "004123",
+    "enabled": 1
+  },
+  {
+    "rule_id": 4,
+    "target_course_id": "004175",
+    "enabled": 1
+  },
+  {
+    "rule_id": 5,
+    "target_course_id": "004178",
+    "enabled": 1
+  },
+  {
+    "rule_id": 6,
+    "target_course_id": "004186",
+    "enabled": 1
+  },
+  {
+    "rule_id": 7,
+    "target_course_id": "004199",
+    "enabled": 1
+  },
+  {
+    "rule_id": 8,
+    "target_course_id": "004218",
+    "enabled": 1
+  },
+  {
+    "rule_id": 9,
+    "target_course_id": "004302",
+    "enabled": 1
+  },
+  {
+    "rule_id": 10,
+    "target_course_id": "004309",
+    "enabled": 1
+  },
+  {
+    "rule_id": 11,
+    "target_course_id": "014049",
+    "enabled": 1
+  },
+  {
+    "rule_id": 12,
+    "target_course_id": "014052",
+    "enabled": 1
+  },
+  {
+    "rule_id": 13,
+    "target_course_id": "035217",
+    "enabled": 1
+  },
+  {
+    "rule_id": 14,
+    "target_course_id": "035218",
+    "enabled": 1
+  },
+  {
+    "rule_id": 15,
+    "target_course_id": "036671",
+    "enabled": 1
+  },
+  {
+    "rule_id": 16,
+    "target_course_id": "037889",
+    "enabled": 1
+  },
+  {
+    "rule_id": 17,
+    "target_course_id": "038407",
+    "enabled": 1
+  },
+  {
+    "rule_id": 18,
+    "target_course_id": "039985",
+    "enabled": 1
+  },
+  {
+    "rule_id": 19,
+    "target_course_id": "044233",
+    "enabled": 1
+  },
+  {
+    "rule_id": 20,
+    "target_course_id": "044272",
+    "enabled": 1
+  },
+  {
+    "rule_id": 21,
+    "target_course_id": "044450",
+    "enabled": 1
+  },
+  {
+    "rule_id": 22,
+    "target_course_id": "044481",
+    "enabled": 1
+  },
+  {
+    "rule_id": 23,
+    "target_course_id": "045680",
+    "enabled": 1
+  },
+  {
+    "rule_id": 24,
+    "target_course_id": "045940",
+    "enabled": 1
+  },
+  {
+    "rule_id": 25,
+    "target_course_id": "048558",
+    "enabled": 1
+  },
+  {
+    "rule_id": 26,
+    "target_course_id": "049803",
+    "enabled": 1
+  },
+  {
+    "rule_id": 27,
+    "target_course_id": "051831",
+    "enabled": 1
+  },
+  {
+    "rule_id": 28,
+    "target_course_id": "051832",
+    "enabled": 1
+  },
+  {
+    "rule_id": 29,
+    "target_course_id": "053170",
+    "enabled": 1
+  },
+  {
+    "rule_id": 30,
+    "target_course_id": "053171",
+    "enabled": 1
+  },
+  {
+    "rule_id": 31,
+    "target_course_id": "053172",
+    "enabled": 1
+  },
+  {
+    "rule_id": 32,
+    "target_course_id": "054076",
+    "enabled": 1
+  },
+  {
+    "rule_id": 33,
+    "target_course_id": "054080",
+    "enabled": 1
+  },
+  {
+    "rule_id": 34,
+    "target_course_id": "054114",
+    "enabled": 1
+  },
+  {
+    "rule_id": 35,
+    "target_course_id": "054117",
+    "enabled": 1
+  },
+  {
+    "rule_id": 36,
+    "target_course_id": "054118",
+    "enabled": 1
+  },
+  {
+    "rule_id": 37,
+    "target_course_id": "054140",
+    "enabled": 1
+  },
+  {
+    "rule_id": 38,
+    "target_course_id": "054141",
+    "enabled": 1
+  },
+  {
+    "rule_id": 39,
+    "target_course_id": "054142",
+    "enabled": 1
+  },
+  {
+    "rule_id": 40,
+    "target_course_id": "054478",
+    "enabled": 1
+  },
+  {
+    "rule_id": 41,
+    "target_course_id": "054479",
+    "enabled": 1
+  },
+  {
+    "rule_id": 42,
+    "target_course_id": "054989",
+    "enabled": 1
+  },
+  {
+    "rule_id": 43,
+    "target_course_id": "054991",
+    "enabled": 1
+  },
+  {
+    "rule_id": 44,
+    "target_course_id": "054992",
+    "enabled": 1
+  },
+  {
+    "rule_id": 45,
+    "target_course_id": "054993",
+    "enabled": 1
+  },
+  {
+    "rule_id": 46,
+    "target_course_id": "054995",
+    "enabled": 1
+  },
+  {
+    "rule_id": 47,
+    "target_course_id": "054996",
+    "enabled": 1
+  },
+  {
+    "rule_id": 48,
+    "target_course_id": "054997",
+    "enabled": 1
+  },
+  {
+    "rule_id": 49,
+    "target_course_id": "056544",
+    "enabled": 1
+  },
+  {
+    "rule_id": 50,
+    "target_course_id": "056545",
+    "enabled": 1
+  },
+  {
+    "rule_id": 51,
+    "target_course_id": "056546",
+    "enabled": 1
+  },
+  {
+    "rule_id": 64,
+    "target_course_id": "054081",
+    "enabled": 1
+  },
+  {
+    "rule_id": 65,
+    "target_course_id": "054082",
+    "enabled": 1
+  }
+]

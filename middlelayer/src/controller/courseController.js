@@ -9,6 +9,8 @@ const {
   Availability,
   credit_points,
   RequisiteRule,
+  Requisite,
+  RequisiteGroup,
 } = require("../database");
 const { History } = require("../database");
 const fieldNameMap = require("../utils/fieldNameMap");
@@ -56,6 +58,8 @@ console.log("Imported models:", {
   CourseAvailability,
   Availability,
   RequisiteRule,
+  Requisite,
+  RequisiteGroup
 });
 
 exports.getCoursesByProgram = async (req, res) => {

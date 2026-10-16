@@ -57,15 +57,15 @@ LOCK TABLES `admin` WRITE;
 
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 
-INSERT INTO
-  `admin`
-VALUES
-  (
-    1,
-    'root',
-    'root@db.com',
-    'root'
-  );
+-- INSERT INTO
+--   `admin`
+-- VALUES
+--   (
+--     1,
+--     'root',
+--     'root@db.com',
+--     'root'
+--   );
 
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
@@ -97,12 +97,12 @@ LOCK TABLES `availability` WRITE;
 
 /*!40000 ALTER TABLE `availability` DISABLE KEYS */;
 
-INSERT INTO
-  `availability`
-VALUES
-  (1, 'Semester 1'),
-  (2, 'Semester 2'),
-  (3, 'Summer Term');
+-- INSERT INTO
+--   `availability`
+-- VALUES
+--   (1, 'Semester 1'),
+--   (2, 'Semester 2'),
+--   (3, 'Summer Term');
 
 /*!40000 ALTER TABLE `availability` ENABLE KEYS */;
 
@@ -136,17 +136,17 @@ LOCK TABLES `combination` WRITE;
 
 /*!40000 ALTER TABLE `combination` DISABLE KEYS */;
 
-INSERT INTO
-  `combination`
-VALUES
-  (1, 'CS Major', 'BP094P23'),
-  (2, 'CS Minor + CS / non-CS Minor', 'BP094P23'),
-  (
-    3,
-    'CS Minor + CS Option / University Elective',
-    'BP094P23'
-  ),
-  (4, 'CS Option + University Elective', 'BP094P23');
+-- INSERT INTO
+--   `combination`
+-- VALUES
+--   (1, 'CS Major', 'BP094P23'),
+--   (2, 'CS Minor + CS / non-CS Minor', 'BP094P23'),
+--   (
+--     3,
+--     'CS Minor + CS Option / University Elective',
+--     'BP094P23'
+--   ),
+--   (4, 'CS Option + University Elective', 'BP094P23');
 
 /*!40000 ALTER TABLE `combination` ENABLE KEYS */;
 
@@ -177,15 +177,15 @@ LOCK TABLES `combination_group` WRITE;
 
 /*!40000 ALTER TABLE `combination_group` DISABLE KEYS */;
 
-INSERT INTO
-  `combination_group`
-VALUES
-  (1, 'CS Major'),
-  (2, 'CS Minor'),
-  (3, 'CS Option'),
-  (4, 'CS / non-CS Minor'),
-  (5, 'CS Option / University Elective'),
-  (6, 'University Electives');
+-- INSERT INTO
+--   `combination_group`
+-- VALUES
+--   (1, 'CS Major'),
+--   (2, 'CS Minor'),
+--   (3, 'CS Option'),
+--   (4, 'CS / non-CS Minor'),
+--   (5, 'CS Option / University Elective'),
+--   (6, 'University Electives');
 
 /*!40000 ALTER TABLE `combination_group` ENABLE KEYS */;
 
@@ -220,16 +220,16 @@ LOCK TABLES `combination_group_mapping` WRITE;
 
 /*!40000 ALTER TABLE `combination_group_mapping` DISABLE KEYS */;
 
-INSERT INTO
-  `combination_group_mapping`
-VALUES
-  (1, 1, 96),
-  (2, 2, 48),
-  (2, 4, 48),
-  (3, 2, 48),
-  (3, 5, 48),
-  (4, 3, 48),
-  (4, 6, 48);
+-- INSERT INTO
+--   `combination_group_mapping`
+-- VALUES
+--   (1, 1, 96),
+--   (2, 2, 48),
+--   (2, 4, 48),
+--   (3, 2, 48),
+--   (3, 5, 48),
+--   (4, 3, 48),
+--   (4, 6, 48);
 
 /*!40000 ALTER TABLE `combination_group_mapping` ENABLE KEYS */;
 
@@ -263,19 +263,19 @@ LOCK TABLES `combo_group_type_mapping` WRITE;
 
 /*!40000 ALTER TABLE `combo_group_type_mapping` DISABLE KEYS */;
 
-INSERT INTO
-  `combo_group_type_mapping`
-VALUES
-  (1, 2),
-  (3, 2),
-  (5, 2),
-  (2, 3),
-  (3, 3),
-  (4, 3),
-  (5, 3),
-  (4, 4),
-  (5, 5),
-  (6, 5);
+-- INSERT INTO
+--   `combo_group_type_mapping`
+-- VALUES
+--   (1, 2),
+--   (3, 2),
+--   (5, 2),
+--   (2, 3),
+--   (3, 3),
+--   (4, 3),
+--   (5, 3),
+--   (4, 4),
+--   (5, 5),
+--   (6, 5);
 
 /*!40000 ALTER TABLE `combo_group_type_mapping` ENABLE KEYS */;
 
@@ -314,710 +314,710 @@ LOCK TABLES `course` WRITE;
 
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
 
-INSERT INTO
-  `course` (
-    `course_id`,
-    `course_code`,
-    `course_title`,
-    `course_credit`,
-    `web_url`,
-    `prerequisite`,
-    `year`
-  )
-VALUES
-  (
-    '004108',
-    'COSC1107',
-    'Computing Theory',
-    12,
-    'https://www1.rmit.edu.au/courses/004108',
-    1,
-    2
-  ),
-  (
-    '004110',
-    'COSC1111',
-    'Data Communication and Net-Centric Computing',
-    12,
-    'https://www1.rmit.edu.au/courses/004110',
-    0,
-    2
-  ),
-  (
-    '004111',
-    'COSC1114',
-    'Operating Systems Principles',
-    12,
-    'https://www1.rmit.edu.au/courses/004111',
-    1,
-    2
-  ),
-  (
-    '004123',
-    'COSC1127',
-    'Artificial Intelligence',
-    12,
-    'https://www1.rmit.edu.au/courses/004123',
-    1,
-    3
-  ),
-  (
-    '004175',
-    'ISYS1079',
-    'Managing Semi-structured and Unstructured Data',
-    12,
-    'https://www1.rmit.edu.au/courses/004175',
-    1,
-    2
-  ),
-  (
-    '004178',
-    'INTE1071',
-    'Secure Electronic Commerce',
-    12,
-    'https://www1.rmit.edu.au/courses/004178',
-    1,
-    2
-  ),
-  (
-    '004186',
-    'ISYS1087',
-    'Software Testing',
-    12,
-    'https://www1.rmit.edu.au/courses/004186',
-    1,
-    2
-  ),
-  (
-    '004199',
-    'COSC1183',
-    'Usability Engineering',
-    12,
-    'http://www1.rmit.edu.au/courses/004199',
-    1,
-    3
-  ),
-  (
-    '004218',
-    'ISYS1102',
-    'Database Applications',
-    12,
-    'https://www1.rmit.edu.au/courses/004218',
-    1,
-    2
-  ),
-  (
-    '004302',
-    'COSC2123',
-    'Algorithms and Analysis',
-    12,
-    'http://www1.rmit.edu.au/courses/004302',
-    1,
-    2
-  ),
-  (
-    '004309',
-    'ISYS1118',
-    'Software Engineering Fundamentals',
-    12,
-    'https://www1.rmit.edu.au/courses/004309',
-    1,
-    2
-  ),
-  (
-    '014049',
-    'COSC2299',
-    'Software Engineering: Process and Tools',
-    12,
-    'https://www1.rmit.edu.au/courses/014049',
-    1,
-    3
-  ),
-  (
-    '014052',
-    'COSC2391',
-    'Further Programming',
-    12,
-    'https://www1.rmit.edu.au/courses/014052',
-    1,
-    2
-  ),
-  (
-    '014749',
-    'BIOL2146',
-    'Cell Biology and Biochemistry',
-    12,
-    'https://www1.rmit.edu.au/courses/014749',
-    0,
-    2
-  ),
-  (
-    '015442',
-    'MATH2055',
-    'Optimisation for Decision Making',
-    12,
-    'https://www1.rmit.edu.au/courses/015442',
-    0,
-    2
-  ),
-  (
-    '035217',
-    'COSC2274',
-    'Software Requirements Engineering',
-    12,
-    'https://www1.rmit.edu.au/courses/035217',
-    1,
-    2
-  ),
-  (
-    '035218',
-    'COSC2276',
-    'Web Development Technologies',
-    12,
-    'https://www1.rmit.edu.au/courses/035218',
-    1,
-    2
-  ),
-  (
-    '036671',
-    'COSC2301',
-    'Computer and Internet Forensics',
-    12,
-    'https://www1.rmit.edu.au/courses/036671',
-    1,
-    2
-  ),
-  (
-    '037016',
-    'COSC2349',
-    'Games Studio 2',
-    12,
-    'http://www1.rmit.edu.au/courses/037016',
-    0,
-    3
-  ),
-  (
-    '037889',
-    'MATH2142',
-    'Multivariate Analysis',
-    12,
-    'https://www1.rmit.edu.au/courses/037889',
-    1,
-    2
-  ),
-  (
-    '038096',
-    'BIOL2262',
-    'Genetics and Molecular Biology',
-    12,
-    'https://www1.rmit.edu.au/courses/038096',
-    0,
-    2
-  ),
-  (
-    '038407',
-    'INTE2402',
-    'Cloud Security',
-    12,
-    'https://www1.rmit.edu.au/courses/038407',
-    1,
-    2
-  ),
-  (
-    '039985',
-    'COSC2408',
-    'Programming Project 1',
-    12,
-    'https://www1.rmit.edu.au/courses/039985',
-    1,
-    3
-  ),
-  (
-    '044231',
-    'MATH2201',
-    'Statistical Methodologies',
-    12,
-    'https://www1.rmit.edu.au/courses/044231',
-    0,
-    1
-  ),
-  (
-    '044233',
-    'MATH2203',
-    'Linear Models and Experimental Design',
-    12,
-    'https://www1.rmit.edu.au/courses/044233',
-    1,
-    2
-  ),
-  (
-    '044272',
-    'MATH2204',
-    'Time Series and Forecasting',
-    12,
-    'https://www1.rmit.edu.au/courses/044272',
-    1,
-    2
-  ),
-  (
-    '044450',
-    'COSC2471',
-    'iPhone Software Engineering',
-    12,
-    'https://www1.rmit.edu.au/courses/044450',
-    1,
-    2
-  ),
-  (
-    '044481',
-    'COSC2476',
-    'Mixed Reality',
-    12,
-    'https://www1.rmit.edu.au/courses/044481',
-    1,
-    2
-  ),
-  (
-    '045680',
-    'COSC2527',
-    'Games and Artificial Intelligence Techniques',
-    12,
-    'https://www1.rmit.edu.au/courses/045680',
-    1,
-    2
-  ),
-  (
-    '045940',
-    'COSC2536',
-    'Security in Computing and Information Technology',
-    12,
-    'https://www1.rmit.edu.au/courses/045940',
-    1,
-    2
-  ),
-  (
-    '048558',
-    'MATH2237',
-    'Data Visualisation with R',
-    12,
-    'http://www1.rmit.edu.au/courses/048558',
-    1,
-    2
-  ),
-  (
-    '049803',
-    'COSC2626',
-    'Cloud Computing',
-    12,
-    'https://www1.rmit.edu.au/courses/049803',
-    1,
-    2
-  ),
-  (
-    '050775',
-    'MATH2305',
-    'Applied Bayesian Statistics',
-    12,
-    'https://www1.rmit.edu.au/courses/050775',
-    0,
-    2
-  ),
-  (
-    '051831',
-    'COSC2673',
-    'Machine Learning',
-    12,
-    'https://www1.rmit.edu.au/courses/051831',
-    1,
-    3
-  ),
-  (
-    '051832',
-    'COSC2674',
-    'Programming Internet of Things',
-    12,
-    'https://www1.rmit.edu.au/courses/051832',
-    1,
-    2
-  ),
-  (
-    '052739',
-    'COSC2738',
-    'Practical Data Science',
-    12,
-    'https://www1.rmit.edu.au/courses/052739',
-    0,
-    2
-  ),
-  (
-    '053170',
-    'INTE2547',
-    'Security Testing',
-    12,
-    'https://www1.rmit.edu.au/courses/053170',
-    1,
-    2
-  ),
-  (
-    '053171',
-    'COSC2757',
-    'Cloud Foundations',
-    12,
-    'https://www1.rmit.edu.au/courses/053171',
-    1,
-    2
-  ),
-  (
-    '053172',
-    'COSC2758',
-    'Full Stack Development',
-    12,
-    'https://www1.rmit.edu.au/courses/053172',
-    1,
-    2
-  ),
-  (
-    '053404',
-    'INTE2554',
-    'Digital Economy and Blockchain Applications',
-    12,
-    'https://www1.rmit.edu.au/courses/053404',
-    0,
-    3
-  ),
-  (
-    '053407',
-    'ECON1349',
-    'Frontiers of the Digital Economy',
-    12,
-    'https://www1.rmit.edu.au/courses/053407',
-    0,
-    3
-  ),
-  (
-    '054076',
-    'MATH2411',
-    'Mathematics for Computing 1',
-    12,
-    'https://www1.rmit.edu.au/courses/054076',
-    1,
-    1
-  ),
-  (
-    '054077',
-    'MATH2412',
-    'Practical Statistics',
-    12,
-    'http://www1.rmit.edu.au/courses/054077',
-    0,
-    2
-  ),
-  (
-    '054079',
-    'COSC2801',
-    'Java Programming Bootcamp',
-    12,
-    'https://www1.rmit.edu.au/courses/054079',
-    0,
-    1
-  ),
-  (
-    '054080',
-    'COSC2802',
-    'C++ Programming Bootcamp',
-    12,
-    'https://www1.rmit.edu.au/courses/054080',
-    1,
-    1
-  ),
-  (
-    '054081',
-    'COSC2803',
-    'Java Programming Studio',
-    24,
-    'https://www1.rmit.edu.au/courses/054081',
-    0,
-    1
-  ),
-  (
-    '054082',
-    'COSC2804',
-    'C++ Programming Studio',
-    24,
-    'https://www1.rmit.edu.au/courses/054082',
-    0,
-    1
-  ),
-  (
-    '054114',
-    'COSC2814',
-    'Programming Autonomous Robots',
-    12,
-    'https://www1.rmit.edu.au/courses/054114',
-    1,
-    2
-  ),
-  (
-    '054117',
-    'COSC2815',
-    'Advanced Programming for Data Science',
-    12,
-    'https://www1.rmit.edu.au/courses/054117',
-    1,
-    2
-  ),
-  (
-    '054118',
-    'COSC2816',
-    'Case Studies in Data Science',
-    12,
-    'https://www1.rmit.edu.au/courses/054118',
-    1,
-    2
-  ),
-  (
-    '054120',
-    'COSC2818',
-    'The Data Science Professional',
-    12,
-    'https://www1.rmit.edu.au/courses/054120',
-    0,
-    2
-  ),
-  (
-    '054140',
-    'COSC2821',
-    'Cloud Developing',
-    12,
-    'https://www1.rmit.edu.au/courses/054140',
-    1,
-    2
-  ),
-  (
-    '054141',
-    'COSC2824',
-    'Cloud Operations',
-    12,
-    'https://www1.rmit.edu.au/courses/054141',
-    1,
-    3
-  ),
-  (
-    '054142',
-    'COSC2829',
-    'Cloud Architecting',
-    12,
-    'http://www1.rmit.edu.au/courses/054142',
-    1,
-    3
-  ),
-  (
-    '054229',
-    'COSC2960',
-    'Foundations of Artificial Intelligence for STEM',
-    12,
-    'https://www1.rmit.edu.au/courses/054229',
-    0,
-    2
-  ),
-  (
-    '054230',
-    'BIOL2512',
-    'Systems Biology',
-    12,
-    'https://www1.rmit.edu.au/courses/054230',
-    0,
-    2
-  ),
-  (
-    '054381',
-    'INTE2584',
-    'Introduction to Cybersecurity Governance',
-    12,
-    'https://www1.rmit.edu.au/courses/054381',
-    0,
-    2
-  ),
-  (
-    '054478',
-    'COSC2972',
-    'Deep Learning',
-    12,
-    'https://www1.rmit.edu.au/courses/054478',
-    1,
-    2
-  ),
-  (
-    '054479',
-    'COSC2973',
-    'Intelligent Decision Making',
-    12,
-    'https://www1.rmit.edu.au/courses/054479',
-    1,
-    3
-  ),
-  (
-    '054910',
-    'OENG1235',
-    'Innovation Ecosystem and the Future of Work',
-    12,
-    NULL,
-    0,
-    3
-  ),
-  (
-    '054986',
-    'INTE2625',
-    'Introduction to Cyber Security',
-    12,
-    'https://www1.rmit.edu.au/courses/054986',
-    0,
-    2
-  ),
-  (
-    '054989',
-    'COSC3045',
-    'Essentials of Computing',
-    12,
-    'https://www1.rmit.edu.au/courses/054989',
-    1,
-    2
-  ),
-  (
-    '054991',
-    'ISYS3459',
-    'Systems Architecture and Design',
-    12,
-    'https://www1.rmit.edu.au/courses/054991',
-    1,
-    3
-  ),
-  (
-    '054992',
-    'INTE2626',
-    'Cyber Security Attack Analysis and Incidence Response',
-    12,
-    'https://www1.rmit.edu.au/courses/054992',
-    1,
-    2
-  ),
-  (
-    '054993',
-    'INTE2627',
-    'Blockchain Technology Fundamentals',
-    12,
-    'https://www1.rmit.edu.au/courses/054993',
-    1,
-    2
-  ),
-  (
-    '054995',
-    'INTE2628',
-    'Developing Blockchain Applications',
-    12,
-    'https://www1.rmit.edu.au/courses/054995',
-    1,
-    3
-  ),
-  (
-    '054996',
-    'INTE2629',
-    'Blockchain Innovations and Case Studies',
-    12,
-    'http://www1.rmit.edu.au/courses/054996',
-    1,
-    2
-  ),
-  (
-    '054997',
-    'COSC3047',
-    'Social Media and Networks Analytics',
-    12,
-    'https://www1.rmit.edu.au/courses/054997',
-    1,
-    2
-  ),
-  (
-    '055001',
-    'BIOL2526',
-    'Computational Biology',
-    12,
-    'https://www1.rmit.edu.au/courses/055001',
-    0,
-    2
-  ),
-  (
-    '055925',
-    'MATH2466',
-    'Introduction to Mathematics for Computing',
-    12,
-    'https://www1.rmit.edu.au/courses/055925',
-    0,
-    1
-  ),
-  (
-    '056543',
-    'COSC3099',
-    'UI and UX for Apple Platform',
-    12,
-    'https://www1.rmit.edu.au/courses/056543',
-    0,
-    2
-  ),
-  (
-    '056544',
-    'COSC3100',
-    'Getting Started with iOS App Development',
-    12,
-    'https://www1.rmit.edu.au/courses/056544',
-    1,
-    2
-  ),
-  (
-    '056545',
-    'COSC3101',
-    'Human-Centred Development with Apple Platform Technologies',
-    12,
-    'https://www1.rmit.edu.au/courses/056545',
-    1,
-    2
-  ),
-  (
-    '056546',
-    'COSC3102',
-    'Apple Platform Project',
-    12,
-    'https://www1.rmit.edu.au/courses/056546',
-    1,
-    2
-  ),
-  (
-    '056547',
-    'INTE2686',
-    'Mixed Reality Technologies',
-    12,
-    'https://www1.rmit.edu.au/courses/056547',
-    0,
-    2
-  ),
-  (
-    '056548',
-    'COSC1119',
-    'Digital Fluency',
-    12,
-    'https://www1.rmit.edu.au/courses/056548',
-    0,
-    2
-  ),
-  (
-    '056549',
-    'COSC2222',
-    'Digital Innovation Project',
-    12,
-    'https://www1.rmit.edu.au/courses/056549',
-    0,
-    3
-  );
+-- INSERT INTO
+--   `course` (
+--     `course_id`,
+--     `course_code`,
+--     `course_title`,
+--     `course_credit`,
+--     `web_url`,
+--     `prerequisite`,
+--     `year`
+--   )
+-- VALUES
+--   (
+--     '004108',
+--     'COSC1107',
+--     'Computing Theory',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004108',
+--     1,
+--     2
+--   ),
+--   (
+--     '004110',
+--     'COSC1111',
+--     'Data Communication and Net-Centric Computing',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004110',
+--     0,
+--     2
+--   ),
+--   (
+--     '004111',
+--     'COSC1114',
+--     'Operating Systems Principles',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004111',
+--     1,
+--     2
+--   ),
+--   (
+--     '004123',
+--     'COSC1127',
+--     'Artificial Intelligence',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004123',
+--     1,
+--     3
+--   ),
+--   (
+--     '004175',
+--     'ISYS1079',
+--     'Managing Semi-structured and Unstructured Data',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004175',
+--     1,
+--     2
+--   ),
+--   (
+--     '004178',
+--     'INTE1071',
+--     'Secure Electronic Commerce',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004178',
+--     1,
+--     2
+--   ),
+--   (
+--     '004186',
+--     'ISYS1087',
+--     'Software Testing',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004186',
+--     1,
+--     2
+--   ),
+--   (
+--     '004199',
+--     'COSC1183',
+--     'Usability Engineering',
+--     12,
+--     'http://www1.rmit.edu.au/courses/004199',
+--     1,
+--     3
+--   ),
+--   (
+--     '004218',
+--     'ISYS1102',
+--     'Database Applications',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004218',
+--     1,
+--     2
+--   ),
+--   (
+--     '004302',
+--     'COSC2123',
+--     'Algorithms and Analysis',
+--     12,
+--     'http://www1.rmit.edu.au/courses/004302',
+--     1,
+--     2
+--   ),
+--   (
+--     '004309',
+--     'ISYS1118',
+--     'Software Engineering Fundamentals',
+--     12,
+--     'https://www1.rmit.edu.au/courses/004309',
+--     1,
+--     2
+--   ),
+--   (
+--     '014049',
+--     'COSC2299',
+--     'Software Engineering: Process and Tools',
+--     12,
+--     'https://www1.rmit.edu.au/courses/014049',
+--     1,
+--     3
+--   ),
+--   (
+--     '014052',
+--     'COSC2391',
+--     'Further Programming',
+--     12,
+--     'https://www1.rmit.edu.au/courses/014052',
+--     1,
+--     2
+--   ),
+--   (
+--     '014749',
+--     'BIOL2146',
+--     'Cell Biology and Biochemistry',
+--     12,
+--     'https://www1.rmit.edu.au/courses/014749',
+--     0,
+--     2
+--   ),
+--   (
+--     '015442',
+--     'MATH2055',
+--     'Optimisation for Decision Making',
+--     12,
+--     'https://www1.rmit.edu.au/courses/015442',
+--     0,
+--     2
+--   ),
+--   (
+--     '035217',
+--     'COSC2274',
+--     'Software Requirements Engineering',
+--     12,
+--     'https://www1.rmit.edu.au/courses/035217',
+--     1,
+--     2
+--   ),
+--   (
+--     '035218',
+--     'COSC2276',
+--     'Web Development Technologies',
+--     12,
+--     'https://www1.rmit.edu.au/courses/035218',
+--     1,
+--     2
+--   ),
+--   (
+--     '036671',
+--     'COSC2301',
+--     'Computer and Internet Forensics',
+--     12,
+--     'https://www1.rmit.edu.au/courses/036671',
+--     1,
+--     2
+--   ),
+--   (
+--     '037016',
+--     'COSC2349',
+--     'Games Studio 2',
+--     12,
+--     'http://www1.rmit.edu.au/courses/037016',
+--     0,
+--     3
+--   ),
+--   (
+--     '037889',
+--     'MATH2142',
+--     'Multivariate Analysis',
+--     12,
+--     'https://www1.rmit.edu.au/courses/037889',
+--     1,
+--     2
+--   ),
+--   (
+--     '038096',
+--     'BIOL2262',
+--     'Genetics and Molecular Biology',
+--     12,
+--     'https://www1.rmit.edu.au/courses/038096',
+--     0,
+--     2
+--   ),
+--   (
+--     '038407',
+--     'INTE2402',
+--     'Cloud Security',
+--     12,
+--     'https://www1.rmit.edu.au/courses/038407',
+--     1,
+--     2
+--   ),
+--   (
+--     '039985',
+--     'COSC2408',
+--     'Programming Project 1',
+--     12,
+--     'https://www1.rmit.edu.au/courses/039985',
+--     1,
+--     3
+--   ),
+--   (
+--     '044231',
+--     'MATH2201',
+--     'Statistical Methodologies',
+--     12,
+--     'https://www1.rmit.edu.au/courses/044231',
+--     0,
+--     1
+--   ),
+--   (
+--     '044233',
+--     'MATH2203',
+--     'Linear Models and Experimental Design',
+--     12,
+--     'https://www1.rmit.edu.au/courses/044233',
+--     1,
+--     2
+--   ),
+--   (
+--     '044272',
+--     'MATH2204',
+--     'Time Series and Forecasting',
+--     12,
+--     'https://www1.rmit.edu.au/courses/044272',
+--     1,
+--     2
+--   ),
+--   (
+--     '044450',
+--     'COSC2471',
+--     'iPhone Software Engineering',
+--     12,
+--     'https://www1.rmit.edu.au/courses/044450',
+--     1,
+--     2
+--   ),
+--   (
+--     '044481',
+--     'COSC2476',
+--     'Mixed Reality',
+--     12,
+--     'https://www1.rmit.edu.au/courses/044481',
+--     1,
+--     2
+--   ),
+--   (
+--     '045680',
+--     'COSC2527',
+--     'Games and Artificial Intelligence Techniques',
+--     12,
+--     'https://www1.rmit.edu.au/courses/045680',
+--     1,
+--     2
+--   ),
+--   (
+--     '045940',
+--     'COSC2536',
+--     'Security in Computing and Information Technology',
+--     12,
+--     'https://www1.rmit.edu.au/courses/045940',
+--     1,
+--     2
+--   ),
+--   (
+--     '048558',
+--     'MATH2237',
+--     'Data Visualisation with R',
+--     12,
+--     'http://www1.rmit.edu.au/courses/048558',
+--     1,
+--     2
+--   ),
+--   (
+--     '049803',
+--     'COSC2626',
+--     'Cloud Computing',
+--     12,
+--     'https://www1.rmit.edu.au/courses/049803',
+--     1,
+--     2
+--   ),
+--   (
+--     '050775',
+--     'MATH2305',
+--     'Applied Bayesian Statistics',
+--     12,
+--     'https://www1.rmit.edu.au/courses/050775',
+--     0,
+--     2
+--   ),
+--   (
+--     '051831',
+--     'COSC2673',
+--     'Machine Learning',
+--     12,
+--     'https://www1.rmit.edu.au/courses/051831',
+--     1,
+--     3
+--   ),
+--   (
+--     '051832',
+--     'COSC2674',
+--     'Programming Internet of Things',
+--     12,
+--     'https://www1.rmit.edu.au/courses/051832',
+--     1,
+--     2
+--   ),
+--   (
+--     '052739',
+--     'COSC2738',
+--     'Practical Data Science',
+--     12,
+--     'https://www1.rmit.edu.au/courses/052739',
+--     0,
+--     2
+--   ),
+--   (
+--     '053170',
+--     'INTE2547',
+--     'Security Testing',
+--     12,
+--     'https://www1.rmit.edu.au/courses/053170',
+--     1,
+--     2
+--   ),
+--   (
+--     '053171',
+--     'COSC2757',
+--     'Cloud Foundations',
+--     12,
+--     'https://www1.rmit.edu.au/courses/053171',
+--     1,
+--     2
+--   ),
+--   (
+--     '053172',
+--     'COSC2758',
+--     'Full Stack Development',
+--     12,
+--     'https://www1.rmit.edu.au/courses/053172',
+--     1,
+--     2
+--   ),
+--   (
+--     '053404',
+--     'INTE2554',
+--     'Digital Economy and Blockchain Applications',
+--     12,
+--     'https://www1.rmit.edu.au/courses/053404',
+--     0,
+--     3
+--   ),
+--   (
+--     '053407',
+--     'ECON1349',
+--     'Frontiers of the Digital Economy',
+--     12,
+--     'https://www1.rmit.edu.au/courses/053407',
+--     0,
+--     3
+--   ),
+--   (
+--     '054076',
+--     'MATH2411',
+--     'Mathematics for Computing 1',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054076',
+--     1,
+--     1
+--   ),
+--   (
+--     '054077',
+--     'MATH2412',
+--     'Practical Statistics',
+--     12,
+--     'http://www1.rmit.edu.au/courses/054077',
+--     0,
+--     2
+--   ),
+--   (
+--     '054079',
+--     'COSC2801',
+--     'Java Programming Bootcamp',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054079',
+--     0,
+--     1
+--   ),
+--   (
+--     '054080',
+--     'COSC2802',
+--     'C++ Programming Bootcamp',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054080',
+--     1,
+--     1
+--   ),
+--   (
+--     '054081',
+--     'COSC2803',
+--     'Java Programming Studio',
+--     24,
+--     'https://www1.rmit.edu.au/courses/054081',
+--     0,
+--     1
+--   ),
+--   (
+--     '054082',
+--     'COSC2804',
+--     'C++ Programming Studio',
+--     24,
+--     'https://www1.rmit.edu.au/courses/054082',
+--     0,
+--     1
+--   ),
+--   (
+--     '054114',
+--     'COSC2814',
+--     'Programming Autonomous Robots',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054114',
+--     1,
+--     2
+--   ),
+--   (
+--     '054117',
+--     'COSC2815',
+--     'Advanced Programming for Data Science',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054117',
+--     1,
+--     2
+--   ),
+--   (
+--     '054118',
+--     'COSC2816',
+--     'Case Studies in Data Science',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054118',
+--     1,
+--     2
+--   ),
+--   (
+--     '054120',
+--     'COSC2818',
+--     'The Data Science Professional',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054120',
+--     0,
+--     2
+--   ),
+--   (
+--     '054140',
+--     'COSC2821',
+--     'Cloud Developing',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054140',
+--     1,
+--     2
+--   ),
+--   (
+--     '054141',
+--     'COSC2824',
+--     'Cloud Operations',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054141',
+--     1,
+--     3
+--   ),
+--   (
+--     '054142',
+--     'COSC2829',
+--     'Cloud Architecting',
+--     12,
+--     'http://www1.rmit.edu.au/courses/054142',
+--     1,
+--     3
+--   ),
+--   (
+--     '054229',
+--     'COSC2960',
+--     'Foundations of Artificial Intelligence for STEM',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054229',
+--     0,
+--     2
+--   ),
+--   (
+--     '054230',
+--     'BIOL2512',
+--     'Systems Biology',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054230',
+--     0,
+--     2
+--   ),
+--   (
+--     '054381',
+--     'INTE2584',
+--     'Introduction to Cybersecurity Governance',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054381',
+--     0,
+--     2
+--   ),
+--   (
+--     '054478',
+--     'COSC2972',
+--     'Deep Learning',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054478',
+--     1,
+--     2
+--   ),
+--   (
+--     '054479',
+--     'COSC2973',
+--     'Intelligent Decision Making',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054479',
+--     1,
+--     3
+--   ),
+--   (
+--     '054910',
+--     'OENG1235',
+--     'Innovation Ecosystem and the Future of Work',
+--     12,
+--     NULL,
+--     0,
+--     3
+--   ),
+--   (
+--     '054986',
+--     'INTE2625',
+--     'Introduction to Cyber Security',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054986',
+--     0,
+--     2
+--   ),
+--   (
+--     '054989',
+--     'COSC3045',
+--     'Essentials of Computing',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054989',
+--     1,
+--     2
+--   ),
+--   (
+--     '054991',
+--     'ISYS3459',
+--     'Systems Architecture and Design',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054991',
+--     1,
+--     3
+--   ),
+--   (
+--     '054992',
+--     'INTE2626',
+--     'Cyber Security Attack Analysis and Incidence Response',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054992',
+--     1,
+--     2
+--   ),
+--   (
+--     '054993',
+--     'INTE2627',
+--     'Blockchain Technology Fundamentals',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054993',
+--     1,
+--     2
+--   ),
+--   (
+--     '054995',
+--     'INTE2628',
+--     'Developing Blockchain Applications',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054995',
+--     1,
+--     3
+--   ),
+--   (
+--     '054996',
+--     'INTE2629',
+--     'Blockchain Innovations and Case Studies',
+--     12,
+--     'http://www1.rmit.edu.au/courses/054996',
+--     1,
+--     2
+--   ),
+--   (
+--     '054997',
+--     'COSC3047',
+--     'Social Media and Networks Analytics',
+--     12,
+--     'https://www1.rmit.edu.au/courses/054997',
+--     1,
+--     2
+--   ),
+--   (
+--     '055001',
+--     'BIOL2526',
+--     'Computational Biology',
+--     12,
+--     'https://www1.rmit.edu.au/courses/055001',
+--     0,
+--     2
+--   ),
+--   (
+--     '055925',
+--     'MATH2466',
+--     'Introduction to Mathematics for Computing',
+--     12,
+--     'https://www1.rmit.edu.au/courses/055925',
+--     0,
+--     1
+--   ),
+--   (
+--     '056543',
+--     'COSC3099',
+--     'UI and UX for Apple Platform',
+--     12,
+--     'https://www1.rmit.edu.au/courses/056543',
+--     0,
+--     2
+--   ),
+--   (
+--     '056544',
+--     'COSC3100',
+--     'Getting Started with iOS App Development',
+--     12,
+--     'https://www1.rmit.edu.au/courses/056544',
+--     1,
+--     2
+--   ),
+--   (
+--     '056545',
+--     'COSC3101',
+--     'Human-Centred Development with Apple Platform Technologies',
+--     12,
+--     'https://www1.rmit.edu.au/courses/056545',
+--     1,
+--     2
+--   ),
+--   (
+--     '056546',
+--     'COSC3102',
+--     'Apple Platform Project',
+--     12,
+--     'https://www1.rmit.edu.au/courses/056546',
+--     1,
+--     2
+--   ),
+--   (
+--     '056547',
+--     'INTE2686',
+--     'Mixed Reality Technologies',
+--     12,
+--     'https://www1.rmit.edu.au/courses/056547',
+--     0,
+--     2
+--   ),
+--   (
+--     '056548',
+--     'COSC1119',
+--     'Digital Fluency',
+--     12,
+--     'https://www1.rmit.edu.au/courses/056548',
+--     0,
+--     2
+--   ),
+--   (
+--     '056549',
+--     'COSC2222',
+--     'Digital Innovation Project',
+--     12,
+--     'https://www1.rmit.edu.au/courses/056549',
+--     0,
+--     3
+--   );
 
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 
@@ -1058,104 +1058,104 @@ LOCK TABLES `course_availability` WRITE;
 
 /*!40000 ALTER TABLE `course_availability` DISABLE KEYS */;
 
-INSERT INTO
-  `course_availability`
-VALUES
-  ('004110', 1),
-  ('004218', 1),
-  ('004302', 1),
-  ('004309', 1),
-  ('014052', 1),
-  ('015442', 1),
-  ('037889', 1),
-  ('038096', 1),
-  ('038407', 1),
-  ('039985', 1),
-  ('044231', 1),
-  ('044233', 1),
-  ('044272', 1),
-  ('045680', 1),
-  ('048558', 1),
-  ('049803', 1),
-  ('051831', 1),
-  ('051832', 1),
-  ('052739', 1),
-  ('053171', 1),
-  ('053172', 1),
-  ('053404', 1),
-  ('053407', 1),
-  ('054079', 1),
-  ('054080', 1),
-  ('054081', 1),
-  ('054082', 1),
-  ('054114', 1),
-  ('054117', 1),
-  ('054120', 1),
-  ('054141', 1),
-  ('054229', 1),
-  ('054381', 1),
-  ('054479', 1),
-  ('054910', 1),
-  ('054986', 1),
-  ('054992', 1),
-  ('054993', 1),
-  ('054997', 1),
-  ('055001', 1),
-  ('055925', 1),
-  ('056543', 1),
-  ('056546', 1),
-  ('056548', 1),
-  ('004108', 2),
-  ('004110', 2),
-  ('004111', 2),
-  ('004123', 2),
-  ('004175', 2),
-  ('004178', 2),
-  ('004186', 2),
-  ('004199', 2),
-  ('004302', 2),
-  ('004309', 2),
-  ('014049', 2),
-  ('014052', 2),
-  ('014749', 2),
-  ('035217', 2),
-  ('035218', 2),
-  ('036671', 2),
-  ('037016', 2),
-  ('039985', 2),
-  ('044231', 2),
-  ('044450', 2),
-  ('044481', 2),
-  ('045940', 2),
-  ('048558', 2),
-  ('050775', 2),
-  ('052739', 2),
-  ('053170', 2),
-  ('053407', 2),
-  ('054076', 2),
-  ('054077', 2),
-  ('054079', 2),
-  ('054080', 2),
-  ('054081', 2),
-  ('054082', 2),
-  ('054117', 2),
-  ('054118', 2),
-  ('054140', 2),
-  ('054142', 2),
-  ('054229', 2),
-  ('054230', 2),
-  ('054478', 2),
-  ('054910', 2),
-  ('054986', 2),
-  ('054989', 2),
-  ('054991', 2),
-  ('054995', 2),
-  ('054996', 2),
-  ('056544', 2),
-  ('056547', 2),
-  ('056549', 2),
-  ('054986', 3),
-  ('054082', 3);
+-- INSERT INTO
+--   `course_availability`
+-- VALUES
+--   ('004110', 1),
+--   ('004218', 1),
+--   ('004302', 1),
+--   ('004309', 1),
+--   ('014052', 1),
+--   ('015442', 1),
+--   ('037889', 1),
+--   ('038096', 1),
+--   ('038407', 1),
+--   ('039985', 1),
+--   ('044231', 1),
+--   ('044233', 1),
+--   ('044272', 1),
+--   ('045680', 1),
+--   ('048558', 1),
+--   ('049803', 1),
+--   ('051831', 1),
+--   ('051832', 1),
+--   ('052739', 1),
+--   ('053171', 1),
+--   ('053172', 1),
+--   ('053404', 1),
+--   ('053407', 1),
+--   ('054079', 1),
+--   ('054080', 1),
+--   ('054081', 1),
+--   ('054082', 1),
+--   ('054114', 1),
+--   ('054117', 1),
+--   ('054120', 1),
+--   ('054141', 1),
+--   ('054229', 1),
+--   ('054381', 1),
+--   ('054479', 1),
+--   ('054910', 1),
+--   ('054986', 1),
+--   ('054992', 1),
+--   ('054993', 1),
+--   ('054997', 1),
+--   ('055001', 1),
+--   ('055925', 1),
+--   ('056543', 1),
+--   ('056546', 1),
+--   ('056548', 1),
+--   ('004108', 2),
+--   ('004110', 2),
+--   ('004111', 2),
+--   ('004123', 2),
+--   ('004175', 2),
+--   ('004178', 2),
+--   ('004186', 2),
+--   ('004199', 2),
+--   ('004302', 2),
+--   ('004309', 2),
+--   ('014049', 2),
+--   ('014052', 2),
+--   ('014749', 2),
+--   ('035217', 2),
+--   ('035218', 2),
+--   ('036671', 2),
+--   ('037016', 2),
+--   ('039985', 2),
+--   ('044231', 2),
+--   ('044450', 2),
+--   ('044481', 2),
+--   ('045940', 2),
+--   ('048558', 2),
+--   ('050775', 2),
+--   ('052739', 2),
+--   ('053170', 2),
+--   ('053407', 2),
+--   ('054076', 2),
+--   ('054077', 2),
+--   ('054079', 2),
+--   ('054080', 2),
+--   ('054081', 2),
+--   ('054082', 2),
+--   ('054117', 2),
+--   ('054118', 2),
+--   ('054140', 2),
+--   ('054142', 2),
+--   ('054229', 2),
+--   ('054230', 2),
+--   ('054478', 2),
+--   ('054910', 2),
+--   ('054986', 2),
+--   ('054989', 2),
+--   ('054991', 2),
+--   ('054995', 2),
+--   ('054996', 2),
+--   ('056544', 2),
+--   ('056547', 2),
+--   ('056549', 2),
+--   ('054986', 3),
+--   ('054082', 3);
 
 /*!40000 ALTER TABLE `course_availability` ENABLE KEYS */;
 
@@ -1189,115 +1189,115 @@ LOCK TABLES `course_type` WRITE;
 
 /*!40000 ALTER TABLE `course_type` DISABLE KEYS */;
 
-INSERT INTO
-  `course_type`
-VALUES
-  ('004302', 1),
-  ('004309', 1),
-  ('039985', 1),
-  ('054076', 1),
-  ('054079', 1),
-  ('054080', 1),
-  ('054081', 1),
-  ('054082', 1),
-  ('054229', 1),
-  ('054910', 1),
-  ('054986', 1),
-  ('054989', 1),
-  ('055925', 1),
-  ('004108', 2),
-  ('004111', 2),
-  ('004123', 2),
-  ('004175', 2),
-  ('049803', 2),
-  ('051831', 2),
-  ('054478', 2),
-  ('054479', 2),
-  ('054997', 2),
-  ('004110', 3),
-  ('004178', 3),
-  ('036671', 3),
-  ('038407', 3),
-  ('045940', 3),
-  ('053170', 3),
-  ('054381', 3),
-  ('054992', 3),
-  ('054993', 3),
-  ('054995', 3),
-  ('004186', 4),
-  ('004199', 4),
-  ('004218', 4),
-  ('014049', 4),
-  ('014052', 4),
-  ('035217', 4),
-  ('035218', 4),
-  ('044450', 4),
-  ('051832', 4),
-  ('053172', 4),
-  ('054991', 4),
-  ('004123', 5),
-  ('004175', 5),
-  ('045680', 5),
-  ('051831', 5),
-  ('054114', 5),
-  ('054478', 5),
-  ('054997', 5),
-  ('053404', 6),
-  ('053407', 6),
-  ('054993', 6),
-  ('054995', 6),
-  ('054996', 6),
-  ('038407', 7),
-  ('049803', 7),
-  ('053171', 7),
-  ('054140', 7),
-  ('054141', 7),
-  ('054142', 7),
-  ('037016', 8),
-  ('044481', 8),
-  ('045680', 8),
-  ('056543', 8),
-  ('004110', 9),
-  ('036671', 9),
-  ('038407', 9),
-  ('045940', 9),
-  ('053170', 9),
-  ('054992', 9),
-  ('048558', 10),
-  ('052739', 10),
-  ('054077', 10),
-  ('054117', 10),
-  ('054118', 10),
-  ('054120', 10),
-  ('056543', 11),
-  ('056544', 11),
-  ('056545', 11),
-  ('056546', 11),
-  ('004186', 12),
-  ('004218', 12),
-  ('014049', 12),
-  ('014052', 12),
-  ('035218', 12),
-  ('044450', 12),
-  ('051832', 12),
-  ('053172', 12),
-  ('014749', 13),
-  ('038096', 13),
-  ('054230', 13),
-  ('055001', 13),
-  ('015442', 14),
-  ('037889', 14),
-  ('044233', 14),
-  ('044272', 14),
-  ('050775', 14),
-  ('054229', 15),
-  ('056547', 15),
-  ('056548', 15),
-  ('056549', 15),
-  ('044231', 16),
-  ('004123', 17),
-  ('014049', 17),
-  ('051831', 17);
+-- INSERT INTO
+--   `course_type`
+-- VALUES
+--   ('004302', 1),
+--   ('004309', 1),
+--   ('039985', 1),
+--   ('054076', 1),
+--   ('054079', 1),
+--   ('054080', 1),
+--   ('054081', 1),
+--   ('054082', 1),
+--   ('054229', 1),
+--   ('054910', 1),
+--   ('054986', 1),
+--   ('054989', 1),
+--   ('055925', 1),
+--   ('004108', 2),
+--   ('004111', 2),
+--   ('004123', 2),
+--   ('004175', 2),
+--   ('049803', 2),
+--   ('051831', 2),
+--   ('054478', 2),
+--   ('054479', 2),
+--   ('054997', 2),
+--   ('004110', 3),
+--   ('004178', 3),
+--   ('036671', 3),
+--   ('038407', 3),
+--   ('045940', 3),
+--   ('053170', 3),
+--   ('054381', 3),
+--   ('054992', 3),
+--   ('054993', 3),
+--   ('054995', 3),
+--   ('004186', 4),
+--   ('004199', 4),
+--   ('004218', 4),
+--   ('014049', 4),
+--   ('014052', 4),
+--   ('035217', 4),
+--   ('035218', 4),
+--   ('044450', 4),
+--   ('051832', 4),
+--   ('053172', 4),
+--   ('054991', 4),
+--   ('004123', 5),
+--   ('004175', 5),
+--   ('045680', 5),
+--   ('051831', 5),
+--   ('054114', 5),
+--   ('054478', 5),
+--   ('054997', 5),
+--   ('053404', 6),
+--   ('053407', 6),
+--   ('054993', 6),
+--   ('054995', 6),
+--   ('054996', 6),
+--   ('038407', 7),
+--   ('049803', 7),
+--   ('053171', 7),
+--   ('054140', 7),
+--   ('054141', 7),
+--   ('054142', 7),
+--   ('037016', 8),
+--   ('044481', 8),
+--   ('045680', 8),
+--   ('056543', 8),
+--   ('004110', 9),
+--   ('036671', 9),
+--   ('038407', 9),
+--   ('045940', 9),
+--   ('053170', 9),
+--   ('054992', 9),
+--   ('048558', 10),
+--   ('052739', 10),
+--   ('054077', 10),
+--   ('054117', 10),
+--   ('054118', 10),
+--   ('054120', 10),
+--   ('056543', 11),
+--   ('056544', 11),
+--   ('056545', 11),
+--   ('056546', 11),
+--   ('004186', 12),
+--   ('004218', 12),
+--   ('014049', 12),
+--   ('014052', 12),
+--   ('035218', 12),
+--   ('044450', 12),
+--   ('051832', 12),
+--   ('053172', 12),
+--   ('014749', 13),
+--   ('038096', 13),
+--   ('054230', 13),
+--   ('055001', 13),
+--   ('015442', 14),
+--   ('037889', 14),
+--   ('044233', 14),
+--   ('044272', 14),
+--   ('050775', 14),
+--   ('054229', 15),
+--   ('056547', 15),
+--   ('056548', 15),
+--   ('056549', 15),
+--   ('044231', 16),
+--   ('004123', 17),
+--   ('014049', 17),
+--   ('051831', 17);
 
 /*!40000 ALTER TABLE `course_type` ENABLE KEYS */;
 
@@ -14426,86 +14426,86 @@ LOCK TABLES `program_course` WRITE;
 
 /*!40000 ALTER TABLE `program_course` DISABLE KEYS */;
 
-INSERT INTO
-  `program_course`
-VALUES
-  ('BP094P23', '004108'),
-  ('BP094P23', '004110'),
-  ('BP094P23', '004111'),
-  ('BP094P23', '004123'),
-  ('BP094P23', '004175'),
-  ('BP094P23', '004178'),
-  ('BP094P23', '004186'),
-  ('BP094P23', '004199'),
-  ('BP094P23', '004218'),
-  ('BP094P23', '004302'),
-  ('BP094P23', '004309'),
-  ('BP094P23', '014049'),
-  ('BP094P23', '014052'),
-  ('BP094P23', '014749'),
-  ('BP094P23', '015442'),
-  ('BP094P23', '035217'),
-  ('BP094P23', '035218'),
-  ('BP094P23', '036671'),
-  ('BP094P23', '037016'),
-  ('BP094P23', '037889'),
-  ('BP094P23', '038096'),
-  ('BP094P23', '038407'),
-  ('BP094P23', '039985'),
-  ('BP094P23', '044231'),
-  ('BP094P23', '044233'),
-  ('BP094P23', '044272'),
-  ('BP094P23', '044450'),
-  ('BP094P23', '044481'),
-  ('BP094P23', '045680'),
-  ('BP094P23', '045940'),
-  ('BP094P23', '048558'),
-  ('BP094P23', '049803'),
-  ('BP094P23', '050775'),
-  ('BP094P23', '051831'),
-  ('BP094P23', '051832'),
-  ('BP094P23', '052739'),
-  ('BP094P23', '053170'),
-  ('BP094P23', '053171'),
-  ('BP094P23', '053172'),
-  ('BP094P23', '053404'),
-  ('BP094P23', '053407'),
-  ('BP094P23', '054076'),
-  ('BP094P23', '054077'),
-  ('BP094P23', '054079'),
-  ('BP094P23', '054080'),
-  ('BP094P23', '054081'),
-  ('BP094P23', '054082'),
-  ('BP094P23', '054114'),
-  ('BP094P23', '054117'),
-  ('BP094P23', '054118'),
-  ('BP094P23', '054120'),
-  ('BP094P23', '054140'),
-  ('BP094P23', '054141'),
-  ('BP094P23', '054142'),
-  ('BP094P23', '054229'),
-  ('BP094P23', '054230'),
-  ('BP094P23', '054381'),
-  ('BP094P23', '054478'),
-  ('BP094P23', '054479'),
-  ('BP094P23', '054910'),
-  ('BP094P23', '054986'),
-  ('BP094P23', '054989'),
-  ('BP094P23', '054991'),
-  ('BP094P23', '054992'),
-  ('BP094P23', '054993'),
-  ('BP094P23', '054995'),
-  ('BP094P23', '054996'),
-  ('BP094P23', '054997'),
-  ('BP094P23', '055001'),
-  ('BP094P23', '055925'),
-  ('BP094P23', '056543'),
-  ('BP094P23', '056544'),
-  ('BP094P23', '056545'),
-  ('BP094P23', '056546'),
-  ('BP094P23', '056547'),
-  ('BP094P23', '056548'),
-  ('BP094P23', '056549');
+-- INSERT INTO
+--   `program_course`
+-- VALUES
+--   ('BP094P23', '004108'),
+--   ('BP094P23', '004110'),
+--   ('BP094P23', '004111'),
+--   ('BP094P23', '004123'),
+--   ('BP094P23', '004175'),
+--   ('BP094P23', '004178'),
+--   ('BP094P23', '004186'),
+--   ('BP094P23', '004199'),
+--   ('BP094P23', '004218'),
+--   ('BP094P23', '004302'),
+--   ('BP094P23', '004309'),
+--   ('BP094P23', '014049'),
+--   ('BP094P23', '014052'),
+--   ('BP094P23', '014749'),
+--   ('BP094P23', '015442'),
+--   ('BP094P23', '035217'),
+--   ('BP094P23', '035218'),
+--   ('BP094P23', '036671'),
+--   ('BP094P23', '037016'),
+--   ('BP094P23', '037889'),
+--   ('BP094P23', '038096'),
+--   ('BP094P23', '038407'),
+--   ('BP094P23', '039985'),
+--   ('BP094P23', '044231'),
+--   ('BP094P23', '044233'),
+--   ('BP094P23', '044272'),
+--   ('BP094P23', '044450'),
+--   ('BP094P23', '044481'),
+--   ('BP094P23', '045680'),
+--   ('BP094P23', '045940'),
+--   ('BP094P23', '048558'),
+--   ('BP094P23', '049803'),
+--   ('BP094P23', '050775'),
+--   ('BP094P23', '051831'),
+--   ('BP094P23', '051832'),
+--   ('BP094P23', '052739'),
+--   ('BP094P23', '053170'),
+--   ('BP094P23', '053171'),
+--   ('BP094P23', '053172'),
+--   ('BP094P23', '053404'),
+--   ('BP094P23', '053407'),
+--   ('BP094P23', '054076'),
+--   ('BP094P23', '054077'),
+--   ('BP094P23', '054079'),
+--   ('BP094P23', '054080'),
+--   ('BP094P23', '054081'),
+--   ('BP094P23', '054082'),
+--   ('BP094P23', '054114'),
+--   ('BP094P23', '054117'),
+--   ('BP094P23', '054118'),
+--   ('BP094P23', '054120'),
+--   ('BP094P23', '054140'),
+--   ('BP094P23', '054141'),
+--   ('BP094P23', '054142'),
+--   ('BP094P23', '054229'),
+--   ('BP094P23', '054230'),
+--   ('BP094P23', '054381'),
+--   ('BP094P23', '054478'),
+--   ('BP094P23', '054479'),
+--   ('BP094P23', '054910'),
+--   ('BP094P23', '054986'),
+--   ('BP094P23', '054989'),
+--   ('BP094P23', '054991'),
+--   ('BP094P23', '054992'),
+--   ('BP094P23', '054993'),
+--   ('BP094P23', '054995'),
+--   ('BP094P23', '054996'),
+--   ('BP094P23', '054997'),
+--   ('BP094P23', '055001'),
+--   ('BP094P23', '055925'),
+--   ('BP094P23', '056543'),
+--   ('BP094P23', '056544'),
+--   ('BP094P23', '056545'),
+--   ('BP094P23', '056546'),
+--   ('BP094P23', '056547'),
+--   ('BP094P23', '056548'),
+--   ('BP094P23', '056549');
 
 /*!40000 ALTER TABLE `program_course` ENABLE KEYS */;
 
@@ -14538,10 +14538,10 @@ LOCK TABLES `program_plan` WRITE;
 
 /*!40000 ALTER TABLE `program_plan` DISABLE KEYS */;
 
-INSERT INTO
-  `program_plan`
-VALUES
-  ('BP094P23', 1);
+-- INSERT INTO
+--   `program_plan`
+-- VALUES
+--   ('BP094P23', 1);
 
 /*!40000 ALTER TABLE `program_plan` ENABLE KEYS */;
 
@@ -14577,86 +14577,86 @@ LOCK TABLES `requisite` WRITE;
 
 /*!40000 ALTER TABLE `requisite` DISABLE KEYS */;
 
-INSERT INTO
-  `requisite`
-VALUES
-  (8, '004309', 'prerequisite', 1),
-  (10, '054081', 'prerequisite', 1),
-  (12, '054081', 'prerequisite', 1),
-  (20, '054081', 'prerequisite', 1),
-  (38, '004123', 'prerequisite', 1),
-  (39, '053171', 'prerequisite', 1),
-  (40, '051831', 'prerequisite', 1),
-  (59, '054079', 'prerequisite', 1),
-  (60, '055925', 'prerequisite', 1),
-  (65, '054076', 'prerequisite', 1),
-  (66, '054081', 'prerequisite', 1),
-  (67, '054082', 'prerequisite', 1),
-  (73, '052739', 'prerequisite', 1),
-  (73, '054080', 'prerequisite', 2),
-  (78, '014049', 'prerequisite', 1),
-  (78, '054082', 'prerequisite', 2),
-  (79, '004309', 'prerequisite', 1),
-  (80, '054986', 'prerequisite', 1),
-  (82, '054986', 'prerequisite', 1),
-  (83, '045940', 'prerequisite', 1),
-  (83, '054986', 'prerequisite', 2),
-  (84, '054081', 'prerequisite', 1),
-  (85, '045940', 'prerequisite', 1),
-  (85, '054986', 'prerequisite', 2),
-  (88, '054081', 'prerequisite', 1),
-  (90, '054081', 'prerequisite', 1),
-  (91, '014052', 'prerequisite', 1),
-  (91, '054082', 'prerequisite', 2),
-  (92, '054081', 'prerequisite', 1),
-  (93, '004309', 'prerequisite', 1),
-  (94, '014052', 'prerequisite', 1),
-  (94, '054080', 'prerequisite', 2),
-  (95, '014052', 'prerequisite', 1),
-  (95, '054082', 'prerequisite', 2),
-  (96, '004302', 'prerequisite', 1),
-  (96, '014052', 'prerequisite', 2),
-  (96, '054080', 'prerequisite', 3),
-  (96, '054081', 'prerequisite', 4),
-  (98, '054081', 'prerequisite', 1),
-  (99, '053171', 'prerequisite', 1),
-  (100, '004302', 'prerequisite', 1),
-  (100, '054081', 'prerequisite', 2),
-  (102, '004309', 'prerequisite', 1),
-  (103, '054079', 'prerequisite', 1),
-  (104, '054077', 'prerequisite', 1),
-  (105, '056543', 'prerequisite', 1),
-  (106, '056543', 'prerequisite', 1),
-  (114, '004302', 'prerequisite', 1),
-  (116, '014052', 'prerequisite', 1),
-  (116, '054080', 'prerequisite', 2),
-  (117, '004302', 'prerequisite', 1),
-  (118, '054076', 'prerequisite', 1),
-  (119, '004302', 'prerequisite', 1),
-  (120, '054076', 'prerequisite', 1),
-  (121, '004302', 'prerequisite', 1),
-  (122, '004309', 'prerequisite', 1),
-  (123, '004309', 'prerequisite', 1),
-  (124, '054081', 'prerequisite', 1),
-  (125, '054081', 'prerequisite', 1),
-  (126, '053171', 'prerequisite', 1),
-  (127, '052739', 'prerequisite', 1),
-  (128, '056543', 'prerequisite', 1),
-  (129, '056544', 'prerequisite', 1),
-  (130, '054081', 'prerequisite', 1),
-  (131, '054986', 'prerequisite', 1),
-  (132, '054081', 'prerequisite', 1),
-  (133, '044231', 'prerequisite', 1),
-  (134, '044231', 'prerequisite', 1),
-  (135, '044233', 'prerequisite', 1),
-  (136, '014052', 'prerequisite', 1),
-  (136, '054081', 'prerequisite', 2),
-  (136, '054082', 'prerequisite', 3),
-  (137, '054079', 'prerequisite', 1),
-  (139, '044231', 'prerequisite', 1),
-  (140, '044233', 'prerequisite', 1),
-  (1066, '054079', 'corequisite', 1),
-  (1067, '054080', 'corequisite', 1);
+-- INSERT INTO
+--   `requisite`
+-- VALUES
+--   (8, '004309', 'prerequisite', 1),
+--   (10, '054081', 'prerequisite', 1),
+--   (12, '054081', 'prerequisite', 1),
+--   (20, '054081', 'prerequisite', 1),
+--   (38, '004123', 'prerequisite', 1),
+--   (39, '053171', 'prerequisite', 1),
+--   (40, '051831', 'prerequisite', 1),
+--   (59, '054079', 'prerequisite', 1),
+--   (60, '055925', 'prerequisite', 1),
+--   (65, '054076', 'prerequisite', 1),
+--   (66, '054081', 'prerequisite', 1),
+--   (67, '054082', 'prerequisite', 1),
+--   (73, '052739', 'prerequisite', 1),
+--   (73, '054080', 'prerequisite', 2),
+--   (78, '014049', 'prerequisite', 1),
+--   (78, '054082', 'prerequisite', 2),
+--   (79, '004309', 'prerequisite', 1),
+--   (80, '054986', 'prerequisite', 1),
+--   (82, '054986', 'prerequisite', 1),
+--   (83, '045940', 'prerequisite', 1),
+--   (83, '054986', 'prerequisite', 2),
+--   (84, '054081', 'prerequisite', 1),
+--   (85, '045940', 'prerequisite', 1),
+--   (85, '054986', 'prerequisite', 2),
+--   (88, '054081', 'prerequisite', 1),
+--   (90, '054081', 'prerequisite', 1),
+--   (91, '014052', 'prerequisite', 1),
+--   (91, '054082', 'prerequisite', 2),
+--   (92, '054081', 'prerequisite', 1),
+--   (93, '004309', 'prerequisite', 1),
+--   (94, '014052', 'prerequisite', 1),
+--   (94, '054080', 'prerequisite', 2),
+--   (95, '014052', 'prerequisite', 1),
+--   (95, '054082', 'prerequisite', 2),
+--   (96, '004302', 'prerequisite', 1),
+--   (96, '014052', 'prerequisite', 2),
+--   (96, '054080', 'prerequisite', 3),
+--   (96, '054081', 'prerequisite', 4),
+--   (98, '054081', 'prerequisite', 1),
+--   (99, '053171', 'prerequisite', 1),
+--   (100, '004302', 'prerequisite', 1),
+--   (100, '054081', 'prerequisite', 2),
+--   (102, '004309', 'prerequisite', 1),
+--   (103, '054079', 'prerequisite', 1),
+--   (104, '054077', 'prerequisite', 1),
+--   (105, '056543', 'prerequisite', 1),
+--   (106, '056543', 'prerequisite', 1),
+--   (114, '004302', 'prerequisite', 1),
+--   (116, '014052', 'prerequisite', 1),
+--   (116, '054080', 'prerequisite', 2),
+--   (117, '004302', 'prerequisite', 1),
+--   (118, '054076', 'prerequisite', 1),
+--   (119, '004302', 'prerequisite', 1),
+--   (120, '054076', 'prerequisite', 1),
+--   (121, '004302', 'prerequisite', 1),
+--   (122, '004309', 'prerequisite', 1),
+--   (123, '004309', 'prerequisite', 1),
+--   (124, '054081', 'prerequisite', 1),
+--   (125, '054081', 'prerequisite', 1),
+--   (126, '053171', 'prerequisite', 1),
+--   (127, '052739', 'prerequisite', 1),
+--   (128, '056543', 'prerequisite', 1),
+--   (129, '056544', 'prerequisite', 1),
+--   (130, '054081', 'prerequisite', 1),
+--   (131, '054986', 'prerequisite', 1),
+--   (132, '054081', 'prerequisite', 1),
+--   (133, '044231', 'prerequisite', 1),
+--   (134, '044231', 'prerequisite', 1),
+--   (135, '044233', 'prerequisite', 1),
+--   (136, '014052', 'prerequisite', 1),
+--   (136, '054081', 'prerequisite', 2),
+--   (136, '054082', 'prerequisite', 3),
+--   (137, '054079', 'prerequisite', 1),
+--   (139, '044231', 'prerequisite', 1),
+--   (140, '044233', 'prerequisite', 1),
+--   (1066, '054079', 'corequisite', 1),
+--   (1067, '054080', 'corequisite', 1);
 
 /*!40000 ALTER TABLE `requisite` ENABLE KEYS */;
 
@@ -14693,125 +14693,125 @@ LOCK TABLES `requisite_group` WRITE;
 
 /*!40000 ALTER TABLE `requisite_group` DISABLE KEYS */;
 
-INSERT INTO
-  `requisite_group`
-VALUES
-  (8, 6, 1005, 'OR'),
-  (10, 8, 1007, 'OR'),
-  (12, 10, 1009, 'OR'),
-  (20, 17, 1016, 'OR'),
-  (38, 34, 1033, 'OR'),
-  (39, 37, 1036, 'OR'),
-  (40, 40, 1039, 'OR'),
-  (59, 33, 1032, 'OR'),
-  (60, 32, 1031, 'OR'),
-  (65, 27, 1026, 'OR'),
-  (66, 27, 1026, 'OR'),
-  (67, 2, 1001, 'OR'),
-  (73, 48, 1047, 'OR'),
-  (78, 18, 1017, 'OR'),
-  (79, 18, 1017, 'OR'),
-  (80, 24, 1023, 'OR'),
-  (82, 44, 1043, 'OR'),
-  (83, 5, 1004, 'OR'),
-  (84, 29, 1028, 'OR'),
-  (85, 29, 1028, 'OR'),
-  (88, 12, 1011, 'OR'),
-  (90, 31, 1030, 'OR'),
-  (91, 14, 1013, 'OR'),
-  (92, 21, 1020, 'OR'),
-  (93, 11, 1010, 'OR'),
-  (94, 11, 1010, 'OR'),
-  (95, 28, 1027, 'OR'),
-  (96, 23, 1022, 'OR'),
-  (98, 30, 1029, 'OR'),
-  (99, 39, 1038, 'OR'),
-  (100, 22, 1021, 'OR'),
-  (102, 7, 1006, 'OR'),
-  (103, 35, 1034, 'OR'),
-  (104, 25, 1024, 'OR'),
-  (105, 49, 1048, 'OR'),
-  (106, 50, 1049, 'OR'),
-  (114, 3, 1002, 'OR'),
-  (116, 9, 1008, 'OR'),
-  (117, 1, 1000, 'OR'),
-  (118, 1, 1000, 'OR'),
-  (119, 42, 1041, 'OR'),
-  (120, 42, 1041, 'OR'),
-  (121, 41, 1040, 'OR'),
-  (122, 43, 1042, 'OR'),
-  (123, 13, 1012, 'OR'),
-  (124, 45, 1044, 'OR'),
-  (125, 46, 1045, 'OR'),
-  (126, 38, 1037, 'OR'),
-  (127, 36, 1035, 'OR'),
-  (128, 51, 1050, 'OR'),
-  (129, 51, 1050, 'OR'),
-  (130, 4, 1003, 'OR'),
-  (131, 15, 1014, 'OR'),
-  (132, 15, 1014, 'OR'),
-  (133, 19, 1018, 'OR'),
-  (134, 20, 1019, 'OR'),
-  (135, 20, 1019, 'OR'),
-  (136, 26, 1025, 'OR'),
-  (137, 47, 1046, 'OR'),
-  (139, 16, 1015, 'OR'),
-  (140, 16, 1015, 'OR'),
-  (1000, 1, NULL, 'AND'),
-  (1001, 2, NULL, 'AND'),
-  (1002, 3, NULL, 'AND'),
-  (1003, 4, NULL, 'AND'),
-  (1004, 5, NULL, 'AND'),
-  (1005, 6, NULL, 'AND'),
-  (1006, 7, NULL, 'AND'),
-  (1007, 8, NULL, 'AND'),
-  (1008, 9, NULL, 'AND'),
-  (1009, 10, NULL, 'AND'),
-  (1010, 11, NULL, 'AND'),
-  (1011, 12, NULL, 'AND'),
-  (1012, 13, NULL, 'AND'),
-  (1013, 14, NULL, 'AND'),
-  (1014, 15, NULL, 'AND'),
-  (1015, 16, NULL, 'AND'),
-  (1016, 17, NULL, 'AND'),
-  (1017, 18, NULL, 'AND'),
-  (1018, 19, NULL, 'AND'),
-  (1019, 20, NULL, 'AND'),
-  (1020, 21, NULL, 'AND'),
-  (1021, 22, NULL, 'AND'),
-  (1022, 23, NULL, 'AND'),
-  (1023, 24, NULL, 'AND'),
-  (1024, 25, NULL, 'AND'),
-  (1025, 26, NULL, 'AND'),
-  (1026, 27, NULL, 'AND'),
-  (1027, 28, NULL, 'AND'),
-  (1028, 29, NULL, 'AND'),
-  (1029, 30, NULL, 'AND'),
-  (1030, 31, NULL, 'AND'),
-  (1031, 32, NULL, 'AND'),
-  (1032, 33, NULL, 'AND'),
-  (1033, 34, NULL, 'AND'),
-  (1034, 35, NULL, 'AND'),
-  (1035, 36, NULL, 'AND'),
-  (1036, 37, NULL, 'AND'),
-  (1037, 38, NULL, 'AND'),
-  (1038, 39, NULL, 'AND'),
-  (1039, 40, NULL, 'AND'),
-  (1040, 41, NULL, 'AND'),
-  (1041, 42, NULL, 'AND'),
-  (1042, 43, NULL, 'AND'),
-  (1043, 44, NULL, 'AND'),
-  (1044, 45, NULL, 'AND'),
-  (1045, 46, NULL, 'AND'),
-  (1046, 47, NULL, 'AND'),
-  (1047, 48, NULL, 'AND'),
-  (1048, 49, NULL, 'AND'),
-  (1049, 50, NULL, 'AND'),
-  (1050, 51, NULL, 'AND'),
-  (1063, 64, NULL, 'AND'),
-  (1064, 65, NULL, 'AND'),
-  (1066, 64, 1063, 'OR'),
-  (1067, 65, 1064, 'OR');
+-- INSERT INTO
+--   `requisite_group`
+-- VALUES
+--   (8, 6, 1005, 'OR'),
+--   (10, 8, 1007, 'OR'),
+--   (12, 10, 1009, 'OR'),
+--   (20, 17, 1016, 'OR'),
+--   (38, 34, 1033, 'OR'),
+--   (39, 37, 1036, 'OR'),
+--   (40, 40, 1039, 'OR'),
+--   (59, 33, 1032, 'OR'),
+--   (60, 32, 1031, 'OR'),
+--   (65, 27, 1026, 'OR'),
+--   (66, 27, 1026, 'OR'),
+--   (67, 2, 1001, 'OR'),
+--   (73, 48, 1047, 'OR'),
+--   (78, 18, 1017, 'OR'),
+--   (79, 18, 1017, 'OR'),
+--   (80, 24, 1023, 'OR'),
+--   (82, 44, 1043, 'OR'),
+--   (83, 5, 1004, 'OR'),
+--   (84, 29, 1028, 'OR'),
+--   (85, 29, 1028, 'OR'),
+--   (88, 12, 1011, 'OR'),
+--   (90, 31, 1030, 'OR'),
+--   (91, 14, 1013, 'OR'),
+--   (92, 21, 1020, 'OR'),
+--   (93, 11, 1010, 'OR'),
+--   (94, 11, 1010, 'OR'),
+--   (95, 28, 1027, 'OR'),
+--   (96, 23, 1022, 'OR'),
+--   (98, 30, 1029, 'OR'),
+--   (99, 39, 1038, 'OR'),
+--   (100, 22, 1021, 'OR'),
+--   (102, 7, 1006, 'OR'),
+--   (103, 35, 1034, 'OR'),
+--   (104, 25, 1024, 'OR'),
+--   (105, 49, 1048, 'OR'),
+--   (106, 50, 1049, 'OR'),
+--   (114, 3, 1002, 'OR'),
+--   (116, 9, 1008, 'OR'),
+--   (117, 1, 1000, 'OR'),
+--   (118, 1, 1000, 'OR'),
+--   (119, 42, 1041, 'OR'),
+--   (120, 42, 1041, 'OR'),
+--   (121, 41, 1040, 'OR'),
+--   (122, 43, 1042, 'OR'),
+--   (123, 13, 1012, 'OR'),
+--   (124, 45, 1044, 'OR'),
+--   (125, 46, 1045, 'OR'),
+--   (126, 38, 1037, 'OR'),
+--   (127, 36, 1035, 'OR'),
+--   (128, 51, 1050, 'OR'),
+--   (129, 51, 1050, 'OR'),
+--   (130, 4, 1003, 'OR'),
+--   (131, 15, 1014, 'OR'),
+--   (132, 15, 1014, 'OR'),
+--   (133, 19, 1018, 'OR'),
+--   (134, 20, 1019, 'OR'),
+--   (135, 20, 1019, 'OR'),
+--   (136, 26, 1025, 'OR'),
+--   (137, 47, 1046, 'OR'),
+--   (139, 16, 1015, 'OR'),
+--   (140, 16, 1015, 'OR'),
+--   (1000, 1, NULL, 'AND'),
+--   (1001, 2, NULL, 'AND'),
+--   (1002, 3, NULL, 'AND'),
+--   (1003, 4, NULL, 'AND'),
+--   (1004, 5, NULL, 'AND'),
+--   (1005, 6, NULL, 'AND'),
+--   (1006, 7, NULL, 'AND'),
+--   (1007, 8, NULL, 'AND'),
+--   (1008, 9, NULL, 'AND'),
+--   (1009, 10, NULL, 'AND'),
+--   (1010, 11, NULL, 'AND'),
+--   (1011, 12, NULL, 'AND'),
+--   (1012, 13, NULL, 'AND'),
+--   (1013, 14, NULL, 'AND'),
+--   (1014, 15, NULL, 'AND'),
+--   (1015, 16, NULL, 'AND'),
+--   (1016, 17, NULL, 'AND'),
+--   (1017, 18, NULL, 'AND'),
+--   (1018, 19, NULL, 'AND'),
+--   (1019, 20, NULL, 'AND'),
+--   (1020, 21, NULL, 'AND'),
+--   (1021, 22, NULL, 'AND'),
+--   (1022, 23, NULL, 'AND'),
+--   (1023, 24, NULL, 'AND'),
+--   (1024, 25, NULL, 'AND'),
+--   (1025, 26, NULL, 'AND'),
+--   (1026, 27, NULL, 'AND'),
+--   (1027, 28, NULL, 'AND'),
+--   (1028, 29, NULL, 'AND'),
+--   (1029, 30, NULL, 'AND'),
+--   (1030, 31, NULL, 'AND'),
+--   (1031, 32, NULL, 'AND'),
+--   (1032, 33, NULL, 'AND'),
+--   (1033, 34, NULL, 'AND'),
+--   (1034, 35, NULL, 'AND'),
+--   (1035, 36, NULL, 'AND'),
+--   (1036, 37, NULL, 'AND'),
+--   (1037, 38, NULL, 'AND'),
+--   (1038, 39, NULL, 'AND'),
+--   (1039, 40, NULL, 'AND'),
+--   (1040, 41, NULL, 'AND'),
+--   (1041, 42, NULL, 'AND'),
+--   (1042, 43, NULL, 'AND'),
+--   (1043, 44, NULL, 'AND'),
+--   (1044, 45, NULL, 'AND'),
+--   (1045, 46, NULL, 'AND'),
+--   (1046, 47, NULL, 'AND'),
+--   (1047, 48, NULL, 'AND'),
+--   (1048, 49, NULL, 'AND'),
+--   (1049, 50, NULL, 'AND'),
+--   (1050, 51, NULL, 'AND'),
+--   (1063, 64, NULL, 'AND'),
+--   (1064, 65, NULL, 'AND'),
+--   (1066, 64, 1063, 'OR'),
+--   (1067, 65, 1064, 'OR');
 
 /*!40000 ALTER TABLE `requisite_group` ENABLE KEYS */;
 
@@ -14845,62 +14845,62 @@ LOCK TABLES `requisite_rule` WRITE;
 
 /*!40000 ALTER TABLE `requisite_rule` DISABLE KEYS */;
 
-INSERT INTO
-  `requisite_rule`
-VALUES
-  (1, '004108', 1),
-  (2, '004111', 1),
-  (3, '004123', 1),
-  (4, '004175', 1),
-  (5, '004178', 1),
-  (6, '004186', 1),
-  (7, '004199', 1),
-  (8, '004218', 1),
-  (9, '004302', 1),
-  (10, '004309', 1),
-  (11, '014049', 1),
-  (12, '014052', 1),
-  (13, '035217', 1),
-  (14, '035218', 1),
-  (15, '036671', 1),
-  (16, '037889', 1),
-  (17, '038407', 1),
-  (18, '039985', 1),
-  (19, '044233', 1),
-  (20, '044272', 1),
-  (21, '044450', 1),
-  (22, '044481', 1),
-  (23, '045680', 1),
-  (24, '045940', 1),
-  (25, '048558', 1),
-  (26, '049803', 1),
-  (27, '051831', 1),
-  (28, '051832', 1),
-  (29, '053170', 1),
-  (30, '053171', 1),
-  (31, '053172', 1),
-  (32, '054076', 1),
-  (33, '054080', 1),
-  (34, '054114', 1),
-  (35, '054117', 1),
-  (36, '054118', 1),
-  (37, '054140', 1),
-  (38, '054141', 1),
-  (39, '054142', 1),
-  (40, '054478', 1),
-  (41, '054479', 1),
-  (42, '054989', 1),
-  (43, '054991', 1),
-  (44, '054992', 1),
-  (45, '054993', 1),
-  (46, '054995', 1),
-  (47, '054996', 1),
-  (48, '054997', 1),
-  (49, '056544', 1),
-  (50, '056545', 1),
-  (51, '056546', 1),
-  (64, '054081', 1),
-  (65, '054082', 1);
+-- INSERT INTO
+--   `requisite_rule`
+-- VALUES
+--   (1, '004108', 1),
+--   (2, '004111', 1),
+--   (3, '004123', 1),
+--   (4, '004175', 1),
+--   (5, '004178', 1),
+--   (6, '004186', 1),
+--   (7, '004199', 1),
+--   (8, '004218', 1),
+--   (9, '004302', 1),
+--   (10, '004309', 1),
+--   (11, '014049', 1),
+--   (12, '014052', 1),
+--   (13, '035217', 1),
+--   (14, '035218', 1),
+--   (15, '036671', 1),
+--   (16, '037889', 1),
+--   (17, '038407', 1),
+--   (18, '039985', 1),
+--   (19, '044233', 1),
+--   (20, '044272', 1),
+--   (21, '044450', 1),
+--   (22, '044481', 1),
+--   (23, '045680', 1),
+--   (24, '045940', 1),
+--   (25, '048558', 1),
+--   (26, '049803', 1),
+--   (27, '051831', 1),
+--   (28, '051832', 1),
+--   (29, '053170', 1),
+--   (30, '053171', 1),
+--   (31, '053172', 1),
+--   (32, '054076', 1),
+--   (33, '054080', 1),
+--   (34, '054114', 1),
+--   (35, '054117', 1),
+--   (36, '054118', 1),
+--   (37, '054140', 1),
+--   (38, '054141', 1),
+--   (39, '054142', 1),
+--   (40, '054478', 1),
+--   (41, '054479', 1),
+--   (42, '054989', 1),
+--   (43, '054991', 1),
+--   (44, '054992', 1),
+--   (45, '054993', 1),
+--   (46, '054995', 1),
+--   (47, '054996', 1),
+--   (48, '054997', 1),
+--   (49, '056544', 1),
+--   (50, '056545', 1),
+--   (51, '056546', 1),
+--   (64, '054081', 1),
+--   (65, '054082', 1);
 
 /*!40000 ALTER TABLE `requisite_rule` ENABLE KEYS */;
 
@@ -14934,30 +14934,30 @@ LOCK TABLES `sub_type` WRITE;
 
 /*!40000 ALTER TABLE `sub_type` DISABLE KEYS */;
 
-INSERT INTO
-  `sub_type`
-VALUES
-  (1, 'Core', 1),
-  (2, 'Advanced Computer Science', 2),
-  (3, 'Cyber Security', 2),
-  (4, 'Enterprise Systems Development', 2),
-  (
-    5,
-    'Artificial Intelligence & Machine Learning',
-    3
-  ),
-  (6, 'Blockchain Technologies', 3),
-  (7, 'Cloud Computing', 3),
-  (8, 'Creative Computing', 3),
-  (9, 'Cyber Assurance', 3),
-  (10, 'Data Science', 3),
-  (11, 'Design & Develop for Apple Platform', 3),
-  (12, 'Enterprise Systems Development', 3),
-  (13, 'Bioinformatics', 4),
-  (14, 'Data Analysis', 4),
-  (15, 'Digital Innovation', 4),
-  (16, 'University Elective', 5),
-  (17, 'Program Course', 6);
+-- INSERT INTO
+--   `sub_type`
+-- VALUES
+--   (1, 'Core', 1),
+--   (2, 'Advanced Computer Science', 2),
+--   (3, 'Cyber Security', 2),
+--   (4, 'Enterprise Systems Development', 2),
+--   (
+--     5,
+--     'Artificial Intelligence & Machine Learning',
+--     3
+--   ),
+--   (6, 'Blockchain Technologies', 3),
+--   (7, 'Cloud Computing', 3),
+--   (8, 'Creative Computing', 3),
+--   (9, 'Cyber Assurance', 3),
+--   (10, 'Data Science', 3),
+--   (11, 'Design & Develop for Apple Platform', 3),
+--   (12, 'Enterprise Systems Development', 3),
+--   (13, 'Bioinformatics', 4),
+--   (14, 'Data Analysis', 4),
+--   (15, 'Digital Innovation', 4),
+--   (16, 'University Elective', 5),
+--   (17, 'Program Course', 6);
 
 /*!40000 ALTER TABLE `sub_type` ENABLE KEYS */;
 
@@ -14989,15 +14989,15 @@ LOCK TABLES `type` WRITE;
 
 /*!40000 ALTER TABLE `type` DISABLE KEYS */;
 
-INSERT INTO
-  `type`
-VALUES
-  (1, 'Core'),
-  (4, 'Cross-disciplinary Minor'),
-  (2, 'CS Major'),
-  (3, 'CS Minor'),
-  (6, 'Program Course'),
-  (5, 'University Elective');
+-- INSERT INTO
+--   `type`
+-- VALUES
+--   (1, 'Core'),
+--   (4, 'Cross-disciplinary Minor'),
+--   (2, 'CS Major'),
+--   (3, 'CS Minor'),
+--   (6, 'Program Course'),
+--   (5, 'University Elective');
 
 /*!40000 ALTER TABLE `type` ENABLE KEYS */;
 

@@ -1,0 +1,42 @@
+[
+  {
+    "combo_group_id": 1,
+    "course_type_id": 2
+  },
+  {
+    "combo_group_id": 3,
+    "course_type_id": 2
+  },
+  {
+    "combo_group_id": 5,
+    "course_type_id": 2
+  },
+  {
+    "combo_group_id": 2,
+    "course_type_id": 3
+  },
+  {
+    "combo_group_id": 3,
+    "course_type_id": 3
+  },
+  {
+    "combo_group_id": 4,
+    "course_type_id": 3
+  },
+  {
+    "combo_group_id": 5,
+    "course_type_id": 3
+  },
+  {
+    "combo_group_id": 4,
+    "course_type_id": 4
+  },
+  {
+    "combo_group_id": 5,
+    "course_type_id": 5
+  },
+  {
+    "combo_group_id": 6,
+    "course_type_id": 5
+  }
+]
