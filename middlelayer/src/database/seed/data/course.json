@@ -1,0 +1,772 @@
+[
+  {
+    "course_id": "004108",
+    "course_code": "COSC1107",
+    "course_title": "Computing Theory",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004108",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004110",
+    "course_code": "COSC1111",
+    "course_title": "Data Communication and Net-Centric Computing",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004110",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004111",
+    "course_code": "COSC1114",
+    "course_title": "Operating Systems Principles",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004111",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004123",
+    "course_code": "COSC1127",
+    "course_title": "Artificial Intelligence",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004123",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004175",
+    "course_code": "ISYS1079",
+    "course_title": "Managing Semi-structured and Unstructured Data",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004175",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004178",
+    "course_code": "INTE1071",
+    "course_title": "Secure Electronic Commerce",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004178",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004186",
+    "course_code": "ISYS1087",
+    "course_title": "Software Testing",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004186",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004199",
+    "course_code": "COSC1183",
+    "course_title": "Usability Engineering",
+    "course_credit": 12,
+    "web_url": "http://www1.rmit.edu.au/courses/004199",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004218",
+    "course_code": "ISYS1102",
+    "course_title": "Database Applications",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004218",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004302",
+    "course_code": "COSC2123",
+    "course_title": "Algorithms and Analysis",
+    "course_credit": 12,
+    "web_url": "http://www1.rmit.edu.au/courses/004302",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "004309",
+    "course_code": "ISYS1118",
+    "course_title": "Software Engineering Fundamentals",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/004309",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "014049",
+    "course_code": "COSC2299",
+    "course_title": "Software Engineering: Process and Tools",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/014049",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "014052",
+    "course_code": "COSC2391",
+    "course_title": "Further Programming",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/014052",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "014749",
+    "course_code": "BIOL2146",
+    "course_title": "Cell Biology and Biochemistry",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/014749",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "015442",
+    "course_code": "MATH2055",
+    "course_title": "Optimisation for Decision Making",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/015442",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "035217",
+    "course_code": "COSC2274",
+    "course_title": "Software Requirements Engineering",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/035217",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "035218",
+    "course_code": "COSC2276",
+    "course_title": "Web Development Technologies",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/035218",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "036671",
+    "course_code": "COSC2301",
+    "course_title": "Computer and Internet Forensics",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/036671",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "037016",
+    "course_code": "COSC2349",
+    "course_title": "Games Studio 2",
+    "course_credit": 12,
+    "web_url": "http://www1.rmit.edu.au/courses/037016",
+    "prerequisite": 0,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "037889",
+    "course_code": "MATH2142",
+    "course_title": "Multivariate Analysis",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/037889",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "038096",
+    "course_code": "BIOL2262",
+    "course_title": "Genetics and Molecular Biology",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/038096",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "038407",
+    "course_code": "INTE2402",
+    "course_title": "Cloud Security",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/038407",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "039985",
+    "course_code": "COSC2408",
+    "course_title": "Programming Project 1",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/039985",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": 192
+  },
+  {
+    "course_id": "044231",
+    "course_code": "MATH2201",
+    "course_title": "Statistical Methodologies",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/044231",
+    "prerequisite": 0,
+    "year": 1,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "044233",
+    "course_code": "MATH2203",
+    "course_title": "Linear Models and Experimental Design",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/044233",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "044272",
+    "course_code": "MATH2204",
+    "course_title": "Time Series and Forecasting",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/044272",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "044450",
+    "course_code": "COSC2471",
+    "course_title": "iPhone Software Engineering",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/044450",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "044481",
+    "course_code": "COSC2476",
+    "course_title": "Mixed Reality",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/044481",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "045680",
+    "course_code": "COSC2527",
+    "course_title": "Games and Artificial Intelligence Techniques",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/045680",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "045940",
+    "course_code": "COSC2536",
+    "course_title": "Security in Computing and Information Technology",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/045940",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "048558",
+    "course_code": "MATH2237",
+    "course_title": "Data Visualisation with R",
+    "course_credit": 12,
+    "web_url": "http://www1.rmit.edu.au/courses/048558",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "049803",
+    "course_code": "COSC2626",
+    "course_title": "Cloud Computing",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/049803",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "050775",
+    "course_code": "MATH2305",
+    "course_title": "Applied Bayesian Statistics",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/050775",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "051831",
+    "course_code": "COSC2673",
+    "course_title": "Machine Learning",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/051831",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "051832",
+    "course_code": "COSC2674",
+    "course_title": "Programming Internet of Things",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/051832",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "052739",
+    "course_code": "COSC2738",
+    "course_title": "Practical Data Science",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/052739",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "053170",
+    "course_code": "INTE2547",
+    "course_title": "Security Testing",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/053170",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "053171",
+    "course_code": "COSC2757",
+    "course_title": "Cloud Foundations",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/053171",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "053172",
+    "course_code": "COSC2758",
+    "course_title": "Full Stack Development",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/053172",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "053404",
+    "course_code": "INTE2554",
+    "course_title": "Digital Economy and Blockchain Applications",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/053404",
+    "prerequisite": 0,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "053407",
+    "course_code": "ECON1349",
+    "course_title": "Frontiers of the Digital Economy",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/053407",
+    "prerequisite": 0,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054076",
+    "course_code": "MATH2411",
+    "course_title": "Mathematics for Computing 1",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054076",
+    "prerequisite": 1,
+    "year": 1,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054077",
+    "course_code": "MATH2412",
+    "course_title": "Practical Statistics",
+    "course_credit": 12,
+    "web_url": "http://www1.rmit.edu.au/courses/054077",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054079",
+    "course_code": "COSC2801",
+    "course_title": "Java Programming Bootcamp",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054079",
+    "prerequisite": 0,
+    "year": 1,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054080",
+    "course_code": "COSC2802",
+    "course_title": "C++ Programming Bootcamp",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054080",
+    "prerequisite": 1,
+    "year": 1,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054081",
+    "course_code": "COSC2803",
+    "course_title": "Java Programming Studio",
+    "course_credit": 24,
+    "web_url": "https://www1.rmit.edu.au/courses/054081",
+    "prerequisite": 0,
+    "year": 1,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054082",
+    "course_code": "COSC2804",
+    "course_title": "C++ Programming Studio",
+    "course_credit": 24,
+    "web_url": "https://www1.rmit.edu.au/courses/054082",
+    "prerequisite": 0,
+    "year": 1,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054114",
+    "course_code": "COSC2814",
+    "course_title": "Programming Autonomous Robots",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054114",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054117",
+    "course_code": "COSC2815",
+    "course_title": "Advanced Programming for Data Science",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054117",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054118",
+    "course_code": "COSC2816",
+    "course_title": "Case Studies in Data Science",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054118",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054120",
+    "course_code": "COSC2818",
+    "course_title": "The Data Science Professional",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054120",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054140",
+    "course_code": "COSC2821",
+    "course_title": "Cloud Developing",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054140",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054141",
+    "course_code": "COSC2824",
+    "course_title": "Cloud Operations",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054141",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054142",
+    "course_code": "COSC2829",
+    "course_title": "Cloud Architecting",
+    "course_credit": 12,
+    "web_url": "http://www1.rmit.edu.au/courses/054142",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054229",
+    "course_code": "COSC2960",
+    "course_title": "Foundations of Artificial Intelligence for STEM",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054229",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054230",
+    "course_code": "BIOL2512",
+    "course_title": "Systems Biology",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054230",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054381",
+    "course_code": "INTE2584",
+    "course_title": "Introduction to Cybersecurity Governance",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054381",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054478",
+    "course_code": "COSC2972",
+    "course_title": "Deep Learning",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054478",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054479",
+    "course_code": "COSC2973",
+    "course_title": "Intelligent Decision Making",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054479",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054910",
+    "course_code": "OENG1235",
+    "course_title": "Innovation Ecosystem and the Future of Work",
+    "course_credit": 12,
+    "web_url": null,
+    "prerequisite": 0,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054986",
+    "course_code": "INTE2625",
+    "course_title": "Introduction to Cyber Security",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054986",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054989",
+    "course_code": "COSC3045",
+    "course_title": "Essentials of Computing",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054989",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054991",
+    "course_code": "ISYS3459",
+    "course_title": "Systems Architecture and Design",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054991",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054992",
+    "course_code": "INTE2626",
+    "course_title": "Cyber Security Attack Analysis and Incidence Response",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054992",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054993",
+    "course_code": "INTE2627",
+    "course_title": "Blockchain Technology Fundamentals",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054993",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054995",
+    "course_code": "INTE2628",
+    "course_title": "Developing Blockchain Applications",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054995",
+    "prerequisite": 1,
+    "year": 3,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054996",
+    "course_code": "INTE2629",
+    "course_title": "Blockchain Innovations and Case Studies",
+    "course_credit": 12,
+    "web_url": "http://www1.rmit.edu.au/courses/054996",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "054997",
+    "course_code": "COSC3047",
+    "course_title": "Social Media and Networks Analytics",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/054997",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "055001",
+    "course_code": "BIOL2526",
+    "course_title": "Computational Biology",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/055001",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "055925",
+    "course_code": "MATH2466",
+    "course_title": "Introduction to Mathematics for Computing",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/055925",
+    "prerequisite": 0,
+    "year": 1,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "056543",
+    "course_code": "COSC3099",
+    "course_title": "UI and UX for Apple Platform",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/056543",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "056544",
+    "course_code": "COSC3100",
+    "course_title": "Getting Started with iOS App Development",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/056544",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "056545",
+    "course_code": "COSC3101",
+    "course_title": "Human-Centred Development with Apple Platform Technologies",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/056545",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "056546",
+    "course_code": "COSC3102",
+    "course_title": "Apple Platform Project",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/056546",
+    "prerequisite": 1,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "056547",
+    "course_code": "INTE2686",
+    "course_title": "Mixed Reality Technologies",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/056547",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "056548",
+    "course_code": "COSC1119",
+    "course_title": "Digital Fluency",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/056548",
+    "prerequisite": 0,
+    "year": 2,
+    "credit_threshold": null
+  },
+  {
+    "course_id": "056549",
+    "course_code": "COSC2222",
+    "course_title": "Digital Innovation Project",
+    "course_credit": 12,
+    "web_url": "https://www1.rmit.edu.au/courses/056549",
+    "prerequisite": 0,
+    "year": 3,
+    "credit_threshold": null
+  }
+]

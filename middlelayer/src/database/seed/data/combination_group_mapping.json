@@ -1,0 +1,37 @@
+[
+  {
+    "combination_id": 1,
+    "combo_group_id": 1,
+    "total_credit": 96
+  },
+  {
+    "combination_id": 2,
+    "combo_group_id": 2,
+    "total_credit": 48
+  },
+  {
+    "combination_id": 2,
+    "combo_group_id": 4,
+    "total_credit": 48
+  },
+  {
+    "combination_id": 3,
+    "combo_group_id": 2,
+    "total_credit": 48
+  },
+  {
+    "combination_id": 3,
+    "combo_group_id": 5,
+    "total_credit": 48
+  },
+  {
+    "combination_id": 4,
+    "combo_group_id": 3,
+    "total_credit": 48
+  },
+  {
+    "combination_id": 4,
+    "combo_group_id": 6,
+    "total_credit": 48
+  }
+]

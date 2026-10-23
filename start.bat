@@ -7,7 +7,6 @@ pushd "%~dp0sql"
 bin\mysqld.exe --initialize-insecure --datadir=".\data" --console
 popd
 
-
 del "%~dp0middlelayer_failed.flag" >nul 2>&1
 del "%~dp0frontend_failed.flag" >nul 2>&1
 

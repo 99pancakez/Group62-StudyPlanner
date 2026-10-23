@@ -1,0 +1,92 @@
+[
+  {
+    "history_id": 1,
+    "course_id": null,
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2025-06-24T18:48:37.000Z",
+    "field_name": "Course Type",
+    "old_value": "",
+    "new_value": "Core"
+  },
+  {
+    "history_id": 1306,
+    "course_id": "004108",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:22:10.000Z",
+    "field_name": "summer_term",
+    "old_value": "Not Available",
+    "new_value": "Available"
+  },
+  {
+    "history_id": 1307,
+    "course_id": "004110",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:22:11.000Z",
+    "field_name": "summer_term",
+    "old_value": "Not Available",
+    "new_value": "Available"
+  },
+  {
+    "history_id": 1308,
+    "course_id": "004111",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:22:11.000Z",
+    "field_name": "summer_term",
+    "old_value": "Not Available",
+    "new_value": "Available"
+  },
+  {
+    "history_id": 1309,
+    "course_id": "004123",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:22:12.000Z",
+    "field_name": "summer_term",
+    "old_value": "Not Available",
+    "new_value": "Available"
+  },
+  {
+    "history_id": 1310,
+    "course_id": "004175",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:22:13.000Z",
+    "field_name": "summer_term",
+    "old_value": "Not Available",
+    "new_value": "Available"
+  },
+  {
+    "history_id": 1311,
+    "course_id": "004110",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:25:05.000Z",
+    "field_name": "summer_term",
+    "old_value": "Available",
+    "new_value": "Not Available"
+  },
+  {
+    "history_id": 1312,
+    "course_id": "004111",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:25:06.000Z",
+    "field_name": "summer_term",
+    "old_value": "Available",
+    "new_value": "Not Available"
+  },
+  {
+    "history_id": 1313,
+    "course_id": "004123",
+    "program_code": null,
+    "admin_id": 1,
+    "time_stamp": "2026-10-16T10:25:09.000Z",
+    "field_name": "summer_term",
+    "old_value": "Available",
+    "new_value": "Not Available"
+  }
+]

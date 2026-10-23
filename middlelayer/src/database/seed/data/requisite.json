@@ -1,0 +1,464 @@
+[
+  {
+    "group_id": 8,
+    "course_id": "004309",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 10,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 12,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 20,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 38,
+    "course_id": "004123",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 39,
+    "course_id": "053171",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 40,
+    "course_id": "051831",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 59,
+    "course_id": "054079",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 60,
+    "course_id": "055925",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 65,
+    "course_id": "054076",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 66,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 67,
+    "course_id": "054082",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 73,
+    "course_id": "052739",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 73,
+    "course_id": "054080",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 78,
+    "course_id": "014049",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 78,
+    "course_id": "054082",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 79,
+    "course_id": "004309",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 80,
+    "course_id": "054986",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 82,
+    "course_id": "054986",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 83,
+    "course_id": "045940",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 83,
+    "course_id": "054986",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 84,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 85,
+    "course_id": "045940",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 85,
+    "course_id": "054986",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 88,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 90,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 91,
+    "course_id": "014052",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 91,
+    "course_id": "054082",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 92,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 93,
+    "course_id": "004309",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 94,
+    "course_id": "014052",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 94,
+    "course_id": "054080",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 95,
+    "course_id": "014052",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 95,
+    "course_id": "054082",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 96,
+    "course_id": "004302",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 96,
+    "course_id": "014052",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 96,
+    "course_id": "054080",
+    "relation": "prerequisite",
+    "sort_order": 3
+  },
+  {
+    "group_id": 96,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 4
+  },
+  {
+    "group_id": 98,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 99,
+    "course_id": "053171",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 100,
+    "course_id": "004302",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 100,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 102,
+    "course_id": "004309",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 103,
+    "course_id": "054079",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 104,
+    "course_id": "054077",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 105,
+    "course_id": "056543",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 106,
+    "course_id": "056543",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 114,
+    "course_id": "004302",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 116,
+    "course_id": "014052",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 116,
+    "course_id": "054080",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 117,
+    "course_id": "004302",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 118,
+    "course_id": "054076",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 119,
+    "course_id": "004302",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 120,
+    "course_id": "054076",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 121,
+    "course_id": "004302",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 122,
+    "course_id": "004309",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 123,
+    "course_id": "004309",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 124,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 125,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 126,
+    "course_id": "053171",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 127,
+    "course_id": "052739",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 128,
+    "course_id": "056543",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 129,
+    "course_id": "056544",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 130,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 131,
+    "course_id": "054986",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 132,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 133,
+    "course_id": "044231",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 134,
+    "course_id": "044231",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 135,
+    "course_id": "044233",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 136,
+    "course_id": "014052",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 136,
+    "course_id": "054081",
+    "relation": "prerequisite",
+    "sort_order": 2
+  },
+  {
+    "group_id": 136,
+    "course_id": "054082",
+    "relation": "prerequisite",
+    "sort_order": 3
+  },
+  {
+    "group_id": 137,
+    "course_id": "054079",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 139,
+    "course_id": "044231",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 140,
+    "course_id": "044233",
+    "relation": "prerequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 1066,
+    "course_id": "054079",
+    "relation": "corequisite",
+    "sort_order": 1
+  },
+  {
+    "group_id": 1067,
+    "course_id": "054080",
+    "relation": "corequisite",
+    "sort_order": 1
+  }
+]

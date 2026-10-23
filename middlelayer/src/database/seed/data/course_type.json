@@ -1,0 +1,426 @@
+[
+  {
+    "course_id": "004302",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "004309",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "039985",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054076",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054079",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054080",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054081",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054082",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054229",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054910",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054986",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "054989",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "055925",
+    "sub_type_id": 1
+  },
+  {
+    "course_id": "004108",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "004111",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "004123",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "004175",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "049803",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "051831",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "054478",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "054479",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "054997",
+    "sub_type_id": 2
+  },
+  {
+    "course_id": "004110",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "004178",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "036671",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "038407",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "045940",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "053170",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "054381",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "054992",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "054993",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "054995",
+    "sub_type_id": 3
+  },
+  {
+    "course_id": "004186",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "004199",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "004218",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "014049",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "014052",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "035217",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "035218",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "044450",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "051832",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "053172",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "054991",
+    "sub_type_id": 4
+  },
+  {
+    "course_id": "004123",
+    "sub_type_id": 5
+  },
+  {
+    "course_id": "004175",
+    "sub_type_id": 5
+  },
+  {
+    "course_id": "045680",
+    "sub_type_id": 5
+  },
+  {
+    "course_id": "051831",
+    "sub_type_id": 5
+  },
+  {
+    "course_id": "054114",
+    "sub_type_id": 5
+  },
+  {
+    "course_id": "054478",
+    "sub_type_id": 5
+  },
+  {
+    "course_id": "054997",
+    "sub_type_id": 5
+  },
+  {
+    "course_id": "053404",
+    "sub_type_id": 6
+  },
+  {
+    "course_id": "053407",
+    "sub_type_id": 6
+  },
+  {
+    "course_id": "054993",
+    "sub_type_id": 6
+  },
+  {
+    "course_id": "054995",
+    "sub_type_id": 6
+  },
+  {
+    "course_id": "054996",
+    "sub_type_id": 6
+  },
+  {
+    "course_id": "038407",
+    "sub_type_id": 7
+  },
+  {
+    "course_id": "049803",
+    "sub_type_id": 7
+  },
+  {
+    "course_id": "053171",
+    "sub_type_id": 7
+  },
+  {
+    "course_id": "054140",
+    "sub_type_id": 7
+  },
+  {
+    "course_id": "054141",
+    "sub_type_id": 7
+  },
+  {
+    "course_id": "054142",
+    "sub_type_id": 7
+  },
+  {
+    "course_id": "037016",
+    "sub_type_id": 8
+  },
+  {
+    "course_id": "044481",
+    "sub_type_id": 8
+  },
+  {
+    "course_id": "045680",
+    "sub_type_id": 8
+  },
+  {
+    "course_id": "056543",
+    "sub_type_id": 8
+  },
+  {
+    "course_id": "004110",
+    "sub_type_id": 9
+  },
+  {
+    "course_id": "036671",
+    "sub_type_id": 9
+  },
+  {
+    "course_id": "038407",
+    "sub_type_id": 9
+  },
+  {
+    "course_id": "045940",
+    "sub_type_id": 9
+  },
+  {
+    "course_id": "053170",
+    "sub_type_id": 9
+  },
+  {
+    "course_id": "054992",
+    "sub_type_id": 9
+  },
+  {
+    "course_id": "048558",
+    "sub_type_id": 10
+  },
+  {
+    "course_id": "052739",
+    "sub_type_id": 10
+  },
+  {
+    "course_id": "054077",
+    "sub_type_id": 10
+  },
+  {
+    "course_id": "054117",
+    "sub_type_id": 10
+  },
+  {
+    "course_id": "054118",
+    "sub_type_id": 10
+  },
+  {
+    "course_id": "054120",
+    "sub_type_id": 10
+  },
+  {
+    "course_id": "056543",
+    "sub_type_id": 11
+  },
+  {
+    "course_id": "056544",
+    "sub_type_id": 11
+  },
+  {
+    "course_id": "056545",
+    "sub_type_id": 11
+  },
+  {
+    "course_id": "056546",
+    "sub_type_id": 11
+  },
+  {
+    "course_id": "004186",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "004218",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "014049",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "014052",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "035218",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "044450",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "051832",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "053172",
+    "sub_type_id": 12
+  },
+  {
+    "course_id": "014749",
+    "sub_type_id": 13
+  },
+  {
+    "course_id": "038096",
+    "sub_type_id": 13
+  },
+  {
+    "course_id": "054230",
+    "sub_type_id": 13
+  },
+  {
+    "course_id": "055001",
+    "sub_type_id": 13
+  },
+  {
+    "course_id": "015442",
+    "sub_type_id": 14
+  },
+  {
+    "course_id": "037889",
+    "sub_type_id": 14
+  },
+  {
+    "course_id": "044233",
+    "sub_type_id": 14
+  },
+  {
+    "course_id": "044272",
+    "sub_type_id": 14
+  },
+  {
+    "course_id": "050775",
+    "sub_type_id": 14
+  },
+  {
+    "course_id": "054229",
+    "sub_type_id": 15
+  },
+  {
+    "course_id": "056547",
+    "sub_type_id": 15
+  },
+  {
+    "course_id": "056548",
+    "sub_type_id": 15
+  },
+  {
+    "course_id": "056549",
+    "sub_type_id": 15
+  },
+  {
+    "course_id": "044231",
+    "sub_type_id": 16
+  },
+  {
+    "course_id": "004123",
+    "sub_type_id": 17
+  },
+  {
+    "course_id": "014049",
+    "sub_type_id": 17
+  },
+  {
+    "course_id": "051831",
+    "sub_type_id": 17
+  }
+]
