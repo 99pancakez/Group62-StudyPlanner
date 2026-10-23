@@ -19,10 +19,6 @@ if errorlevel 1 (
     goto waitloop1
 )
 
-echo Starting mysql local sever...
-del "%~dp0middlelayer_failed.flag" >nul 2>&1
-del "%~dp0frontend_failed.flag" >nul 2>&1
-
 echo Starting backend...
 start "Backend" "%~dp0startmiddlelayer.bat"
 

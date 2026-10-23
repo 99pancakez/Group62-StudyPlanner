@@ -18,8 +18,7 @@ if not exist "node_modules" (
     )
 )
 
-set "PORT=3001"
-call npm start
+call npm run dev
 if errorlevel 1 (
     echo npm start failed, aborting.
     echo node failed > "%~dp0frontend_failed.flag"
