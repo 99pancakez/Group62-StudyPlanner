@@ -1,5 +1,5 @@
 ![Build Status](https://github.com/99pancakez/Group62-StudyPlanner/actions/workflows/build.yml/badge.svg)
-![Test Status](https://github.com/99pancakez/Group62-StudyPlanner/actions/workflows/test.yml/badge.svg)
+![Test Status](https://github.com/99pancakez/Group62-StudyPlanner/actions/workflows/tests.yml/badge.svg)
 
 # StudyPlanner v2
 
