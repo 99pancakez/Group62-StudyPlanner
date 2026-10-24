@@ -382,6 +382,7 @@ function SemesterComponent({
           ...currentCourses,
           {
             id: course.id,
+            code: course.code,
             name: course.name,
             credit: course.credit,
             sub_type_ids: course.sub_type_ids,
