@@ -562,6 +562,7 @@ function StudyPlan() {
 
       doc.text(`${semesterKey}`, 14, yOffset);
       yOffset += 4;
+          course.code || course.id,
 
       autoTable(doc, {
         startY: yOffset,
