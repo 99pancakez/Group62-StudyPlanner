@@ -730,6 +730,35 @@ function SemesterComponent({
           onCancel={() => setPendingSelection(null)}
         />
       )}
+      {pendingRemoval && (
+        <ConfirmDialog
+          open
+          title="Corequisite warning"
+          body={
+            <div>
+              <p>
+                Removing <strong>{pendingRemoval.courseName}</strong> will break
+                the corequisite requirement for:
+              </p>
+              <ul>
+                {pendingRemoval.affected.map((c) => (
+                  <li key={c.id}>
+                    {c.code} — {c.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          }
+          cancelLabel="Go Back"
+          confirmLabel="Continue Anyway"
+          tone="primary"
+          onConfirm={() => {
+            doRemoveCourse(pendingRemoval.courseId);
+            setPendingRemoval(null);
+          }}
+          onCancel={() => setPendingRemoval(null)}
+        />
+      )}
     </div>
   );
 }
