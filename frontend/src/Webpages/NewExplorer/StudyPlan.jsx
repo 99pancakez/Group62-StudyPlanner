@@ -546,43 +546,43 @@ function StudyPlan() {
     doc.setFontSize(10);
     doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 16);
 
-    Object.keys(selections).forEach((semesterKey) => {
-      const courses = selections[semesterKey];
-      const rows = courses.map((course) => [
-        course.id,
-        course.name,
-        course.credit,
-      ]);
-
-      const semesterTotal = courses.reduce(
-        (sum, course) => sum + (course.credit || 0),
-        0,
-      );
-      overallTotal += semesterTotal;
-
-      doc.text(`${semesterKey}`, 14, yOffset);
-      yOffset += 4;
+    Object.keys(selections)
+      .sort(
+        (a, b) => parseInt(a.split(" ")[1], 10) - parseInt(b.split(" ")[1], 10),
+      )
+      .forEach((semesterKey) => {
+        const courses = selections[semesterKey];
+        const rows = courses.map((course) => [
           course.code || course.id,
+          course.name,
+          course.credit,
+        ]);
 
-      autoTable(doc, {
-        startY: yOffset,
-        head: [["Course ID", "Course Name", "Credit"]],
-        body: rows,
-        theme: "grid",
-        styles: { fontSize: 10 },
+        const semesterTotal = courses.reduce(
+          (sum, course) => sum + (course.credit || 0),
+          0,
+        );
+        overallTotal += semesterTotal;
+
+        const n = parseInt(semesterKey.split(" ")[1], 10);
+        doc.text(termLabel(n, yearForSemester(n)), 14, yOffset);
+        yOffset += 8;
+
+        autoTable(doc, {
+          startY: yOffset,
+          head: [["Course ID", "Course Name", "Credit"]],
+          body: rows,
+          theme: "grid",
+          styles: { fontSize: 10 },
+        });
+
+        // Use doc.lastAutoTable to get finalY safely
+        if (doc.lastAutoTable && doc.lastAutoTable.finalY) {
+          yOffset = doc.lastAutoTable.finalY + 10;
+        } else {
+          yOffset += 20; // fallback
+        }
       });
-
-      // Use doc.lastAutoTable to get finalY safely
-      if (doc.lastAutoTable && doc.lastAutoTable.finalY) {
-        yOffset = doc.lastAutoTable.finalY + 6;
-      } else {
-        yOffset += 20; // fallback
-      }
-
-      const n = parseInt(semesterKey.split(" ")[1], 10);
-      doc.text(termLabel(n, yearForSemester(n)), 14, yOffset);
-      yOffset += 10;
-    });
 
     doc.text(`Overall Total Credits: ${overallTotal}`, 14, yOffset);
     doc.save("study-plan.pdf");
