@@ -1,5 +1,6 @@
 @echo off
 cd /d "%~dp0"
+title Backend
 
 set "NODE_DIR=%~dp0node"
 set "PATH=%NODE_DIR%;%PATH%"
@@ -26,4 +27,5 @@ if errorlevel 1 (
     exit /b 1
 )
 
+title Backend
 "%NODE_DIR%\node.exe" server.js
