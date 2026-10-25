@@ -21,6 +21,8 @@ The repo must be downloaded to local system, a way is through either: <br>
 - Download latest release (`tar.gz`, for mac file format)
 - Cloning the GitHub repository (no need for firewall interaction)
 
+**If downloading via zip file, while there are default ways to extract, it is heavily reccomended to use an archive tool such as 7zip or winrar to extract** 
+
 ### Step 1.5: _Importing and Exporting the database_
 
 ---
