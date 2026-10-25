@@ -9,7 +9,11 @@ import {
 } from "../../constants";
 import { isPrereqMet } from "../../utils/courseCategoriser";
 import logger from "../../log";
-import { getCoreqIssues, requisiteLabelString } from "../../utils/requisites";
+import {
+  getCoreqIssues,
+  isRequisiteMet,
+  requisiteLabelString,
+} from "../../utils/requisites";
 import CorequisiteWarning from "./CorequisiteWarning";
 import {
   availabilityIdForSemester,
@@ -93,6 +97,7 @@ function SemesterComponent({
   const [coreqMap, setCoreqMap] = useState({});
   const [pendingSelection, setPendingSelection] = useState(null);
   const addCourseButtonRef = useRef(null);
+  const [pendingRemoval, setPendingRemoval] = useState(null);
 
   // Function to categorize courses based on selected courses
   const updateCategorizedCourses = (
@@ -420,7 +425,46 @@ function SemesterComponent({
     addCourse(course, selectedSubTypeId);
   };
 
+  const coursesAffectedByRemoval = (courseIdToRemove) => {
+    const semesterCourses = selectedCourses[`Semester ${semesterNumber}`] ?? [];
+    const allIds = semesterCourses.map((c) => c.id);
+    const remainingIds = allIds.filter((id) => id !== courseIdToRemove);
+
+    return semesterCourses
+      .filter((c) => c.id !== courseIdToRemove)
+      .filter((course) => {
+        const coreqString = coreqMap[course.id];
+        if (!coreqString || coreqString === "null") return false;
+        // Was met with all courses, won't be met without the removed one
+        return (
+          isRequisiteMet(coreqString, allIds) &&
+          !isRequisiteMet(coreqString, remainingIds)
+        );
+      })
+      .map((course) => ({
+        id: course.id,
+        name: course.name,
+        code: codeById[course.id] ?? course.id,
+      }));
+  };
+
   const handleRemoveCourse = (courseId) => {
+    const affected = coursesAffectedByRemoval(courseId);
+    if (affected.length > 0) {
+      const course = (selectedCourses[`Semester ${semesterNumber}`] ?? []).find(
+        (c) => c.id === courseId,
+      );
+      setPendingRemoval({
+        courseId,
+        courseName: course?.name ?? courseId,
+        affected,
+      });
+      return;
+    }
+    doRemoveCourse(courseId);
+  };
+
+  const doRemoveCourse = (courseId) => {
     const semesterIdKey = `Semester ${semesterNumber}`;
     setSelectedCourses((prev) => {
       const updated = {
@@ -715,6 +759,35 @@ function SemesterComponent({
             setPendingSelection(null);
           }}
           onCancel={() => setPendingSelection(null)}
+        />
+      )}
+      {pendingRemoval && (
+        <ConfirmDialog
+          open
+          title="Corequisite warning"
+          body={
+            <div>
+              <p>
+                Removing <strong>{pendingRemoval.courseName}</strong> will break
+                the corequisite requirement for:
+              </p>
+              <ul>
+                {pendingRemoval.affected.map((c) => (
+                  <li key={c.id}>
+                    {c.code} — {c.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          }
+          cancelLabel="Go Back"
+          confirmLabel="Continue Anyway"
+          tone="primary"
+          onConfirm={() => {
+            doRemoveCourse(pendingRemoval.courseId);
+            setPendingRemoval(null);
+          }}
+          onCancel={() => setPendingRemoval(null)}
         />
       )}
     </div>
