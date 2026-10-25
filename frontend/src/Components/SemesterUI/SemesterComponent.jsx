@@ -38,17 +38,25 @@ function SelectionIssueList({
   prerequisites,
   coreqMap,
   codeById,
+  courseNameById,
 }) {
   const code = codeById?.[course.id] ?? course.id;
-  const fallback = (ids) => ids.map((id) => codeById?.[id] ?? id).join(" or ");
+  const fallback = (ids) =>
+    ids
+      .map((id) => {
+        const code = codeById?.[id];
+        const name = courseNameById?.[id];
+        return code && name ? `${code} — ${name}` : (code ?? id);
+      })
+      .join(" or ");
   const rows = [];
   if (issues.prereqIds.length)
     rows.push(
-      `${code} requires ${requisiteLabelString(prerequisites?.[course.id], codeById) ?? fallback(issues.prereqIds)}.`,
+      `${code} requires ${requisiteLabelString(prerequisites?.[course.id], codeById, courseNameById) ?? fallback(issues.prereqIds)}.`,
     );
   if (issues.coreqIds.length)
     rows.push(
-      `${code} must be taken with ${requisiteLabelString(coreqMap?.[course.id], codeById) ?? fallback(issues.coreqIds)}.`,
+      `${code} must be taken with ${requisiteLabelString(coreqMap?.[course.id], codeById, courseNameById) ?? fallback(issues.coreqIds)}.`,
     );
   if (issues.threshold)
     rows.push(
@@ -509,6 +517,7 @@ function SemesterComponent({
           const req = requisiteLabelString(
             prerequisites[issue.courseId],
             codeById,
+            courseNameById,
           );
           return req
             ? `${req} required before ${codeById[issue.courseId] ?? issue.courseName}.`
@@ -521,9 +530,14 @@ function SemesterComponent({
   const coreqSummary = semStatus.coreqIssues
     .map((issue) => {
       const missing = issue.missingIds
-        .map((id) => codeById[id] ?? id)
+        .map((id) => {
+          const code = codeById[id];
+          const name = courseNameById[id];
+          return code && name ? `${code} — ${name}` : (code ?? id);
+        })
         .join(" or ");
-      return `${codeById[issue.courseId] ?? issue.courseName} must be taken with ${missing}.`;
+      const courseLabel = `${codeById[issue.courseId] ?? issue.courseName}`;
+      return `${courseLabel} must be taken with ${missing}.`;
     })
     .join(" ");
 
@@ -594,16 +608,32 @@ function SemesterComponent({
               />
             </div>
             <div className="prerequisites">
-              {requisiteLabelString(prerequisites[course.id], codeById) && (
+              {requisiteLabelString(
+                prerequisites[course.id],
+                codeById,
+                courseNameById,
+              ) && (
                 <div className="prerequisites">
                   Prerequisites:{" "}
-                  {requisiteLabelString(prerequisites[course.id], codeById)}
+                  {requisiteLabelString(
+                    prerequisites[course.id],
+                    codeById,
+                    courseNameById,
+                  )}
                 </div>
               )}
-              {requisiteLabelString(coreqMap[course.id], codeById) && (
+              {requisiteLabelString(
+                coreqMap[course.id],
+                codeById,
+                courseNameById,
+              ) && (
                 <div className="corequisites">
                   Corequisites:{" "}
-                  {requisiteLabelString(coreqMap[course.id], codeById)}
+                  {requisiteLabelString(
+                    coreqMap[course.id],
+                    codeById,
+                    courseNameById,
+                  )}
                 </div>
               )}
             </div>

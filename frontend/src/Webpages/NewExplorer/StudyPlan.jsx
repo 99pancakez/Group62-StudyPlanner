@@ -55,21 +55,29 @@ function CertificateIcon() {
   );
 }
 
-function DownloadWarningList({ warnings, prereqMap, coreqMap, codeById }) {
+function DownloadWarningList({
+  warnings,
+  prereqMap,
+  coreqMap,
+  codeById,
+  nameById,
+}) {
   const rows = [];
   warnings.prereq.forEach((u) =>
     rows.push({
       type: "Prerequisite",
-      text: `${codeById[u.courseId] ?? u.courseName} (Semester ${u.semesterNumber}) requires ${
-        requisiteLabelString(prereqMap[u.courseId], codeById) ?? u.courseId
-      }.`,
+      text: `${u.courseName} (Semester ${u.semesterNumber}) requires ${requisiteLabelString(prereqMap[u.courseId], codeById, nameById) ?? u.courseId}.`,
     }),
   );
   warnings.coreq.forEach((i) =>
     rows.push({
       type: "Corequisite",
-      text: `${codeById[i.courseId] ?? i.courseName} (Semester ${i.semesterNumber}) must be taken with ${i.missingIds
-        .map((id) => codeById[id] ?? id)
+      text: `${i.courseName} (Semester ${i.semesterNumber}) must be taken with ${i.missingIds
+        .map((id) => {
+          const code = codeById[id];
+          const name = nameById[id];
+          return code && name ? `${code} — ${name}` : (code ?? id);
+        })
         .join(" or ")}.`,
     }),
   );
@@ -717,6 +725,7 @@ function StudyPlan() {
                 prereqMap={requisites.prereqMap}
                 coreqMap={requisites.coreqMap}
                 codeById={requisites.codeById}
+                nameById={requisites.courseNameById}
               />
             }
             cancelLabel="Go Back"

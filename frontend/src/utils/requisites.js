@@ -21,7 +21,7 @@ export function missingRequisites(reqString, plannedIds) {
   return missing;
 }
 
-export function requisiteLabelString(reqString, codeById) {
+export function requisiteLabelString(reqString, codeById, nameById) {
   if (!reqString || reqString === "null") return null;
   return reqString
     .split(" AND ")
@@ -29,7 +29,13 @@ export function requisiteLabelString(reqString, codeById) {
       const codes = group
         .split(" OR ")
         .map((id) => id.trim())
-        .map((id) => codeById?.[id] || id);
+        .map((id) => {
+          const code = codeById?.[id];
+          const name = nameById?.[id];
+          if (code && name) return `${code} — ${name}`;
+          if (code) return code;
+          return id;
+        });
       return codes.length > 1 ? `(${codes.join(" OR ")})` : codes[0];
     })
     .join(" AND ");
