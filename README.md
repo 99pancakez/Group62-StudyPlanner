@@ -21,6 +21,8 @@ The repo must be downloaded to local system, a way is through either: <br>
 - Download latest release (`tar.gz`, for mac file format)
 - Cloning the GitHub repository (no need for firewall interaction)
 
+**If downloading via zip file, while there are default ways to extract, it is heavily reccomended to use an archive tool such as 7zip or winrar to extract** 
+
 ### Step 1.5: _Importing and Exporting the database_
 
 ---
@@ -80,16 +82,24 @@ The first time launch of `start` will install dependent node modules, and on mac
 
 The program launch sequence is the same across the two versions, just with different filenames;
 
-Upon launch, 4 terminal windows open;
+Upon launch, 4 terminal windows open (three in background on windows);
 
 - launch sequencer `start.bat`, `start.command`
 - mysql server `sql/startsqlserver.bat`, `sql/startsqlserver.bat`
 - middle layer handling `startmiddlelayer.bat`, `startmiddlelayer.bat`
 - frontend user interface `startfrontlayer.bat`, `startfrontlayer.bat`
 
-### Closing the program:
+## Step 2.5: Closing the program:
 
-**do not** close any of these while the program is running, **especially on first time setup**. <br>
+**do not close any of these while the program is running on first time setup**
+
+#### Windows
+To close the program on windows, press any button in the Server terminal,<p> 
+&nbsp; *if closed via window. ensure that the **Backend** window is closed first to save changes.*
+
+#### Mac/Linux
+
+
 To close the program, it is safe to just end all the terminal windows, with at least **middlelayer** as first to save any admin changes.
 
 ## Step 3: Access the Application
