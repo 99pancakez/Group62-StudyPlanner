@@ -48,6 +48,8 @@ if exist "%~dp0frontlayer_failed.flag" (
 echo Backend is up. Starting frontend...
 start "Frontend" /min conhost.exe cmd /c ""%~dp0startfrontlayer.bat""
 
+start "" "http://localhost:3001"
+
 if exist "%~dp0frontend_failed.flag" (
     echo ERROR: Frontend failed to start.
     goto cleanup
