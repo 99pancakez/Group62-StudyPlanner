@@ -21,8 +21,9 @@ export PORT=3001
 
 if ! npm start; then
     echo npm start failed, aborting.
-    echo node failed > "%$ROOT_DIR/rontend_failed.flag"
+    echo node failed > "%$ROOT_DIR/frontend_failed.flag"
     exit 1
 fi
 
+open "http://localhost:3001"
 pause
